@@ -42,12 +42,6 @@
                 <div class="form-group">
                     <label for="exampleInputName1">{{__('Name Department')}}</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" id="exampleInputName1" placeholder="{{__('Enter Name')}}" required>
-                    @error('name')
-                        <div class="invalid-feedback">
-                            {{$message }}
-                        </div>
-                    @enderror
-                    
                 </div>
                 <div class="form-group">
                     <label for="exampleInputName1">{{__('Head of Department')}}</label>

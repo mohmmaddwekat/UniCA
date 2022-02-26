@@ -20,13 +20,13 @@
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <header>
-      @include('university.layout.sidebar')
-      @include('university.layout.navbar')
+      @include('layout.sidebar')
+      @include('layout.navbar')
     </header>
     <main>
       @include($view_file,$controller_data)
     </main>
-    @include('university.layout.footer') 
+    @include('layout.footer') 
   </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="{{url('/assets/js/adminlte.min.js')}}"></script>

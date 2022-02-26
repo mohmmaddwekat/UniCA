@@ -56,6 +56,24 @@
                 {{__('Department')}}
               </p>
             </a>
+          </li>
+          
+          <li class="nav-header">{{__('Admin')}}</li>
+          <li class="nav-item">
+            <a href="{{route('admin.universities.index')}}" class="nav-link">
+              <i class="fa-solid fa-school"></i>
+              <p>
+                {{__('Universities')}}
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="{{route('admin.cities.index')}}" class="nav-link">
+              <i class="fa-solid fa-building"></i>
+              <p>
+                {{__('Cities')}}
+              </p>
+            </a>
           </li> 
         </ul>
       </nav>

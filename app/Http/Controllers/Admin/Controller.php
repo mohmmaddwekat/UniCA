@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\University;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -20,9 +20,9 @@ class Controller extends BaseController
 	 * @param array $js Loaded scripts for this view
 	 * @return void
 	 */
-    public function universityTemplate($page , $page_title, $data = []){
+    public function adminTemplate($page , $page_title, $data = []){
         // prep.  data
-		$content['view_file'] = 'university.' . $page;
+		$content['view_file'] = 'admin.' . $page;
 
 		$content['page_title'] = $page_title;
 
