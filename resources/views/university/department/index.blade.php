@@ -24,7 +24,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Home')}}</a></li>
+              <li class="breadcrumb-item"><a href="">{{__('Home')}}</a></li>
               <li class="breadcrumb-item active">{{$page_title}}</li>
             </ol>
           </div>
@@ -38,12 +38,10 @@
           <div class="col-12">
             <div class="card " >
               <div class="card-header">
-                <h3 class="card-title">{{__('All Actors')}} </h3>
+                <h3 class="card-title">{{__('All Departments')}} </h3>
                 <div class="card-tools">
                     <!-- Collapse Button -->
-                    @if (auth('admin')->user()->can('create','App/Models/Admin/Actor'))
-                        <a href="{{route('admin.actor.add')}}" class="btn btn-block btn-outline-primary">{{__('Add Actor')}}</a>
-                    @endif
+                        <a href="{{route('university.department.add')}}" class="btn btn-block btn-outline-primary">{{__('Add Department')}}</a>
                 </div>
               </div>
               <!-- /.card-header -->
@@ -53,49 +51,28 @@
                         <tr>
                             <th>#</th>
                             <th>{{__('Name')}}</th>
-                            <th>{{__('Movies')}}</th>
-                            <th>{{__('Series')}}</th>
-                            <th>{{__('Jobs')}}</th>
-                            <th>{{__('Image')}}</th>
-                            <th>{{__('Birthday')}}</th>
+                            <th>{{__('Head of Department')}}</th>
+                            <th>{{__('College')}}</th>
                             <th>{{__('Action')}}</th>
                         </tr>
                     </thead>
                     <tbody>
                       
-                      @foreach ($actors as $actor)
+                      @foreach ($departments as $department)
                       @php  
-                        $orgDate = $actor->birthday;  
+                        $orgDate = $department->birthday;  
                         $createDate = new DateTime($orgDate);
                         $newDate = $createDate->format('Y-m-d');
                       @endphp
                           <tr>
                             <td></td>
-                            <td>{{$actor->name}}</td>
-                            <td>@foreach ($actor->movies as $movie)
-                                <span>{{$movie->name}},</span>
-                            @endforeach</td>
-                            <td>@foreach ($actor->series as $oneSeries)
-                                <span>{{$oneSeries->name}},</span>
-                            @endforeach</td>
-                            <td>@foreach ($actor->job as $oneJob)
-                                <span>{{$oneJob->name}},</span>
-                            @endforeach</td>
-                            <td>
-                              @if ($actor->image)
-                                  <img src="{{url("/assets/uploads/$actor->image")}}" alt="" srcset="" width="70px" height="100px"></td>
-                              @else
-                                  <img src="{{url("/assets/img/image-placeholder.png")}}" alt="" srcset="" width="70px" height="100px"></td>
-                              @endif
-                            <td>{{$newDate}}</td>
+                            <td>{{$department->name}}</td>
+                            <td>{{$department->head_of_department}}</td>
+                            <td>{{$department->college->name}}</td>
                              <td>
                                
-                              @if (auth('admin')->user()->can('update',$actor))
-                                  <a href="{{route('admin.actor.edit',$actor->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                              @endif 
-                              @if (auth('admin')->user()->can('delete',$actor))                            
-                                <a href="{{route('admin.actor.delete',$actor->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
-                              @endif  
+                                <a href="{{route('university.department.edit',$department->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a> 
+                                <a href="{{route('university.department.delete',$department->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                       @endforeach

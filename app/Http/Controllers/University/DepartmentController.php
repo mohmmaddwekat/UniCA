@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\University;
 
-use App\Http\Controllers\Controller;
+use App\Models\University\College;
+use App\Models\University\Department;
+use App\Rules\in_list;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -15,6 +17,8 @@ class DepartmentController extends Controller
     public function index()
     {
         //
+        $departments = Department::all();
+        $this->universityTemplate('department.index',__('Department'),['departments'=>$departments]);
     }
 
     /**
@@ -25,6 +29,10 @@ class DepartmentController extends Controller
     public function create()
     {
         //
+        $colleges = College::all();
+            $this->universityTemplate('department.add',__('Add Department'),[
+                'colleges'=>$colleges,
+            ]);
     }
 
     /**
@@ -36,6 +44,19 @@ class DepartmentController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'name' => ['required','unique:departments','min:3','max:255'],
+            'head_of_department'=>'min:3','max:255',
+            'college' => ['required', new in_list('colleges')],
+        ]);
+        $department = new Department;
+        $department->name = $request->post('name');
+        $department->head_of_department = $request->post('head_of_department');
+        $department->college_id = $request->post('college');
+        if(!$department->save()){
+            return redirect()->route('university.department.index')->with('error',__('an error occurred'));
+        }
+        return redirect()->route('university.department.index')->with('success',__('Add success'));
     }
 
     /**
@@ -58,6 +79,16 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         //
+        $department = Department::find($id);
+        if ( $department == null) {
+            return redirect()->route('university.department.index')->with('error',__('not fond').' '.__('Department'));
+        } else {
+            $colleges = College::all();
+            $this->universityTemplate('department.edit',__('Edit Department'),[
+                'department'=>$department,
+                'colleges'=>$colleges,
+            ]);
+        }
     }
 
     /**
@@ -70,6 +101,18 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validated = $request->validate([
+            'name' => ['required','unique:Departments,name,'.$id,'min:3','max:255'],
+            'Department_number'=>'min:3','max:255',
+        ]);
+        $department = Department::find($id);
+        $department->name = $request->post('name');
+        $department->head_of_department = $request->post('head_of_department');
+        $department->college_id = $request->post('college');
+        if(!$department->save()){
+            return redirect()->route('university.department.index')->with('error',__('an error occurred'));
+        }
+        return redirect()->route('university.department.index')->with('success',__('Edit success'));
     }
 
     /**
@@ -81,5 +124,11 @@ class DepartmentController extends Controller
     public function destroy($id)
     {
         //
+        $Department = Department::find($id);
+        if ($Department ==null) {
+            return redirect()->route('university.department.index')->with('error',__('not fond').' '.__('Department'));
+        }
+        $Department->delete();
+        return redirect()->route('university.department.index')->with('success',__('delete success'));
     }
 }

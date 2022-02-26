@@ -62,7 +62,7 @@
           </a>
         </div>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link"data-slide="true" href="#">
          <div class="custom-control  custom-switch" >
           <input type="checkbox" class="custom-control-input" id="customSwitch1" @if ($theme == 'dark-mode')
@@ -71,7 +71,7 @@
           <label class="custom-control-label" for="customSwitch1"></label>
         </div>
         </a>
-      </li>
+      </li> --}}
         
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">

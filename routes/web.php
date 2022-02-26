@@ -35,6 +35,7 @@ Route::group([
             Route::post('/save',[DepartmentController::class,'store'])->name('save');
             Route::get('/edit/{id}',[DepartmentController::class,'edit'])->name('edit');
             Route::post('/update/{id}',[DepartmentController::class,'update'])->name('update');
+            Route::get('/delete/{id}',[DepartmentController::class,'destroy'])->name('delete');
         });
         Route::group([
         'prefix'=>'/college',
@@ -48,5 +49,6 @@ Route::group([
             Route::post('/save',[CollegeController::class,'store'])->name('save');
             Route::get('/edit/{id}',[CollegeController::class,'edit'])->name('edit');
             Route::post('/update/{id}',[CollegeController::class,'update'])->name('update');
+            Route::post('/delete/{id}',[CollegeController::class,'destroy'])->name('delete');
         });
     });

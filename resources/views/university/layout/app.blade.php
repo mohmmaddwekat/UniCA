@@ -10,22 +10,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    
+    <link rel="stylesheet" href="{{url('/assets/css/dataTables.bootstrap5.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/4.1.5/css/flag-icons.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">        
- 
-      <link rel="stylesheet" href="{{url('/assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{{url('/assets/css/adminlte.min.css')}}">
  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <header>
-      @include('admin.layout.navbar')
+      @include('university.layout.sidebar')
+      @include('university.layout.navbar')
     </header>
     <main>
       @include($view_file,$controller_data)
     </main>
-    @include('admin.layout.footer') 
+    @include('university.layout.footer') 
   </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="{{url('/assets/js/adminlte.min.js')}}"></script>

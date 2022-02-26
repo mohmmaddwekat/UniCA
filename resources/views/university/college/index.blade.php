@@ -63,8 +63,8 @@
                             <td>{{$college->name}}</td>
                             <td>{{$college->college_number}}</td>
                              <td>                           
-                              <a href="{{route('admin.college.edit',$college->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                              <a href="{{route('admin.college.delete',$college->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                              <a href="{{route('university.college.edit',$college->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                              <a href="{{route('university.college.delete',$college->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
                       @endforeach

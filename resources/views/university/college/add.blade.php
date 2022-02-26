@@ -8,8 +8,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Home')}}</a></li>
-              <li class="breadcrumb-item"><a href="{{route('admin.college.index')}}">{{__('College')}}</a></li>
+              <li class="breadcrumb-item"><a href="">{{__('Home')}}</a></li>
+              <li class="breadcrumb-item"><a href="{{route('university.college.index')}}">{{__('College')}}</a></li>
               <li class="breadcrumb-item active">{{$page_title}}</li>
             </ol>
           </div>
@@ -23,18 +23,16 @@
           <div class="card-header">
             <div class="card-tools">
                 <!-- Collapse Button -->
-                <a href="{{route('admin.college.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
+                <a href="{{route('university.college.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
             </div>
           </div>
-          <form class="needs-validation" action="{{route('admin.college.save')}}" method="post" enctype="multipart/form-data">
+          <form class="needs-validation" action="{{route('university.college.save')}}" method="post" enctype="multipart/form-data">
           <!-- /.card-header -->
               
           @if ($errors->any())
               @foreach ($errors as $error)
                   {{$error}}
-              @endforeach
-          @else
-              
+              @endforeach             
           @endif
           
           @csrf
@@ -55,14 +53,13 @@
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputName1">{{__('Name College')}}</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" id="exampleInputName1" placeholder="{{__('Enter Name')}}" required>
-                    @error('name')
+                    <label for="exampleInputName1">{{__('College Number')}}</label>
+                    <input type="text" class="form-control @error('college_number') is-invalid @enderror" name="college_number" value="{{ old('college_number') }}" id="exampleInputName1" placeholder="{{__('Enter College Number')}}" required>
+                    @error('college_number')
                         <div class="invalid-feedback">
                             {{$message }}
                         </div>
                     @enderror
-                    
                 </div>
               </div>          
             </div>

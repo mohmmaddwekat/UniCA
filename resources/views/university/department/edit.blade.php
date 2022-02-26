@@ -8,8 +8,8 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('Home')}}</a></li>
-              <li class="breadcrumb-item"><a href="{{route('admin.actor.index')}}">{{__('Actor')}}</a></li>
+              <li class="breadcrumb-item"><a href="">{{__('Home')}}</a></li>
+              <li class="breadcrumb-item"><a href="{{route('university.department.index')}}">{{__('Department')}}</a></li>
               <li class="breadcrumb-item active">{{$page_title}}</li>
             </ol>
           </div>
@@ -23,18 +23,16 @@
           <div class="card-header">
             <div class="card-tools">
                 <!-- Collapse Button -->
-                <a href="{{route('admin.actor.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
+                <a href="{{route('university.department.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
             </div>
           </div>
-          <form class="needs-validation" action="{{route('admin.actor.update',$actor->id)}}" method="post" enctype="multipart/form-data">
+          <form class="needs-validation" action="{{route('university.department.update',$department->id)}}" method="post" enctype="multipart/form-data">
           <!-- /.card-header -->
               
           @if ($errors->any())
               @foreach ($errors as $error)
                   {{$error}}
-              @endforeach
-          @else
-              
+              @endforeach             
           @endif
           
           @csrf
@@ -42,8 +40,8 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputName1">{{__('Name Actor')}}</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name',$actor->name) }}" id="exampleInputName1"  placeholder="{{__('Enter Name')}}" required>
+                    <label for="exampleInputName1">{{__('Name Department')}}</label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name',$department->name) }}" id="exampleInputName1" placeholder="{{__('Enter Name')}}" required>
                     @error('name')
                         <div class="invalid-feedback">
                             {{$message }}
@@ -52,92 +50,33 @@
                     
                 </div>
                 <div class="form-group">
-                  <label>{{__('Movies')}}</label>
-                  <select class="form-control  selectpicker @error('movies') is-invalid @enderror" name="movies[]" multiple data-selected-text-format="count" data-live-search="true">
-                    @foreach ($movies as $movie)
-                        <option value="{{$movie->id}}"@if ($actor_movies&& in_array($movie->id,$actor_movies))
-                          selected
-                        @endif>{{$movie->name}}</option>
-                    @endforeach
-                  </select>
-                  @error('movies')
+                    <label for="exampleInputName1">{{__('Head of Department')}}</label>
+                    <input type="text" class="form-control @error('head_of_department') is-invalid @enderror" name="head_of_department" value="{{ old('head_of_department',$department->head_of_department) }}" id="exampleInputName1" placeholder="{{__('Enter Head of Department')}}" required>
+                    @error('head_of_department')
                         <div class="invalid-feedback">
                             {{$message }}
                         </div>
                     @enderror
+                    
                 </div>
-                <div class="form-group">
-                  <label>{{__('Series')}}</label>
-                  <select class="form-control  selectpicker @error('series') is-invalid @enderror" name="series[]" multiple data-selected-text-format="count" data-live-search="true">
-                    @foreach ($series as $oneSeries)
-                      <option value="{{$oneSeries->id}}"@if ($actor_series&& in_array($oneSeries->id,$actor_series))
-                          selected
-                        @endif>{{$oneSeries->name}}</option>
-                    @endforeach
-                  </select>
-                  @error('series')
-                        <div class="invalid-feedback">
-                            {{$message }}
-                        </div>
-                    @enderror
-                </div>
-                
               </div>
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputFile">{{__('Image')}}</label>
-                    <div class="input-group">
-                        <input type="file" name="image" accept="image/*" onchange="readURL(this);" class="custom-file-input  @error('image') is-invalid @enderror" id="exampleInputFile">
-                        <label class="path custom-file-label" for="exampleInputFile">
-                        @if ($actor->image)
-                            {{$actor->image}}
-                        @else
-                          {{__('Choose Image')}}
-                        @endif
-                        </label> 
-                        @error('image')
-                            <div class="invalid-feedback">
-                                {{$message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <img @if(!$actor->image) id="blah" @endif src="@if($actor->image) {{url('/assets/uploads/'.$actor->image)}} @endif" alt="" width="70px" height="100px" />
-                </div>
-                <div class="form-group">
-                  <label>{{__('Jobs')}}</label>
-                  <select class="form-control  selectpicker @error('jobs') is-invalid @enderror" name="jobs[]" multiple data-selected-text-format="count" data-live-search="true">
-                    @foreach ($jobs as $job)
-                        <option value="{{$job->id}}"@if ($actor_jobs&& in_array($job->id,$actor_jobs))
+                  <label>{{__('College')}}</label>
+                  <select class="form-control  selectpicker @error('college') is-invalid @enderror" name="college"   data-selected-text-format="count" data-live-search="true">
+                    <option>{{__('Nothing selected')}}</option>
+                    @foreach ($colleges as $college)
+                        <option value="{{$college->id}}"@if (old('college',$department->college_id)&& old('college',$department->college_id) == $college->id)
                           selected
-                        @endif>{{$job->name}}</option>
+                        @endif>{{$college->name}}</option>
                     @endforeach
                   </select>
-                  @error('jobs')
+                  @error('college')
                         <div class="invalid-feedback">
                             {{$message }}
                         </div>
                     @enderror
-                </div>
-                <div class="form-group">
-                  <label>{{__('Birthday')}}</label>
-
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                    </div> 
-                    @php  
-                        $orgDate = old('birthday',$actor->birthday);  
-                        $createDate = new DateTime($orgDate);
-                        $newDate = $createDate->format('Y-m-d');
-                      @endphp
-                    <input id="datepicker" type="date"  data-date-format="yyyy-mm-dd"  class="form-control datepicker @error('birthday') is-invalid @enderror" name="birthday" value= "{{$newDate;}}"  id="exampleInputName1" required>
-                    @error('birthday')
-                        <div class="invalid-feedback">
-                            {{$message }}
-                        </div>
-                    @enderror 
-                  </div>
                 </div>
               </div>          
             </div>
