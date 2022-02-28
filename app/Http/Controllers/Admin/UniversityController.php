@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Controller;
 
 use App\Models\Admin\University;
-use App\Http\Requests\StoreUniversityRequest;
-use App\Http\Requests\UpdateUniversityRequest;
+
 use App\Models\Admin\City;
+use App\Models\User;
 use App\Rules\alpha_spaces;
 use App\Rules\alpha_spaces_symbols;
 use App\Rules\CheckPhoneRule;
@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Str;
 
 class UniversityController extends Controller
 {
@@ -50,32 +52,46 @@ class UniversityController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'university_id' => ['required','max:250','min:3','unique:universities,university_id','numeric'],
-            'university_name' => ['required','max:250','min:3','unique:universities,university_name',new alpha_spaces],
+            'type_username_id' => ['required','max:22','min:3','unique:users,type_username_id','numeric'],
+            'university_name' => ['required','max:250','min:3','unique:users,name',new alpha_spaces],
             'city_id' => ['nullable','int','exists:cities,id'],
             'address' => ['required','max:250','min:3', new alpha_spaces_symbols],
             'phone_number' => ['required','unique:universities,phone_number', 'numeric', new CheckPhoneRule],
-            'password' => [
-                'required',
-                Password::min(8)
-                    ->mixedCase()
-                    ->letters()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised()
-            ],        ]);
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+        ]);
         $validator->validate();
+        $user = new User;
+
+        $user->type_username_id = $request->post('type_username_id');
+        $user->name = $request->post('university_name');
+        $user->type = 'university';
+        $user->email = $request->post('email');
+         $userPassword = Str::random(10);
+        $user->password = Hash::make($userPassword);
+        $user->save();
 
         $universities = new University;
-        $universities->university_id = $request->post('university_id');
-        $universities->university_name = $request->post('university_name');
+        $universities->user_id = $user->id;
         $universities->city_id = $request->post('city_id');
         $universities->address = $request->post('address');
         $universities->phone_number = $request->post('phone_number');
-        $universities->password = Hash::make($request->password);
         $universities->save();
 
-        return redirect()->route('admin.universities.index')->with('success',__('Success craeted'));
+   
+        $mail_data = [
+            'title' => 'Your information',
+            'name'=> $request->post('university_name'),
+            'email'=> $request->post('email'),
+            'userPassword'=> $userPassword,
+        ];
+      
+         FacadesMail::send('email-template', $mail_data, function($message) use ($mail_data){
+            $message->to('hamzaalkharouf5@gmail.com')
+                    ->from('unica.mail0@gmail.com','UniCA')
+                    ->subject('Your information for UniCA');
+        });
+        return redirect()->back()->with('success',__('We send password and details in your email'));
+
 
     }
 

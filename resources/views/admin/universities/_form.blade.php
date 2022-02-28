@@ -15,8 +15,8 @@
       
          
           <div class="form-group">
-            <label for="university_id">{{__('University ID')}}</label>
-            <input type="text" class="form-control @error('university_id') is-invalid @enderror" name="university_id" value="{{ old('university_id', $university['university_id']) }}" id="university_id" placeholder="{{__('Enter University ID')}}" >
+            <label for="type_username_id">{{__('University ID')}}</label>
+            <input type="text" class="form-control @error('type_username_id') is-invalid @enderror" name="type_username_id" value="{{ old('type_username_id', $university['type_username_id']) }}" id="type_username_id" placeholder="{{__('Enter University ID')}}" >
         </div>
 
         <div class="form-group">
@@ -35,10 +35,12 @@
               <label for="address">{{__('Address')}}</label>
               <input type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address', $university['address']) }}" id="address" placeholder="{{__('Enter Address')}}" >
           </div>
+
           <div class="form-group">
-            <label for="password">{{__('Password')}}</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"  id="password" placeholder="{{__('Enter Password')}}" >
+            <label for="address">{{__('Email')}}</label>
+            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $university['email']) }}" id="email" placeholder="{{__('Enter Email')}}" >
         </div>
+
 
 
       <div class="form-group">

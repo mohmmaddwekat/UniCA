@@ -15,15 +15,15 @@ class CreateUniversitiesTable extends Migration
     {
         Schema::create('universities', function (Blueprint $table) {
             $table->id();
-            $table->string('university_id')->unique();
-            $table->string('university_name')->unique();
+
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->string('address');
             $table->string('phone_number')->unique();
-            $table->string('password');
-
+            
+            
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
             $table->foreign('city_id')->references('id')->on('cities')->nullOnDelete();
-            $table->rememberToken();
             $table->timestamps();
         });
     }

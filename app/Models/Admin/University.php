@@ -10,12 +10,11 @@ class University extends Model
     use HasFactory;
 
     protected $fillable = [
-        'university_name',
+        'user_id',
         'address',
         'phone_number',
         'password',
         'city_id',
-        'university_id',
     ];
 
 

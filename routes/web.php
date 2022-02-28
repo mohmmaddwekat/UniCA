@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\UniversityController;
 use App\Http\Controllers\University\AcademicViceController;
 use App\Http\Controllers\University\CollegeController;
@@ -23,13 +24,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//mail Controller
+Route::get('/send-mail', [MailController::class, 'sendMail'])->name('sendMail');
+
 Route::group([
     'prefix' => '/admin',
     'as' => 'admin.',
     ], function () {
         
-        //university Controller
-        Route::get('/universities/trash', [UniversityController::class, 'trash'])->name('universities.trash');
+ 
+       
         Route::group([
 
             'prefix' => '/universities',
@@ -45,7 +49,6 @@ Route::group([
         });
                 
         //City Controller
-        Route::get('/cities/trash', [CityController::class, 'trash'])->name('cities.trash');
         Route::group([
 
             'prefix' => '/cities',
