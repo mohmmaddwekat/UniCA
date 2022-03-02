@@ -4,11 +4,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\MailController;
 use App\Http\Controllers\Admin\UniversityController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\University\AcademicViceController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +24,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//mail Controller
-Route::get('/send-mail', [MailController::class, 'sendMail'])->name('sendMail');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 
 Route::group([
     'prefix' => '/admin',
@@ -61,6 +65,20 @@ Route::group([
             Route::put('/{city}', [CityController::class, 'update'])->name('update');
             Route::delete('/{city}', [CityController::class, 'destroy'])->name('destroy');
         });
+
+                //user Controller
+                Route::group([
+
+                    'prefix' => '/users',
+                    'as' => 'users.',
+                ], function () {
+                    Route::get('/', [UserController::class, 'index'])->name('index');
+                    Route::get('/create', [UserController::class, 'create'])->name('create');
+                    Route::post('/', [UserController::class, 'store'])->name('store');
+                    Route::get('/{user}', [UserController::class, 'edit'])->name('edit');
+                    Route::put('/{user}', [UserController::class, 'update'])->name('update');
+                    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
+                });
 
 });
 

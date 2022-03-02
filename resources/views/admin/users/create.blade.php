@@ -9,7 +9,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="">{{__('Home')}}</a></li>
-            <li class="breadcrumb-item"><a href="{{route('admin.cities.index')}}">{{__('City')}}</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">{{__('User')}}</a></li>
             <li class="breadcrumb-item active">{{$page_title}}</li>
           </ol>
         </div>
@@ -23,7 +23,7 @@
         <div class="card-header">
           <div class="card-tools">
               <!-- Collapse Button -->
-              <a href="{{route('admin.cities.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
+              <a href="{{route('admin.users.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
           </div>
           @if (session('error'))
           <div class="alert alert-danger alert-dismissible">    
@@ -41,10 +41,10 @@
         @endif
         </div>
     
-        <form action="{{ route('admin.cities.store') }}" method="post"
+        <form action="{{ route('admin.users.store') }}" method="post"
         enctype="multipart/form-data">
         @csrf
-        @include('admin.cities._form',[
+        @include('admin.users._form',[
         'savelabel' => 'Add'
         ])
     </form>

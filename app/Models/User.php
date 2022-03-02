@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\University;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+        // One-to-Many (user has many university)
+        public function university()
+        {
+            return $this->hasMany(
+                University::class,    // Related Moadel
+                'user_id',  // FK in the related model
+                'id'            // PK in the current model
+            );
+        }
 }

@@ -75,6 +75,14 @@
               </p>
             </a>
           </li> 
+          <li class="nav-item">
+            <a href="{{route('admin.users.index')}}" class="nav-link">
+              <i class="fa-solid fa-users"></i>
+              <p>
+                {{__('Users')}}
+              </p>
+            </a>
+          </li> 
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

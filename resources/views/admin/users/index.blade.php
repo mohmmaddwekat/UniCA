@@ -3,6 +3,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
   <section class="content-header">
+      
     @if (session('error'))
       <div class="alert alert-danger alert-dismissible">    
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -17,6 +18,7 @@
         {{session('success')}} 
       </div>
     @endif
+
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
@@ -38,10 +40,10 @@
         <div class="col-12">
           <div class="card " >
             <div class="card-header">
-              <h3 class="card-title">{{__('All University')}} </h3>
+              <h3 class="card-title">{{__('All user')}} </h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
-                  <a href="{{route('admin.universities.create')}}" class="btn btn-block btn-outline-primary">{{__('Add University')}}</a>
+                  <a href="{{route('admin.users.create')}}" class="btn btn-block btn-outline-primary">{{__('Add user')}}</a>
               </div>
             </div>
             <!-- /.card-header -->
@@ -50,40 +52,42 @@
                   <thead>
                       <tr>
                           <th>#</th>
-                          <th>{{__('University ID')}}</th>
-                          <th>{{__('University')}}</th>
-                          <th>{{__('City')}}</th>
-                          <th>{{__('Address')}}</th>
-                          <th>{{__('Phone Number') }}</th>
-                          <th>{{__('Action')}}</th>
+                          <th>{{__('User')}}</th>
+                          <th>{{__('ID')}}</th>
+                          <th>{{__('Type')}}</th>
+                          <th>{{__('email')}}</th>
 
+                          <th>{{__('Action')}}</th>
                       </tr>
                   </thead>
                   <tbody>
                     
-                    @forelse ($universities as $university)
+                    @forelse ($users as $user)
                         <tr>
-                            <td><a class="font-weight-bold">{{ $university['id'] }}</a></td>
-                            <td><span class="font-weight-normal"> {{ $university->user->type_username_id }}</span></td>
-                            <td><span class="font-weight-normal"> {{ $university->user->name }}</span></td>
-                            <td><span class="font-weight-normal"> {{ $university->city->name }}</span></td>
-                            <td><span class="font-weight-normal"> {{ $university['address'] }}</span></td>
-                            <td><span class="font-weight-normal"> {{ $university['phone_number'] }}</span></td>
-    
-                           <td>                           
-                            <a href="{{ route('admin.universities.edit', [$university['id']]) }}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.universities.destroy', $university['id']) }}" method="post">
-                              @csrf
-                              @method('delete')
+                            <td>
+                                <a class="font-weight-bold">
+                                    {{ $user['id'] }}
+                                </a>
+                            </td>
 
-                              <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                          </form>
-                          </td>
+                            <td><span class="font-weight-normal"> {{ $user['name'] }}</span></td>
+                            <td><span class="font-weight-normal"> {{ $user['type_username_id'] }}</span></td>
+                            <td><span class="font-weight-normal"> {{ $user['type'] }}</span></td>
+                            <td><span class="font-weight-normal"> {{ $user['email'] }}</span></td>
+                           <td>                           
+                            <a href="{{ route('admin.users.edit', [$user['id']]) }}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.users.destroy', $user['id']) }}" method="post">
+                                @csrf
+                                @method('delete')
+
+                                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </td>
                       </tr>
                       @empty
                       <tr>
                           <td colspan="10">
-                              No universities Found.
+                              No users Found.
                           </td>
                       </tr>
                   @endforelse

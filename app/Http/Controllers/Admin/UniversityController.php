@@ -12,10 +12,10 @@ use App\Rules\alpha_spaces_symbols;
 use App\Rules\CheckPhoneRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Password;
 
 class UniversityController extends Controller
 {
@@ -52,7 +52,7 @@ class UniversityController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'type_username_id' => ['required','max:22','min:3','unique:users,type_username_id','numeric'],
+            'type_username_id' => ['required','max:22','min:3','unique:users,type_username_id'],
             'university_name' => ['required','max:250','min:3','unique:users,name',new alpha_spaces],
             'city_id' => ['nullable','int','exists:cities,id'],
             'address' => ['required','max:250','min:3', new alpha_spaces_symbols],
@@ -66,7 +66,7 @@ class UniversityController extends Controller
         $user->name = $request->post('university_name');
         $user->type = 'university';
         $user->email = $request->post('email');
-         $userPassword = Str::random(10);
+        $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();
 
@@ -77,20 +77,28 @@ class UniversityController extends Controller
         $universities->phone_number = $request->post('phone_number');
         $universities->save();
 
+        Password::sendResetLink(
+            $request->only('email')
+        );
+
+        Password::RESET_LINK_SENT;
+
+        return redirect()->back()->with('success',__('Message for reset password is sended'));
+
    
-        $mail_data = [
-            'title' => 'Your information',
-            'name'=> $request->post('university_name'),
-            'email'=> $request->post('email'),
-            'userPassword'=> $userPassword,
-        ];
+        // $mail_data = [
+        //     'title' => 'Your information',
+        //     'name'=> $request->post('university_name'),
+        //     'email'=> $request->post('email'),
+        //     'userPassword'=> $userPassword,
+        // ];
       
-         FacadesMail::send('email-template', $mail_data, function($message) use ($mail_data){
-            $message->to('hamzaalkharouf5@gmail.com')
-                    ->from('unica.mail0@gmail.com','UniCA')
-                    ->subject('Your information for UniCA');
-        });
-        return redirect()->back()->with('success',__('We send password and details in your email'));
+        //  FacadesMail::send('email-template', $mail_data, function($message) use ($mail_data){
+        //     $message->to('hamzaalkharouf5@gmail.com')
+        //             ->from('unica.mail0@gmail.com','UniCA')
+        //             ->subject('Your information for UniCA');
+        // });
+        //return redirect()->back()->with('success',__('We send password and details in your email'));
 
 
     }
