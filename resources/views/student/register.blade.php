@@ -4,13 +4,13 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>{{$page_title}}</h1>
+          <h1>Profile</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="">{{__('Home')}}</a></li>
-            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">{{__('User')}}</a></li>
-            <li class="breadcrumb-item active">{{$page_title}}</li>
+            <li class="breadcrumb-item"><a href="{{route('student.registerform')}}">{{__('Profile')}}</a></li>
+            <li class="breadcrumb-item active">Profile</li>
           </ol>
         </div>
       </div>
@@ -23,7 +23,7 @@
         <div class="card-header">
           <div class="card-tools">
               <!-- Collapse Button -->
-              <a href="{{route('admin.users.index')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
+              <a href="{{route('student.registerform')}}" class="btn btn-block btn-outline-secondary">{{__('back')}}</a>
           </div>
           @if (session('error'))
           <div class="alert alert-danger alert-dismissible">    
@@ -41,14 +41,15 @@
         @endif
         </div>
     
-        <form action="{{ route('admin.users.store') }}" method="post"
+        <form action="{{ route('student.register.store') }}" method="post"
         enctype="multipart/form-data">
         @csrf
-        @include('admin.users._form',[
-        'savelabel' => 'Add'
+        @include('student.register',[
         ])
     </form>
       </div>
     </div>
   </section>
 </div>
+                            
+
