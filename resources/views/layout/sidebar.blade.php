@@ -57,6 +57,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('university.role.index')}}" class="nav-link">
+              <i class="fa-solid fa-book"></i>
+              <p>
+                {{__('Role')}}
+              </p>
+            </a>
+          </li>
           
           <li class="nav-header">{{__('Admin')}}</li>
           <li class="nav-item">
