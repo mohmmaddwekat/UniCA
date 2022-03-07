@@ -78,10 +78,19 @@
           <i class="fas fa-sign-in-alt"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="" class="dropdown-item">
-            <i class="fas fa-user-circle"></i>
-            <span class="float-right text-muted text-sm">{{__('Logout')}}</span>
-          </a>
+          
+            
+                  <!-- Authentication -->
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <i class="fas fa-user-circle"></i>
+                    <x-dropdown-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-dropdown-link>
+                </form>
+         
          
           
         </div>

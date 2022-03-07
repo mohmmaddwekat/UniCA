@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Validator;
+
 class PasswordResetLinkController extends Controller
 {
     /**
@@ -29,15 +28,6 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::find($request->id);
-    if($user ==null){
-        $userNotFound =  Validator::make([], []);
-        $userNotFound->getMessageBag()->add('userNotFound', 'Invalid ID');    
-       // return redirect('home')->withErrors($validator);
-        return view('student.registerform')->withErrors($userNotFound);
-    }
-       // $request->email = $user->email;
-        $request->request->add(['email' =>  $user->email]);
         $request->validate([
             'email' => ['required', 'email'],
         ]);

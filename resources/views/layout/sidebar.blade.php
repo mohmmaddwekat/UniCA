@@ -33,7 +33,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">      
         <li class="nav-header">{{__('Control Panel')}}</li>
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('dashboard.index')}}" class="nav-link">
              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 {{__('Dashboard')}}
@@ -57,15 +57,25 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-header">{{__('Roles & Users')}}</li>
           <li class="nav-item">
-            <a href="{{route('university.role.index')}}" class="nav-link">
+            <a href="{{route('roles.role.index')}}" class="nav-link">
               <i class="fa-solid fa-book"></i>
               <p>
                 {{__('Role')}}
               </p>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a href="{{route('admin.users.index')}}" class="nav-link">
+              <i class="fa-solid fa-users"></i>
+              <p>
+                {{__('Users')}}
+              </p>
+            </a>
+          </li> 
+
           <li class="nav-header">{{__('Admin')}}</li>
           <li class="nav-item">
             <a href="{{route('admin.universities.index')}}" class="nav-link">
@@ -83,14 +93,7 @@
               </p>
             </a>
           </li> 
-          <li class="nav-item">
-            <a href="{{route('admin.users.index')}}" class="nav-link">
-              <i class="fa-solid fa-users"></i>
-              <p>
-                {{__('Users')}}
-              </p>
-            </a>
-          </li> 
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

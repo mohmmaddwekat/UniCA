@@ -68,7 +68,7 @@ class UserController extends Controller
         );
         Password::RESET_LINK_SENT;
 
-        return redirect()->back()->with('success',__('Go to email to change reset password'));
+        return redirect()->back()->with('success',__('Go to email to change reset password'.$userPassword));
     }
 
     /**

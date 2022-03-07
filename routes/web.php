@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UniversityController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthUser\LoginController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
-use App\Http\Controllers\University\RoleController;
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,37 +20,31 @@ use App\Http\Controllers\University\RoleController;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/student', function () {
-    return view('student.registerform');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-
-Route::get('/ResetPassword', 'App\Http\Controllers\Student\RegisterStudentController@customReset');
-//Route::get('/ResetPassword/{id}', 'App\Http\Controllers\Student\RegisterStudentController@passwordReset');
-//Route::get('/ResetPassword/{id}', 'App\Http\Controllers\Auth\PasswordResetLinkController@store');
-
-//Route::post('/ResetPassword', 'App\Http\Controllers\Student\RegisterStudentController@Store');
-Route::post('/ResetPassword', 'App\Http\Controllers\Auth\PasswordResetLinkController@store');
 require __DIR__.'/auth.php';
 
+Route::group([
+    'prefix'=>'/dashboard',
+    'as'=>'dashboard.',
+    'middleware'=>  ['auth'],
+],function(){
+    Route::get('/',[DashboardController::class,'index'])->name('index');
 
-
-//////////////////
-
+});
 
 
 Route::group([
     'prefix' => '/admin',
     'as' => 'admin.',
+    'middleware'=>  ['auth'],
     ], function () {
+        
+       
         Route::group([
 
             'prefix' => '/universities',
@@ -78,38 +73,39 @@ Route::group([
             Route::delete('/{city}', [CityController::class, 'destroy'])->name('destroy');
         });
 
-        //user Controller
-        Route::group([
+                //user Controller
+                Route::group([
 
-            'prefix' => '/users',
-            'as' => 'users.',
-        ], function () {
-            Route::get('/', [UserController::class, 'index'])->name('index');
-            Route::get('/create', [UserController::class, 'create'])->name('create');
-            Route::post('/', [UserController::class, 'store'])->name('store');
-            Route::get('/{user}', [UserController::class, 'edit'])->name('edit');
-            Route::put('/{user}', [UserController::class, 'update'])->name('update');
-            Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
-        });
+                    'prefix' => '/users',
+                    'as' => 'users.',
+                ], function () {
+                    Route::get('/', [UserController::class, 'index'])->name('index');
+                    Route::get('/create', [UserController::class, 'create'])->name('create');
+                    Route::post('/', [UserController::class, 'store'])->name('store');
+                    Route::get('/{user}', [UserController::class, 'edit'])->name('edit');
+                    Route::put('/{user}', [UserController::class, 'update'])->name('update');
+                    Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
+                });
 
 });
-
+Route::group([
+    'prefix'=>'/roles',
+    'as'=>'roles.role.',
+    'middleware'=>  ['auth'],
+],function(){
+    Route::get('/',[RoleController::class,'index'])->name('index');
+    Route::get('/add',[RoleController::class,'create'])->name('add');
+    Route::post('/save',[RoleController::class,'store'])->name('save');
+    Route::get('/edit/{id}',[RoleController::class,'edit'])->name('edit');
+    Route::post('/update/{id}',[RoleController::class,'update'])->name('update');
+    Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
+});
 
 Route::group([
     'prefix'=>'/university',
     'as'=>'university.',
+    'middleware'=>  ['auth'],
 ],function(){
-    Route::group([
-        'prefix'=>'/role',
-        'as'=>'role.',
-    ],function(){
-        Route::get('/',[RoleController::class,'index'])->name('index');
-        Route::get('/add',[RoleController::class,'create'])->name('add');
-        Route::post('/save',[RoleController::class,'store'])->name('save');
-        Route::get('/edit/{id}',[RoleController::class,'edit'])->name('edit');
-        Route::post('/update/{id}',[RoleController::class,'update'])->name('update');
-        Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
-    });
     Route::group([
     'prefix'=>'/department',
     'as'=>'department.',
@@ -122,7 +118,6 @@ Route::group([
         Route::post('/save',[DepartmentController::class,'store'])->name('save');
         Route::get('/edit/{id}',[DepartmentController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[DepartmentController::class,'update'])->name('update');
-        Route::post('/delete/{id}',[DepartmentController::class,'destroy'])->name('delete');
     });
     Route::group([
     'prefix'=>'/college',
@@ -136,6 +131,6 @@ Route::group([
         Route::post('/save',[CollegeController::class,'store'])->name('save');
         Route::get('/edit/{id}',[CollegeController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[CollegeController::class,'update'])->name('update');
-        Route::post('/delete/{id}',[CollegeController::class,'destroy'])->name('delete');
     });
 });
+
