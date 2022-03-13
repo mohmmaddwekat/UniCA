@@ -51,6 +51,7 @@
               <option value="{{ $city['id'] }}" @if ($city->id == old('city_id', $university['city_id'])) selected @endif>{{ $city['name'] }}</option>
           @endforeach
         </select>
+        
 
       </div>
 

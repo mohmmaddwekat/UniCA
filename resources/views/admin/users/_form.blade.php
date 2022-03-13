@@ -35,7 +35,7 @@
 
               <div class="form-group">
                 <label>{{__('Type')}}</label>
-                <select class="form-control  selectpicker @error('type') is-invalid @enderror" name="type"   data-selected-text-format="count" data-live-search="true">
+                {{-- <select class="form-control  selectpicker @error('type') is-invalid @enderror" name="type"   data-selected-text-format="count" data-live-search="true">
                   <option>{{__('Nothing selected')}}</option>
 
                   <option value="0" >Student</option>
@@ -43,6 +43,12 @@
                   <option value="3" >Dean Department</option>
                   <option value="4" >Academic Vice</option>
 
+                </select> --}}
+                <select class="form-control  selectpicker @error('type') is-invalid @enderror" name="type"   data-selected-text-format="count" data-live-search="true">
+                  <option>{{__('Nothing selected')}}</option>
+                  @foreach ($types as $type)
+                      <option value="{{ $type }}" @if ($type == old('type', $user['type'])) selected @endif>{{ $type }}</option>
+                  @endforeach
                 </select>
               </div>
             </div>

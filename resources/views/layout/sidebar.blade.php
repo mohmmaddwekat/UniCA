@@ -12,6 +12,7 @@
         <div class="image">
           <img src="{{url('/assets/img/image-placeholder.PNG')}}" class="img-circle elevation-2" alt="User Image">
         </div>
+        
         <div class="info">
           <a href="" class="d-block">University</a>
         </div>
@@ -40,6 +41,24 @@
               </p>
             </a>
           </li>   
+          <li class="nav-header">{{__('Student')}}</li>
+          <li class="nav-item">
+            <a href="{{route('complaints.form.index')}}" class="nav-link">
+              <i class="fa-solid fa-school"></i>
+              <p>
+                {{__('Complaints')}}
+              </p>
+            </a>
+          </li>  
+          <li class="nav-item">
+            <a href="{{route('complaints.details.index')}}" class="nav-link">
+              <i class="fa-solid fa-school"></i>
+              <p>
+                {{__('Complaints Details')}}
+              </p>
+            </a>
+          </li>  
+          
           <li class="nav-header">{{__('University')}}</li>
           <li class="nav-item">
             <a href="{{route('university.college.index')}}" class="nav-link">

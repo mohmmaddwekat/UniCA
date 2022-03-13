@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\UniversityController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthUser\LoginController;
+use App\Http\Controllers\Complaint\ComplaintsDetailsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Roles\RoleController;
+use App\Http\Controllers\Complaint\ComplaintsFormController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -37,14 +39,14 @@ Route::group([
 
 });
 
-
+// Admin Route
 Route::group([
     'prefix' => '/admin',
     'as' => 'admin.',
     'middleware'=>  ['auth'],
     ], function () {
         
-       
+       // Universities Route
         Route::group([
 
             'prefix' => '/universities',
@@ -88,6 +90,8 @@ Route::group([
                 });
 
 });
+
+// Roles Route
 Route::group([
     'prefix'=>'/roles',
     'as'=>'roles.role.',
@@ -101,11 +105,15 @@ Route::group([
     Route::get('/delete/{id}',[RoleController::class,'destroy'])->name('delete');
 });
 
+// University Route
+
 Route::group([
     'prefix'=>'/university',
     'as'=>'university.',
     'middleware'=>  ['auth'],
 ],function(){
+
+    // Department Route
     Route::group([
     'prefix'=>'/department',
     'as'=>'department.',
@@ -119,6 +127,8 @@ Route::group([
         Route::get('/edit/{id}',[DepartmentController::class,'edit'])->name('edit');
         Route::post('/update/{id}',[DepartmentController::class,'update'])->name('update');
     });
+
+    // College Route
     Route::group([
     'prefix'=>'/college',
     'as'=>'college.',
@@ -134,3 +144,39 @@ Route::group([
     });
 });
 
+// Complaints Route
+Route::group([
+    'prefix'=>'/complaints',
+    'as'=>'complaints.',
+    'middleware'=>  ['auth'],
+],function(){
+        //Form Route
+        Route::group([
+            'prefix'=>'/form',
+            'as'=>'form.',
+            ],function(){
+                Route::get('/',[ComplaintsFormController::class,'index'])->name('index');
+                Route::get('/create',[ComplaintsFormController::class,'create'])->name('create');
+                Route::post('/store',[ComplaintsFormController::class,'store'])->name('store');
+                //Route::get('/edit/{form}',[ComplaintsFormController::class,'edit'])->name('edit');
+                //Route::post('/update/{form}',[ComplaintsFormController::class,'update'])->name('update');
+                Route::get('/delete/{form}',[RoleController::class,'destroy'])->name('delete');
+
+            });
+     
+        //Details Route
+        Route::group([
+            'prefix'=>'/details',
+            'as'=>'details.',
+            ],function(){
+                Route::get('/',[ComplaintsDetailsController::class,'index'])->name('index');
+                Route::get('/group',[ComplaintsDetailsController::class,'group'])->name('group');
+                Route::get('/complaintForStudent',[ComplaintsDetailsController::class,'complaintForStudent'])->name('complaintForStudent');
+
+                
+                //Route::post('/save',[xzx::class,'store'])->name('save');
+                //oute::get('/edit/{id}',[xzx::class,'edit'])->name('edit');
+                //Route::post('/update/{id}',[xzx::class,'update'])->name('update');
+            });
+
+});

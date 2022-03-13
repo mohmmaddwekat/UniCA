@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Controller;
 use App\Models\User;
 use App\Rules\alpha_spaces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
@@ -32,9 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        $this->adminTemplate('users.create',__('Create user'),['user'=>new User()]);
-
+        $this->adminTemplate('users.create',__('Create user'),['user'=>new User(),'types'=>['headDepartment', 'deanDepartment', 'academicVice',]]);
     }
 
     /**
@@ -48,7 +47,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'type_username_id' => ['required','max:22','min:3','unique:users,type_username_id'],
             'name' => ['required','max:250','min:3','unique:users,name',new alpha_spaces],
-            'type' => ['required'],
+            'type' => ['required', 'in:headDepartment,deanDepartment,academicVice'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
@@ -57,6 +56,7 @@ class UserController extends Controller
         $user->name = $request->post('name');
         $user->type = $request->post('type');
         $user->email = $request->post('email');
+        $user->addBy_id = Auth::id();
         $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();

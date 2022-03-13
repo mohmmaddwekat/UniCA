@@ -21,7 +21,9 @@ class UserFactory extends Factory
             'type_username_id' =>'123456789',
             'type' => 'super-admin',
             'password' => Hash::make('123456789'),
+            'addBy_id'=>'0',
             'remember_token' => Str::random(10),
+
         ];
     }
 

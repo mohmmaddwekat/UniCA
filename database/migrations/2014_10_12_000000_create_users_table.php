@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['student', 'university', 'headDepartment', 'deanDepartment', 'academicVice', 'super-admin'])->default('student');
             $table->string('email')->unique();
             $table->string('password');
-
+            $table->string('addBy_id');
             $table->foreignId('role_id')
             ->nullable()
             ->constrained('roles','id')

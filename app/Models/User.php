@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Admin\University;
+use App\Models\Complaint\ComplaintsForm;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,4 +55,15 @@ class User extends Authenticatable
                 'id'            // PK in the current model
             );
         }
+
+        // One-to-Many (user has many Complaint)
+        public function complaint()
+        {
+            return $this->hasMany(
+                ComplaintsForm::class,    // Related Moadel
+                'user_id',  // FK in the related model
+                'id'            // PK in the current model
+            );
+        }
+
 }
