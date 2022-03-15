@@ -19,10 +19,14 @@ class ComplaintsDetailsController extends Controller
      */
     public function index()
     {
-     
-        $complaintsForm = ComplaintsForm::where('headDepartment_id' , Auth::id())->get();
- 
-        $this->complaintTemplate('details.index',__('Complaints'),['complaintsForms' => $complaintsForm]);
+        if(Auth::user()->type=='super-admin'){
+            $this->complaintTemplate('details.index',__('Complaints'),['complaintsForms' => ComplaintsForm::all()]);
+
+        }else{
+            $complaintsForm = ComplaintsForm::where('headDepartment_id' , Auth::id())->get();
+            $this->complaintTemplate('details.index',__('Complaints'),['complaintsForms' => $complaintsForm]);
+        }
+
     }
      /**
      * Display a listing of the group resource.
@@ -31,11 +35,17 @@ class ComplaintsDetailsController extends Controller
      */
     public function group()
     {
-        $complaintsFormWithdraws = ComplaintsForm::where('headDepartment_id' , Auth::id())->where('type','withdraw')->get();
-        $complaintsFormEnrolls = ComplaintsForm::where('headDepartment_id' , Auth::id())->where('type','enroll')->get();
-
-        $this->complaintTemplate('details.group',__('group'),['complaintsFormWithdraws' => $complaintsFormWithdraws, 'complaintsFormEnrolls' => $complaintsFormEnrolls]);
-    }
+        if(Auth::user()->type=='super-admin'){
+            $complaintsFormWithdraws = ComplaintsForm::where('type','withdraw')->get();
+            $complaintsFormEnrolls = ComplaintsForm::where('type','enroll')->get();
+            $this->complaintTemplate('details.group',__('group'),['complaintsFormWithdraws' => $complaintsFormWithdraws, 'complaintsFormEnrolls' => $complaintsFormEnrolls]);
+ 
+        }else{
+            $complaintsFormWithdraws = ComplaintsForm::where('headDepartment_id' , Auth::id())->where('type','withdraw')->get();
+            $complaintsFormEnrolls = ComplaintsForm::where('headDepartment_id' , Auth::id())->where('type','enroll')->get();
+            $this->complaintTemplate('details.group',__('group'),['complaintsFormWithdraws' => $complaintsFormWithdraws, 'complaintsFormEnrolls' => $complaintsFormEnrolls]);
+           }
+   }
 
          /**
      * Display a listing of the complaintForStudent resource.
@@ -44,8 +54,51 @@ class ComplaintsDetailsController extends Controller
      */
     public function complaintForStudent()
     {
+        $complaintsForms = ComplaintsForm::where('headDepartment_id' , Auth::id())->get();
+        $unique_user_id =[];
+        // foreach ($complaintsForms as  $complaintsForm){
 
-        $this->complaintTemplate('details.complaintForStudent',__('complaintForStudent'),[]);
+        //     //if not found add it
+        //     if(!in_array($complaintsForm['user_id'],$unique_user_id)){
+        //         print($complaintsForm['user_id']);
+        //         $unique_user_id += [ $complaintsForm['user_id'] => [$complaintsForm] ];
+        //     }
+        // }
+        
+    //    foreach ($complaintsForms as  $complaintsForm){
+    //         if(array_key_exists($complaintsForm['user_id'], $unique_user_id)){
+    //             print($complaintsForm['user_id']);
+    //             array_push($unique_user_id[$complaintsForm['user_id']],[$complaintsForm]);
+
+    //         }else{
+                
+    //             $unique_user_id += [ $complaintsForm['user_id'] => [$complaintsForm] ];
+
+    //         }
+    // }
+    foreach ($complaintsForms as  $complaintsForm){
+        if(array_key_exists($complaintsForm['user_id'], $unique_user_id)){
+
+           $unique_user_id[$complaintsForm['user_id']] []=$complaintsForm;
+
+        }else{
+            
+            $unique_user_id += [ $complaintsForm['user_id'] => [$complaintsForm] ];
+
+        }
+}
+
+        // foreach ($complaintsForms as  $complaintsForm){
+
+        //     //if not found add it
+        //     if(!array_key_exists($complaintsForm['user_id'], $unique_user_id)){
+        //         $unique_user_id += [ $complaintsForm['id'] => $complaintsForm['user_id'] ];
+        //     }
+        // }
+
+        // dd($unique_user_id,$complaintsForms);
+
+        $this->complaintTemplate('details.complaintForStudent',__('complaintForStudent'),['complaintsForms' => $complaintsForms,'unique_users_id' => $unique_user_id]);
     }
 
     

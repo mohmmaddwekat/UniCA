@@ -76,7 +76,7 @@
                     <td><span class="font-weight-normal"> {{ $complaintsForm['teacher_name'] }}</span></td>
                     <td><span class="font-weight-normal"> {{ $complaintsForm['days'] }}</span></td>
                     <td><span class="font-weight-normal"> {{ $complaintsForm['hour'] }}</span></td>
-                    <td class="@if ($complaintsForm['status'] == 'False') bg-danger bg-gradient w-10 h-5 @else   bg-success bg-gradient  w-10 h-5 @endif "><span class="font-weight-normal"> 
+                    <td class="@if ($complaintsForm['status'] == 'Declined') bg-danger bg-gradient w-10 h-5 @elseif ($complaintsForm['status'] == 'Resolved') bg-success bg-gradient  w-10 h-5  @else  bg-secondary bg-gradient  w-10 h-5  @endif "><span class="font-weight-normal"> 
                     
                     {{ $complaintsForm['status'] }}
                     </span></td>
