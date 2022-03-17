@@ -53,8 +53,8 @@ class CourseController extends Controller
             ];
             array_push($data, $value);
         }
-        print_r($data);
         DB::table('course_student')->insert($data);
+        return redirect()->route('dashboard.index')->with('success', __('Add success'));
     }
 
     /**

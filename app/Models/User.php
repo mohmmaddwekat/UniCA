@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Course;
 use App\Models\Admin\University;
 use App\Models\Complaint\ComplaintsForm;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -46,24 +47,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-        // One-to-Many (user has many university)
-        public function university()
-        {
-            return $this->hasMany(
-                University::class,    // Related Moadel
-                'user_id',  // FK in the related model
-                'id'            // PK in the current model
-            );
-        }
+    // One-to-Many (user has many university)
+    public function university()
+    {
+        return $this->hasMany(
+            University::class,    // Related Moadel
+            'user_id',  // FK in the related model
+            'id'            // PK in the current model
+        );
+    }
 
-        // One-to-Many (user has many Complaint)
-        public function complaint()
-        {
-            return $this->hasMany(
-                ComplaintsForm::class,    // Related Moadel
-                'user_id',  // FK in the related model
-                'id'            // PK in the current model
-            );
-        }
-
+    // One-to-Many (user has many Complaint)
+    public function complaint()
+    {
+        return $this->hasMany(
+            ComplaintsForm::class,    // Related Moadel
+            'user_id',  // FK in the related model
+            'id'            // PK in the current model
+        );
+    }
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_student', 'student_id');
+    }
 }
