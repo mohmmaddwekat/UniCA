@@ -62,7 +62,7 @@ class ComplaintsFormController extends Controller
          $complaintsForm->teacher_name = $request->post('teacher_name');
          $complaintsForm->days = $request->post('days');
          $complaintsForm->hour = $request->post('hour');
-         $complaintsForm->status = 'False';
+         $complaintsForm->status = 'In progress By the head of the department';
          $complaintsForm->save();
          return redirect()->back()->with('success',__('Success Sended'));
     }

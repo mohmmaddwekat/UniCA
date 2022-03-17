@@ -25,7 +25,7 @@ class CreateComplaintsFormsTable extends Migration
             $table->string('teacher_name');
             $table->string('days');
             $table->string('hour');
-            $table->enum('status', ['False', 'True'])->default('False');
+            $table->enum('status', ['Declined', 'Resolved', 'In progress By the Dean of the department', 'In progress By the head of the department', 'In progress By the academic vice']);
 
             
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
