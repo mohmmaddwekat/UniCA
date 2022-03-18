@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\University;
 use Illuminate\Database\Seeder;
 
 class UniversitySeeder extends Seeder
@@ -13,6 +14,21 @@ class UniversitySeeder extends Seeder
      */
     public function run()
     {
+        $universities = [
+            [
+                'user_id' =>'2',
+                'city_id' => '1',
+                'address' =>'nablus',
+                'phone_number' => '0512346578',
+
+             ],
+
+            ];
+            foreach($universities as $university){
+                University::create($university);
+            }
+    
+
         //
     }
 }

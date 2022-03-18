@@ -34,6 +34,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
 
+
+                                            <div class="m-5 p-5 text-center">
+                                                <p>Welcome <span>{{ $user->name }}</span></p>
+                                                <p>{{ $user->email }}</p>
+
+                                            </div>
+
                                             <!-- /.card -->
                                         </div>
                                     </div>

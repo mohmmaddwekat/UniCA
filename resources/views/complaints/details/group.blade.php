@@ -23,7 +23,8 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="">{{ __('Home') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('complaints.details.index') }}">{{__('Complaints Defult')}}</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="{{ route('complaints.details.index') }}">{{ __('Complaints Defult') }}</a></li>
                         <li class="breadcrumb-item active">{{ $page_title }}</li>
                     </ol>
                 </div>
@@ -44,11 +45,14 @@
                                 <!-- Collapse Button -->
                                 <select class="form-control" name="forma" onchange="location = this.value;">
                                     <option value="">{{ __('Select Status') }}</option>
-                                    <option value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
+                                    <option @if (Request::is('/complaints/details/defult')) selected @endif
+                                        value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
                                     </option>
-                                    <option value="{{ route('complaints.details.group') }}">{{ __('Group') }}
+                                    <option @if (Request::is('complaints/details/group')) selected @endif
+                                        value="{{ route('complaints.details.group') }}">{{ __('Group') }}
                                     </option>
-                                    <option value="{{ route('complaints.details.complaintForStudent') }}">
+                                    <option @if (Request::is('complaints/details/complaintForStudent')) selected @endif
+                                        value="{{ route('complaints.details.complaintForStudent') }}">
                                         {{ __('complaintForStudent') }}</option>
                                 </select>
                             </div>
@@ -60,18 +64,24 @@
                                 <div class="col-6">
                                     <h2 class="sub-header  m-2">complaints Form Withdraw</h2>
                                     <div class="btn-group">
-                                      <a href="" type="button" class="btn btn-danger m-1" style="font-size:13px">Decline</a>
-                                      <a href="" type="button" class="btn btn-success m-1" style="font-size:13px">Resolved</a>
-                                      <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean department</a>
-                                      </div>
+                                        <a href="{{ route('complaints.details.complaintDecline',['all' ,'withdraw']) }}"
+                                            type="button" class="btn btn-danger m-1"
+                                            style="font-size:13px">Decline</a>
+                                        {{-- <a href="{{ route('complaints.details.complaintResolved', $complaintsFormWithdraw['id']) }}"
+                                            type="button" class="btn btn-success m-1"
+                                            style="font-size:13px">Resolved</a>
+                                        <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormWithdraw['id']) }}"
+                                            type="button" class="btn btn-primary m-1"
+                                            style="font-size:13px">Dean department</a> --}}
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
 
                                                     <th>#</th>
-                                                    <th>{{__('Name Student')}}</th>
-                                                    <th>{{__('ID')}}</th>
+                                                    <th>{{ __('Name Student') }}</th>
+                                                    <th>{{ __('ID') }}</th>
                                                     <th>{{ __('Type') }}</th>
                                                     <th>{{ __('Course Number') }}</th>
                                                     <th>{{ __('Section') }}</th>
@@ -90,8 +100,11 @@
                                                                 {{ $complaintsFormWithdraw['id'] }}
                                                             </a>
                                                         </td>
-                                                        <td><span class="font-weight-normal"> {{ $complaintsFormWithdraw->user->name }}</span></td>
-                                                        <td><span class="font-weight-normal"> {{ $complaintsFormWithdraw->user->type_username_id }}</span></td>
+                                                        <td><span class="font-weight-normal">
+                                                                {{ $complaintsFormWithdraw->user->name }}</span></td>
+                                                        <td><span class="font-weight-normal">
+                                                                {{ $complaintsFormWithdraw->user->type_username_id }}</span>
+                                                        </td>
                                                         <td><span class="font-weight-normal">
                                                                 {{ $complaintsFormWithdraw['type'] }}</span></td>
                                                         <td><span class="font-weight-normal">
@@ -109,14 +122,20 @@
                                                                 {{ $complaintsFormWithdraw['days'] }}</span></td>
                                                         <td><span class="font-weight-normal">
                                                                 {{ $complaintsFormWithdraw['hour'] }}</span></td>
-                            
-                                                            <td>
-                                                              <div class="btn-group">
-                                                              <a href="" type="button" class="btn btn-danger m-1" style="font-size:13px">Decline</a>
-                                                              <a href="" type="button" class="btn btn-success m-1" style="font-size:13px">Resolved</a>
-                                                              <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean department</a>
-                                                              </div>
-                                                            </td>
+
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('complaints.details.complaintDecline', $complaintsFormWithdraw['id']) }}"
+                                                                    type="button" class="btn btn-danger m-1"
+                                                                    style="font-size:13px">Decline</a>
+                                                                <a href="{{ route('complaints.details.complaintResolved', $complaintsFormWithdraw['id']) }}"
+                                                                    type="button" class="btn btn-success m-1"
+                                                                    style="font-size:13px">Resolved</a>
+                                                                <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormWithdraw['id']) }}"
+                                                                    type="button" class="btn btn-primary m-1"
+                                                                    style="font-size:13px">Dean department</a>
+                                                            </div>
+                                                        </td>
 
                                                     </tr>
                                                 @empty
@@ -133,10 +152,13 @@
                                 <div class="col-6">
                                     <h2 class="sub-header m-2">Complaints Form Enroll</h2>
                                     <div class="btn-group">
-                                      <a href="" type="button" class="btn btn-danger m-1" style="font-size:13px">Decline</a>
-                                      <a href="" type="button" class="btn btn-success m-1" style="font-size:13px">Resolved</a>
-                                      <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean department</a>
-                                      </div>
+                                        <a href="" type="button" class="btn btn-danger m-1"
+                                            style="font-size:13px">Decline</a>
+                                        <a href="" type="button" class="btn btn-success m-1"
+                                            style="font-size:13px">Resolved</a>
+                                        <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean
+                                            department</a>
+                                    </div>
 
                                     <div class="table-responsive">
                                         <table class="table table-striped">
@@ -145,8 +167,8 @@
                                                 <tr>
 
                                                     <th>#</th>
-                                                    <th>{{__('Name Student')}}</th>
-                                                    <th>{{__('ID')}}</th>
+                                                    <th>{{ __('Name Student') }}</th>
+                                                    <th>{{ __('ID') }}</th>
                                                     <th>{{ __('Type') }}</th>
                                                     <th>{{ __('Course Number') }}</th>
                                                     <th>{{ __('Section') }}</th>
@@ -166,8 +188,11 @@
                                                                 {{ $complaintsFormEnroll['id'] }}
                                                             </a>
                                                         </td>
-                                                        <td><span class="font-weight-normal"> {{ $complaintsFormEnroll->user->name }}</span></td>
-                                                        <td><span class="font-weight-normal"> {{ $complaintsFormEnroll->user->type_username_id }}</span></td>
+                                                        <td><span class="font-weight-normal">
+                                                                {{ $complaintsFormEnroll->user->name }}</span></td>
+                                                        <td><span class="font-weight-normal">
+                                                                {{ $complaintsFormEnroll->user->type_username_id }}</span>
+                                                        </td>
 
                                                         <td><span class="font-weight-normal">
                                                                 {{ $complaintsFormEnroll['type'] }}</span></td>
@@ -187,12 +212,18 @@
                                                         <td><span class="font-weight-normal">
                                                                 {{ $complaintsFormEnroll['hour'] }}</span></td>
                                                         <td>
-                                                          <div class="btn-group">
-                                                            <a href="" type="button" class="btn btn-danger m-1" style="font-size:13px">Decline</a>
-                                                            <a href="" type="button" class="btn btn-success m-1" style="font-size:13px">Resolved</a>
-                                                            <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean department</a>
+                                                            <div class="btn-group">
+                                                                <a href="{{ route('complaints.details.complaintDecline', $complaintsFormEnroll['id']) }}"
+                                                                    type="button" class="btn btn-danger m-1"
+                                                                    style="font-size:13px">Decline</a>
+                                                                <a href="{{ route('complaints.details.complaintResolved', $complaintsFormEnroll['id']) }}"
+                                                                    type="button" class="btn btn-success m-1"
+                                                                    style="font-size:13px">Resolved</a>
+                                                                <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormEnroll['id']) }}"
+                                                                    type="button" class="btn btn-primary m-1"
+                                                                    style="font-size:13px">Dean department</a>
                                                             </div>
-                                                          </td>
+                                                        </td>
                                                     </tr>
                                                 @empty
                                                     <tr>

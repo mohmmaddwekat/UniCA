@@ -7,8 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ComplaintsForm extends Model
-{
+{										
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'headDepartment_id',
+        'type',
+        'course_number',
+        'course_name',
+        'teacher_name',
+        'days',
+        'hour',
+        'status',
+    ];
 
         // Inverse of One-to-Many (Complaint belongs to only one user)
         public function user()

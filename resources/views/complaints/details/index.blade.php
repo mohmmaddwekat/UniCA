@@ -37,16 +37,14 @@
                     <div class="card ">
                         <div class="card-header">
                             <h3 class="card-title">{{ __('All Complaint') }}</h3>
-
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 <select class="form-control" name="forma" onchange="location = this.value;">
-                                    <option value="">{{ __('Select Status') }}</option>
-                                    <option value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
+                                    <option  @if (Request::is('/complaints/details/defult')) selected @endif  value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
                                     </option>
-                                    <option value="{{ route('complaints.details.group') }}">{{ __('Group') }}
+                                    <option @if (Request::is('complaints/details/group')) selected @endif  value="{{ route('complaints.details.group') }}">{{ __('Group') }}
                                     </option>
-                                    <option value="{{ route('complaints.details.complaintForStudent') }}">
+                                    <option  @if (Request::is('complaints/details/complaintForStudent')) selected @endif  value="{{ route('complaints.details.complaintForStudent') }}">
                                         {{ __('complaintForStudent') }}</option>
                                 </select>
                             </div>
@@ -98,11 +96,11 @@
                                                     {{ $complaintsForm['hour'] }}</span></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="" type="button" class="btn btn-danger m-1"
+                                                    <a href="{{ route('complaints.details.complaintDecline',$complaintsForm['id']) }}" type="button" class="btn btn-danger m-1"
                                                         style="font-size:13px">Decline</a>
-                                                    <a href="" type="button" class="btn btn-success m-1"
+                                                    <a href="{{ route('complaints.details.complaintResolved',$complaintsForm['id']) }}" type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
-                                                    <a href="" type="button" class="btn btn-primary m-1"
+                                                    <a href="{{ route('complaints.details.complaintDeanDepartment',$complaintsForm['id']) }}" type="button" class="btn btn-primary m-1"
                                                         style="font-size:13px">Dean department</a>
                                                 </div>
                                             </td>

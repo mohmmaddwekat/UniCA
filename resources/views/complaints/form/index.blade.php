@@ -50,6 +50,8 @@
                       <tr>
 
                           <th>#</th>
+                          <th>{{ __('Name Student') }}</th>
+                          <th>{{ __('ID Student') }}</th>
                           <th>{{__('Type')}}</th>
                           <th>{{__('Course Number')}}</th>
                           <th>{{__('Section')}}</th>
@@ -69,6 +71,12 @@
                           {{  $complaintsForm['id'] }}
                       </a>
                   </td>
+                  <td>
+                    <span class="font-weight-normal">
+                        {{ $complaintsForms[0]->user->name }}</span>
+                </td>
+                <td><span class="font-weight-normal">
+                        {{ $complaintsForms[0]->user->type_username_id }}</span></td>
                     <td><span class="font-weight-normal"> {{ $complaintsForm['type'] }}</span></td>
                     <td><span class="font-weight-normal"> {{ $complaintsForm['course_number'] }}</span></td>
                     <td><span class="font-weight-normal"> {{ $complaintsForm['section'] }}</span></td>

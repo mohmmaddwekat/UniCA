@@ -15,16 +15,16 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'type_username_id' =>'123456789',
-            'type' => 'super-admin',
-            'password' => Hash::make('123456789'),
-            'addBy_id'=>'0',
-            'remember_token' => Str::random(10),
+        // return [
+        //     'name' => $this->faker->name(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        //     'type_username_id' =>'123456789',
+        //     'type' => 'super-admin',
+        //     'password' => Hash::make('123456789'),
+        //     'addBy_id'=>'0',
+        //     'remember_token' => Str::random(10),
 
-        ];
+        // ];
     }
 
 
@@ -42,3 +42,4 @@ class UserFactory extends Factory
         });
     }
 }
+

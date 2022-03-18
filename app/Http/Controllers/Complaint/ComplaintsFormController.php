@@ -6,9 +6,12 @@ use App\Http\Controllers\Complaint\Controller;
 use App\Models\Complaint\ComplaintsForm;
 use App\Http\Requests\StoreComplaintsFormRequest;
 use App\Http\Requests\UpdateComplaintsFormRequest;
+use App\Mail\ComplaintMail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 
 class ComplaintsFormController extends Controller
 {
@@ -62,9 +65,31 @@ class ComplaintsFormController extends Controller
          $complaintsForm->teacher_name = $request->post('teacher_name');
          $complaintsForm->days = $request->post('days');
          $complaintsForm->hour = $request->post('hour');
-         $complaintsForm->status = 'In progress By the head of the department';
-         $complaintsForm->save();
-         return redirect()->back()->with('success',__('Success Sended'));
+
+         if(Auth::user()->type == 'headDepartment'){
+
+
+            $complaintsForm->status = 'In progress By the Dean of the department';
+            //send mail to student
+            $deanDepartment = User::findOrFail($complaintsForm->user->addBy_id);
+            $detailsDeanDepartment = [
+                'title' => 'complaint',
+                'name' =>' Dean of the department',
+                'body' => 'this student he need to ..'
+            ];
+            $complaintsForm->update([
+                'status' => 'In progress By the Dean of the department',
+            ]);
+            Mail::to('hamzaalkharouf5@gmail.com')->send(new ComplaintMail($detailsDeanDepartment));
+            $complaintsForm->save();
+            return redirect()->back()->with('success',__('Success send to Dean Department'));
+
+         }else{
+            $complaintsForm->status = 'In progress By the head of the department';
+            $complaintsForm->save();
+            return redirect()->back()->with('success',__('Success Sended'));
+         }
+
     }
 
     /**
