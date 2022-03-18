@@ -179,6 +179,9 @@ Route::group([
         Route::get('/group', [ComplaintsDetailsController::class, 'group'])->name('group');
         Route::get('/complaintForStudent', [ComplaintsDetailsController::class, 'complaintForStudent'])->name('complaintForStudent');
 
+        Route::get('/complaint-decline/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDecline'])->name('complaintDecline');
+        Route::get('/complaint-resolved/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved');
+        Route::get('/complaint-deanDepartment/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment');
 
         //Route::post('/save',[xzx::class,'store'])->name('save');
         //oute::get('/edit/{id}',[xzx::class,'edit'])->name('edit');
