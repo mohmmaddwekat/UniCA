@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCollegesTable extends Migration
+class AddUserIdToCollegesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateCollegesTable extends Migration
      */
     public function up()
     {
-        Schema::create('colleges', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name');
-            $table->integer('college_number');
-            $table->foreignId('university_id')
+        Schema::table('colleges', function (Blueprint $table) {
+            //
+            // dean_of_the_college
+            $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users', 'id')
                 ->nullOnDelete();
@@ -32,6 +30,8 @@ class CreateCollegesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('colleges');
+        Schema::table('colleges', function (Blueprint $table) {
+            //
+        });
     }
 }

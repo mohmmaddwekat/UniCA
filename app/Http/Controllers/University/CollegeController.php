@@ -40,8 +40,15 @@ class CollegeController extends Controller
                 $q->where('name', 'university');
             }
         )->get();
+        $deans = User::whereHas(
+            'role',
+            function ($q) {
+                $q->where('name', 'Dean of the College');
+            }
+        )->get();
         $this->universityTemplate('college.add', __('Add College'), [
             'universities' => $universities,
+            'deans' => $deans,
         ]);
     }
 
@@ -57,12 +64,14 @@ class CollegeController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
             'university' => ['required', new in_list('users')],
+            'dean_of_the_college' => ['required', new in_list('users')],
             'college_number' => 'min:1', 'max:255',
         ]);
         $college = new College;
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
         $college->university_id = $request->post('university');
+        $college->user_id = $request->post('dean_of_the_college');
         if (!$college->save()) {
             return redirect()->route('university.college.index')->with('error', __('an error occurred'));
         }
@@ -90,13 +99,20 @@ class CollegeController extends Controller
     {
         //
         $college = College::find($id);
-        $universities = University::all();
         if ($college == null) {
             return redirect()->route('admin.college.index')->with('error', __('not fond') . ' ' . __('College'));
         } else {
+            $universities = University::all();
+            $deans = User::whereHas(
+                'role',
+                function ($q) {
+                    $q->where('name', 'Dean of the College');
+                }
+            )->get();
             $this->universityTemplate('college.edit', __('Edit College'), [
                 'college' => $college,
                 'universities' => $universities,
+                'deans' => $deans,
             ]);
         }
         $this->universityTemplate('college.edit', __('Edit College'), []);
@@ -115,12 +131,14 @@ class CollegeController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
             'university' => ['required', new in_list('users')],
+            'dean_of_the_college' => ['required', new in_list('users')],
             'college_number' => 'min:1', 'max:255',
         ]);
         $college = College::find($id);
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
         $college->university_id = $request->post('university');
+        $college->user_id = $request->post('dean_of_the_college');
         if (!$college->save()) {
             return redirect()->route('university.college.index')->with('error', __('an error occurred'));
         }

@@ -72,6 +72,25 @@
                                           </div>
                                       @enderror
                                   </div>
+                                  <div class="form-group">
+                                      <label>{{ __('Dean of the College') }}</label>
+                                      <select
+                                          class="form-control  selectpicker @error('dean_of_the_college') is-invalid @enderror"
+                                          name="dean_of_the_college" data-selected-text-format="count"
+                                          data-live-search="true">
+                                          <option>{{ __('Nothing selected') }}</option>
+                                          @foreach ($deans as $dean)
+                                              <option value="{{ $dean->id }}"
+                                                  @if (old('dean_of_the_college') && old('dean_of_the_college') == $dean->id) selected @endif>
+                                                  {{ $dean->name }}</option>
+                                          @endforeach
+                                      </select>
+                                      @error('dean_of_the_college')
+                                          <div class="invalid-feedback">
+                                              {{ $message }}
+                                          </div>
+                                      @enderror
+                                  </div>
                               </div>
                               <!-- /.col -->
                               <div class="col-md-6">

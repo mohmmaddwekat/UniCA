@@ -131,6 +131,7 @@ Route::group([
         Route::post('/save', [DepartmentController::class, 'store'])->name('save');
         Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [DepartmentController::class, 'destroy'])->name('delete');
     });
 
     // College Route
@@ -146,6 +147,7 @@ Route::group([
         Route::post('/save', [CollegeController::class, 'store'])->name('save');
         Route::get('/edit/{id}', [CollegeController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [CollegeController::class, 'update'])->name('update');
+        Route::post('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete');
     });
 });
 
@@ -165,6 +167,7 @@ Route::group([
         Route::post('/store', [ComplaintsFormController::class, 'store'])->name('store');
         //Route::get('/edit/{form}',[ComplaintsFormController::class,'edit'])->name('edit');
         //Route::post('/update/{form}',[ComplaintsFormController::class,'update'])->name('update');
+        Route::get('/delete/{form}', [RoleController::class, 'destroy'])->name('delete');
     });
 
     //Details Route
@@ -172,14 +175,10 @@ Route::group([
         'prefix' => '/details',
         'as' => 'details.',
     ], function () {
-        Route::get('/defult', [ComplaintsDetailsController::class, 'defult'])->name('index');
+        Route::get('/', [ComplaintsDetailsController::class, 'index'])->name('index');
         Route::get('/group', [ComplaintsDetailsController::class, 'group'])->name('group');
         Route::get('/complaintForStudent', [ComplaintsDetailsController::class, 'complaintForStudent'])->name('complaintForStudent');
-        //Dean department Resolved Decline
 
-        Route::get('/complaint-decline/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDecline'])->name('complaintDecline');
-        Route::get('/complaint-resolved/{detail}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved');
-        Route::get('/complaint-deanDepartment/{detail}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment');
 
         //Route::post('/save',[xzx::class,'store'])->name('save');
         //oute::get('/edit/{id}',[xzx::class,'edit'])->name('edit');

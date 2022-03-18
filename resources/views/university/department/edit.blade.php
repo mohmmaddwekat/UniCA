@@ -54,21 +54,6 @@
                                       @enderror
 
                                   </div>
-                                  <div class="form-group">
-                                      <label for="exampleInputName1">{{ __('Head of Department') }}</label>
-                                      <input type="text"
-                                          class="form-control @error('head_of_department') is-invalid @enderror"
-                                          name="head_of_department"
-                                          value="{{ old('head_of_department', $department->head_of_department) }}"
-                                          id="exampleInputName1" placeholder="{{ __('Enter Head of Department') }}"
-                                          required>
-                                      @error('head_of_department')
-                                          <div class="invalid-feedback">
-                                              {{ $message }}
-                                          </div>
-                                      @enderror
-
-                                  </div>
                               </div>
                               <!-- /.col -->
                               <div class="col-md-6">

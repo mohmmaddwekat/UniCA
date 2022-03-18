@@ -5,6 +5,9 @@ namespace App\Models;
 use App\Models\Admin\Course;
 use App\Models\Admin\University;
 use App\Models\Complaint\ComplaintsForm;
+use App\Models\Roles\Role;
+use App\Models\University\College;
+use App\Models\University\Department;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +18,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -69,5 +73,17 @@ class User extends Authenticatable
     public function courses()
     {
         return $this->belongsToMany(Course::class, 'course_student', 'student_id');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function colleges()
+    {
+        return $this->hasMany(College::class);
+    }
+    public function department()
+    {
+        return $this->hasMany(Department::class, 'university_id');
     }
 }

@@ -117,7 +117,7 @@ class DepartmentController extends Controller
     {
         //
         $validated = $request->validate([
-            'name' => ['required', 'unique:departments', 'min:3', 'max:255'],
+            'name' => ['required', 'unique:departments,name,' . $id, 'min:3', 'max:255'],
             'user' => ['required', new in_list('users')],
             'college' => ['required', new in_list('colleges')],
         ]);

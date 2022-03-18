@@ -35,8 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $types = Role::all();
-        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'types' => $types]);
+        $roles = Role::all();
+        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles]);
     }
 
     /**

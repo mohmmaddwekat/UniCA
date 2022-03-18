@@ -31,6 +31,7 @@
                   <form class="needs-validation" action="{{ route('university.college.update', $college->id) }}"
                       method="post" enctype="multipart/form-data">
                       <!-- /.card-header -->
+
                       @if ($errors->any())
                           @foreach ($errors as $error)
                               {{ $error }}
@@ -43,13 +44,14 @@
                                   <div class="form-group">
                                       <label for="exampleInputName1">{{ __('Name College') }}</label>
                                       <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                          name="name" value="{{ old('name', $college->name) }}" id="exampleInputName1"
-                                          placeholder="{{ __('Enter Name') }}" required>
+                                          name="name" value="{{ old('name', $college->name) }}"
+                                          id="exampleInputName1" placeholder="{{ __('Enter Name') }}" required>
                                       @error('name')
                                           <div class="invalid-feedback">
                                               {{ $message }}
                                           </div>
                                       @enderror
+
                                   </div>
                                   <div class="form-group">
                                       <label>{{ __('University') }}</label>
