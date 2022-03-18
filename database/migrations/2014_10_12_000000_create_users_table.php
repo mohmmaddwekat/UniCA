@@ -17,15 +17,14 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('type_username_id')->unique();
             $table->string('name')->unique();
-            $table->enum('type', ['student', 'university', 'headDepartment', 'deanDepartment', 'academicVice', 'super-admin'])->default('student');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('addBy_id');
             $table->foreignId('role_id')
-            ->nullable()
-            ->constrained('roles','id')
-            ->nullOnDelete();
-      
+                ->nullable()
+                ->constrained('roles', 'id')
+                ->nullOnDelete();
+
             $table->rememberToken();
             $table->timestamps();
         });

@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Admin\Controller;
+use App\Models\Roles\Role;
 use App\Models\User;
 use App\Rules\alpha_spaces;
+use App\Rules\in_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,15 +16,14 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $this->adminTemplate('users.index',__('users'),['users'=>user::all()]);
-
+        $this->adminTemplate('users.index', __('users'), ['users' => user::all()]);
     }
 
 
@@ -33,7 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->adminTemplate('users.create',__('Create user'),['user'=>new User(),'types'=>['headDepartment', 'deanDepartment', 'academicVice',]]);
+        $types = Role::all();
+        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'types' => $types]);
     }
 
     /**
@@ -45,16 +48,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'type_username_id' => ['required','max:22','min:3','unique:users,type_username_id'],
-            'name' => ['required','max:250','min:3','unique:users,name',new alpha_spaces],
-            'type' => ['required', 'in:headDepartment,deanDepartment,academicVice'],
+            'role' => ['required', new in_list('roles')],
+            'type_username_id' => ['required', 'max:22', 'min:3', 'unique:users,type_username_id'],
+            'name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
         $user = new User;
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('name');
-        $user->type = $request->post('type');
+        $user->role_id = $request->post('role');
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();
         $userPassword = Str::random(10);
@@ -68,7 +71,7 @@ class UserController extends Controller
         );
         Password::RESET_LINK_SENT;
 
-        return redirect()->back()->with('success',__('Go to email to change reset password'.$userPassword));
+        return redirect()->back()->with('success', __('Go to email to change reset password' . $userPassword));
     }
 
     /**
@@ -91,8 +94,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
-        $this->adminTemplate('users.edit',__('Edit user'),['user'=>$user]);
-
+        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user]);
     }
 
     /**
@@ -104,7 +106,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-      return redirect()->back();
+        return redirect()->back();
     }
 
     /**
@@ -119,5 +121,4 @@ class UserController extends Controller
 
         return  redirect()->route('admin.users.index')->with('success', __('Success Deleted'));
     }
-
 }

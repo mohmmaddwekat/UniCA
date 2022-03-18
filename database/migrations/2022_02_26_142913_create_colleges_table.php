@@ -18,6 +18,10 @@ class CreateCollegesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->integer('college_number');
+            $table->foreignId('university_id')
+                ->nullable()
+                ->constrained('universities', 'id')
+                ->nullOnDelete();
         });
     }
 

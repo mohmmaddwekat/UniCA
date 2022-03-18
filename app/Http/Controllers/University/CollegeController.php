@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\University;
 
+use App\Models\Admin\University;
 use App\Models\University\College;
+use App\Models\User;
+use App\Rules\in_list;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CollegeController extends Controller
 {
@@ -16,7 +20,10 @@ class CollegeController extends Controller
     {
         //
         $colleges = College::all();
-        $this->universityTemplate('college.index',__('College'),['colleges'=>$colleges]);
+        $this->universityTemplate('college.index', __('College'), [
+            'colleges' => $colleges,
+
+        ]);
     }
 
     /**
@@ -27,7 +34,14 @@ class CollegeController extends Controller
     public function create()
     {
         //
-        $this->universityTemplate('college.add',__('Add College'),[
+        $universities = User::whereHas(
+            'role',
+            function ($q) {
+                $q->where('name', 'university');
+            }
+        )->get();
+        $this->universityTemplate('college.add', __('Add College'), [
+            'universities' => $universities,
         ]);
     }
 
@@ -41,16 +55,18 @@ class CollegeController extends Controller
     {
         //
         $validated = $request->validate([
-            'name' => ['required','unique:colleges','min:1','max:255'],
-            'college_number'=>'min:1','max:255',
+            'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+            'university' => ['required', new in_list('users')],
+            'college_number' => 'min:1', 'max:255',
         ]);
         $college = new College;
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
-        if(!$college->save()){
-            return redirect()->route('university.college.index')->with('error',__('an error occurred'));
+        $college->university_id = $request->post('university');
+        if (!$college->save()) {
+            return redirect()->route('university.college.index')->with('error', __('an error occurred'));
         }
-        return redirect()->route('university.college.index')->with('success',__('Add success'));
+        return redirect()->route('university.college.index')->with('success', __('Add success'));
     }
 
     /**
@@ -74,15 +90,16 @@ class CollegeController extends Controller
     {
         //
         $college = College::find($id);
-        if ( $college == null) {
-            return redirect()->route('admin.college.index')->with('error',__('not fond').' '.__('College'));
+        $universities = University::all();
+        if ($college == null) {
+            return redirect()->route('admin.college.index')->with('error', __('not fond') . ' ' . __('College'));
         } else {
-            $this->universityTemplate('college.edit',__('Edit College'),[
-                'college'=>$college,
+            $this->universityTemplate('college.edit', __('Edit College'), [
+                'college' => $college,
+                'universities' => $universities,
             ]);
         }
-        $this->universityTemplate('college.edit',__('Edit College'),[
-        ]);
+        $this->universityTemplate('college.edit', __('Edit College'), []);
     }
 
     /**
@@ -96,16 +113,18 @@ class CollegeController extends Controller
     {
         //
         $validated = $request->validate([
-            'name' => ['required','unique:colleges,name,'.$id,'min:1','max:255'],
-            'college_number'=>'min:1','max:255',
+            'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+            'university' => ['required', new in_list('users')],
+            'college_number' => 'min:1', 'max:255',
         ]);
         $college = College::find($id);
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
-        if(!$college->save()){
-            return redirect()->route('university.college.index')->with('error',__('an error occurred'));
+        $college->university_id = $request->post('university');
+        if (!$college->save()) {
+            return redirect()->route('university.college.index')->with('error', __('an error occurred'));
         }
-        return redirect()->route('university.college.index')->with('success',__('Edit success'));
+        return redirect()->route('university.college.index')->with('success', __('Edit success'));
     }
 
     /**
@@ -118,10 +137,10 @@ class CollegeController extends Controller
     {
         //
         $college = College::find($id);
-        if ($college ==null) {
-            return redirect()->route('admin.college.index')->with('error',__('not fond').' '.__('college'));
+        if ($college == null) {
+            return redirect()->route('admin.college.index')->with('error', __('not fond') . ' ' . __('college'));
         }
         $college->delete();
-        return redirect()->route('admin.college.index')->with('success',__('delete success'));
+        return redirect()->route('admin.college.index')->with('success', __('delete success'));
     }
 }

@@ -18,7 +18,11 @@ class CreateDepartmentsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('head_of_department');
-            $table->foreignId('college_id')->constrained('colleges','id')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')
+                ->nullable()
+                ->constrained('users', 'id')
+                ->nullOnDelete();
+            $table->foreignId('college_id')->constrained('colleges', 'id')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 

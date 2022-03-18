@@ -4,6 +4,7 @@ namespace App\Http\Controllers\University;
 
 use App\Models\University\College;
 use App\Models\University\Department;
+use App\Models\User;
 use App\Rules\in_list;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class DepartmentController extends Controller
     {
         //
         $departments = Department::all();
-        $this->universityTemplate('department.index',__('Department'),['departments'=>$departments]);
+        $this->universityTemplate('department.index', __('Department'), ['departments' => $departments]);
     }
 
     /**
@@ -30,9 +31,16 @@ class DepartmentController extends Controller
     {
         //
         $colleges = College::all();
-            $this->universityTemplate('department.add',__('Add Department'),[
-                'colleges'=>$colleges,
-            ]);
+        $users = User::whereHas(
+            'role',
+            function ($q) {
+                $q->where('name', 'Head of Department');
+            }
+        )->get();
+        $this->universityTemplate('department.add', __('Add Department'), [
+            'colleges' => $colleges,
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -45,18 +53,18 @@ class DepartmentController extends Controller
     {
         //
         $validated = $request->validate([
-            'name' => ['required','unique:departments','min:3','max:255'],
-            'head_of_department'=>'min:3','max:255',
+            'name' => ['required', 'unique:departments', 'min:3', 'max:255'],
+            'user' => ['required', new in_list('users')],
             'college' => ['required', new in_list('colleges')],
         ]);
         $department = new Department;
         $department->name = $request->post('name');
-        $department->head_of_department = $request->post('head_of_department');
+        $department->user_id = $request->post('user');
         $department->college_id = $request->post('college');
-        if(!$department->save()){
-            return redirect()->route('university.department.index')->with('error',__('an error occurred'));
+        if (!$department->save()) {
+            return redirect()->route('university.department.index')->with('error', __('an error occurred'));
         }
-        return redirect()->route('university.department.index')->with('success',__('Add success'));
+        return redirect()->route('university.department.index')->with('success', __('Add success'));
     }
 
     /**
@@ -80,13 +88,20 @@ class DepartmentController extends Controller
     {
         //
         $department = Department::find($id);
-        if ( $department == null) {
-            return redirect()->route('university.department.index')->with('error',__('not fond').' '.__('Department'));
+        if ($department == null) {
+            return redirect()->route('university.department.index')->with('error', __('not fond') . ' ' . __('Department'));
         } else {
             $colleges = College::all();
-            $this->universityTemplate('department.edit',__('Edit Department'),[
-                'department'=>$department,
-                'colleges'=>$colleges,
+            $users = User::whereHas(
+                'role',
+                function ($q) {
+                    $q->where('name', 'Head of Department');
+                }
+            )->get();
+            $this->universityTemplate('department.edit', __('Edit Department'), [
+                'department' => $department,
+                'colleges' => $colleges,
+                'users' => $users,
             ]);
         }
     }
@@ -102,17 +117,18 @@ class DepartmentController extends Controller
     {
         //
         $validated = $request->validate([
-            'name' => ['required','unique:Departments,name,'.$id,'min:3','max:255'],
-            'Department_number'=>'min:3','max:255',
+            'name' => ['required', 'unique:departments', 'min:3', 'max:255'],
+            'user' => ['required', new in_list('users')],
+            'college' => ['required', new in_list('colleges')],
         ]);
         $department = Department::find($id);
         $department->name = $request->post('name');
-        $department->head_of_department = $request->post('head_of_department');
+        $department->user_id = $request->post('user');
         $department->college_id = $request->post('college');
-        if(!$department->save()){
-            return redirect()->route('university.department.index')->with('error',__('an error occurred'));
+        if (!$department->save()) {
+            return redirect()->route('university.department.index')->with('error', __('an error occurred'));
         }
-        return redirect()->route('university.department.index')->with('success',__('Edit success'));
+        return redirect()->route('university.department.index')->with('success', __('Edit success'));
     }
 
     /**
@@ -125,10 +141,10 @@ class DepartmentController extends Controller
     {
         //
         $Department = Department::find($id);
-        if ($Department ==null) {
-            return redirect()->route('university.department.index')->with('error',__('not fond').' '.__('Department'));
+        if ($Department == null) {
+            return redirect()->route('university.department.index')->with('error', __('not fond') . ' ' . __('Department'));
         }
         $Department->delete();
-        return redirect()->route('university.department.index')->with('success',__('delete success'));
+        return redirect()->route('university.department.index')->with('success', __('delete success'));
     }
 }
