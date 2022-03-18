@@ -64,15 +64,15 @@
                                 <div class="col-6">
                                     <h2 class="sub-header  m-2">complaints Form Withdraw</h2>
                                     <div class="btn-group">
-                                        <a href="{{ route('complaints.details.complaintDecline',['all' ,'withdraw']) }}"
+                                        <a href="{{ route('complaints.details.complaintDecline',['group' ,'withdraw']) }}"
                                             type="button" class="btn btn-danger m-1"
                                             style="font-size:13px">Decline</a>
-                                        {{-- <a href="{{ route('complaints.details.complaintResolved', $complaintsFormWithdraw['id']) }}"
+                                        <a href="{{ route('complaints.details.complaintResolved',['group' ,'withdraw']) }}"
                                             type="button" class="btn btn-success m-1"
                                             style="font-size:13px">Resolved</a>
-                                        <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormWithdraw['id']) }}"
+                                        <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'withdraw']) }}"
                                             type="button" class="btn btn-primary m-1"
-                                            style="font-size:13px">Dean department</a> --}}
+                                            style="font-size:13px">Dean department</a> 
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-striped">
@@ -152,12 +152,15 @@
                                 <div class="col-6">
                                     <h2 class="sub-header m-2">Complaints Form Enroll</h2>
                                     <div class="btn-group">
-                                        <a href="" type="button" class="btn btn-danger m-1"
+                                        <a href="{{ route('complaints.details.complaintDecline',['group' ,'enroll']) }}"
+                                            type="button" class="btn btn-danger m-1"
                                             style="font-size:13px">Decline</a>
-                                        <a href="" type="button" class="btn btn-success m-1"
+                                            <a href="{{ route('complaints.details.complaintResolved',['group' ,'enroll']) }}"
+                                            type="button" class="btn btn-success m-1"
                                             style="font-size:13px">Resolved</a>
-                                        <a href="" type="button" class="btn btn-primary m-1" style="font-size:13px">Dean
-                                            department</a>
+                                            <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'enroll']) }}"
+                                            type="button" class="btn btn-primary m-1"
+                                            style="font-size:13px">Dean department</a> 
                                     </div>
 
                                     <div class="table-responsive">

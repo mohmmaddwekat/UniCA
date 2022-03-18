@@ -46,11 +46,14 @@
                                 <!-- Collapse Button -->
                                 <select class="form-control" name="forma" onchange="location = this.value;">
                                     <option value="">{{ __('Select Status') }}</option>
-                                    <option  @if (Request::is('/complaints/details/defult')) selected @endif  value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
+                                    <option @if (Request::is('/complaints/details/defult')) selected @endif
+                                        value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
                                     </option>
-                                    <option @if (Request::is('complaints/details/group')) selected @endif  value="{{ route('complaints.details.group') }}">{{ __('Group') }}
+                                    <option @if (Request::is('complaints/details/group')) selected @endif
+                                        value="{{ route('complaints.details.group') }}">{{ __('Group') }}
                                     </option>
-                                    <option  @if (Request::is('complaints/details/complaintForStudent')) selected @endif  value="{{ route('complaints.details.complaintForStudent') }}">
+                                    <option @if (Request::is('complaints/details/complaintForStudent')) selected @endif
+                                        value="{{ route('complaints.details.complaintForStudent') }}">
                                         {{ __('complaintForStudent') }}</option>
                                 </select>
                             </div>
@@ -70,7 +73,7 @@
                                         <th>{{ __('Section') }}</th>
                                         <th>{{ __('Course Name') }}</th>
                                         <th>{{ __('Teacher Name') }}</th>
-                                        <th  style="width: 10%">{{ __('Days') }}</th>
+                                        <th style="width: 10%">{{ __('Days') }}</th>
                                         <th style="width: 15%">{{ __('Hour') }}</th>
                                         <th>{{ __('Action') }}</th>
                                         <th></th>
@@ -81,7 +84,7 @@
 
                                     @forelse ($unique_users_id as $complaintsForms)
 
-                                        <tr >
+                                        <tr>
                                             <td>
 
                                                 @foreach ($complaintsForms as $complaintsForm)
@@ -143,11 +146,30 @@
 
                                             <td colspan="2">
                                                 <div class="btn-group">
-                                                    <a href="{{ route('complaints.details.complaintDecline',$complaintsForm['id']) }}" type="button" class="btn btn-danger m-1"
+
+                                                    <?php
+    
+                                                            $ids ='';
+
+                                          foreach ($complaintsForms as $key => $complaintsForm) {
+                                            $ids .=(string)$complaintsForm['id'];
+
+                                          }
+                                          print_r($ids);
+                                                            
+                                                   ?>
+
+
+
+
+
+
+                                                    <a href="{{ route('complaints.details.complaintDecline', [ $ids,'complaintForStudent']) }}"
+                                                        type="button" class="btn btn-danger m-1"
                                                         style="font-size:13px">Decline</a>
-                                                    <a href="{{ route('complaints.details.complaintResolved',$complaintsForm['id']) }}" type="button" class="btn btn-success m-1"
+                                                    <a href="{{ route('complaints.details.complaintResolved', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
-                                                    <a href="{{ route('complaints.details.complaintDeanDepartment',$complaintsForm['id']) }}" type="button" class="btn btn-primary m-1"
+                                                    <a href="{{ route('complaints.details.complaintDeanDepartment', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-primary m-1"
                                                         style="font-size:13px">Dean department</a>
                                                 </div>
                                             </td>

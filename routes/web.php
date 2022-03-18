@@ -178,8 +178,8 @@ Route::group([
         //Dean department Resolved Decline
 
         Route::get('/complaint-decline/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDecline'])->name('complaintDecline');
-        Route::get('/complaint-resolved/{detail}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved');
-        Route::get('/complaint-deanDepartment/{detail}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment');
+        Route::get('/complaint-resolved/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved');
+        Route::get('/complaint-deanDepartment/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment');
 
         //Route::post('/save',[xzx::class,'store'])->name('save');
         //oute::get('/edit/{id}',[xzx::class,'edit'])->name('edit');
