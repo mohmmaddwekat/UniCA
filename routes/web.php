@@ -175,7 +175,7 @@ Route::group([
         'prefix' => '/details',
         'as' => 'details.',
     ], function () {
-        Route::get('/', [ComplaintsDetailsController::class, 'index'])->name('index');
+        Route::get('/', [ComplaintsDetailsController::class, 'defult'])->name('index');
         Route::get('/group', [ComplaintsDetailsController::class, 'group'])->name('group');
         Route::get('/complaintForStudent', [ComplaintsDetailsController::class, 'complaintForStudent'])->name('complaintForStudent');
 
