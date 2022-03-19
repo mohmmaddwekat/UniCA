@@ -17,7 +17,6 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('head_of_department');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users', 'id')

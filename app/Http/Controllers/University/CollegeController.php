@@ -34,18 +34,10 @@ class CollegeController extends Controller
     public function create()
     {
         //
-        $universities = User::whereHas(
-            'role',
-            function ($q) {
-                $q->where('name', 'university');
-            }
-        )->get();
-        $deans = User::whereHas(
-            'role',
-            function ($q) {
-                $q->where('name', 'Dean of the College');
-            }
-        )->get();
+        $universities = User::where('type','university')
+        ->get();
+        $deans = User::where('type','deanDepartment')
+        ->get();
         $this->universityTemplate('college.add', __('Add College'), [
             'universities' => $universities,
             'deans' => $deans,
@@ -61,16 +53,30 @@ class CollegeController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
-            'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
-            'university' => ['required', new in_list('users')],
-            'dean_of_the_college' => ['required', new in_list('users')],
-            'college_number' => 'min:1', 'max:255',
-        ]);
+        if(Auth::user()->type =='super-admin'){
+            $validated = $request->validate([
+                'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+                'university' => ['required', 'int', 'exists:users,id'],
+                'dean_of_the_college' => ['required', 'int', 'exists:users,id'],
+    
+                'college_number' => 'min:1', 'max:255',
+            ]);
+        }else{
+            $validated = $request->validate([
+                'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+                'dean_of_the_college' => ['required', 'int', 'exists:users,id'],
+                'college_number' => 'min:1', 'max:255',
+            ]);        
+        }
         $college = new College;
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
-        $college->university_id = $request->post('university');
+        if(Auth::user()->type =='super-admin'){
+            $college->university_id = $request->post('university');
+
+        }else{
+            $college->university_id = Auth::id();
+        }
         $college->user_id = $request->post('dean_of_the_college');
         if (!$college->save()) {
             return redirect()->route('university.college.index')->with('error', __('an error occurred'));
@@ -102,13 +108,10 @@ class CollegeController extends Controller
         if ($college == null) {
             return redirect()->route('admin.college.index')->with('error', __('not fond') . ' ' . __('College'));
         } else {
-            $universities = University::all();
-            $deans = User::whereHas(
-                'role',
-                function ($q) {
-                    $q->where('name', 'Dean of the College');
-                }
-            )->get();
+            $universities = User::where('type','university')
+            ->get();
+            $deans = User::where('type','deanDepartment')
+            ->get();
             $this->universityTemplate('college.edit', __('Edit College'), [
                 'college' => $college,
                 'universities' => $universities,
@@ -128,16 +131,33 @@ class CollegeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $validated = $request->validate([
-            'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
-            'university' => ['required', new in_list('users')],
-            'dean_of_the_college' => ['required', new in_list('users')],
-            'college_number' => 'min:1', 'max:255',
-        ]);
+        if(Auth::user()->type =='super-admin'){
+            $validated = $request->validate([
+                'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+                'university' => ['required', 'int', 'exists:users,id'],
+                'dean_of_the_college' => ['required', 'int', 'exists:users,id'],
+    
+                'college_number' => 'min:1', 'max:255',
+            ]);
+        }else{
+            $validated = $request->validate([
+                'name' => ['required', 'unique:colleges', 'min:1', 'max:255'],
+                'dean_of_the_college' => ['required', 'int', 'exists:users,id'],
+                'college_number' => 'min:1', 'max:255',
+            ]);        
+        }
+
         $college = College::find($id);
         $college->name = $request->post('name');
         $college->college_number = $request->post('college_number');
-        $college->university_id = $request->post('university');
+        if(Auth::user()->type =='super-admin'){
+            $college->university_id = $request->post('university');
+
+        }else{
+            $college->university_id = Auth::id();
+        }
+
+
         $college->user_id = $request->post('dean_of_the_college');
         if (!$college->save()) {
             return redirect()->route('university.college.index')->with('error', __('an error occurred'));

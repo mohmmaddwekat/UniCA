@@ -34,7 +34,7 @@
                             placeholder="{{ __('Enter Email') }}">
                     </div>
 
-                    {{-- <div class="form-group">
+                    <div class="form-group">
                         <label>{{ __('Role') }}</label>
                         <select class="form-control  selectpicker @error('role') is-invalid @enderror" name="role"
                             data-selected-text-format="count" data-live-search="true">
@@ -49,10 +49,19 @@
                                 {{ $message }}
                             </div>
                         @enderror
-                    </div> --}}
+                    </div>
                 </div>
 
-
+                <div class="form-group">
+                    <label>{{__('Type')}}</label>
+    
+                    <select class="form-control  selectpicker @error('type') is-invalid @enderror" name="type"   data-selected-text-format="count" data-live-search="true">
+                      <option>{{__('Nothing selected')}}</option>
+                      @foreach ($types as $type)
+                          <option value="{{ $type }}" @if ($type == old('type', $user['type'])) selected @endif>{{ $type }}</option>
+                      @endforeach
+                    </select>
+                  </div>
             </div>
         </div>
         <!-- /.row -->

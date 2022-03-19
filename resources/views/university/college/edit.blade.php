@@ -53,24 +53,27 @@
                                       @enderror
 
                                   </div>
+                
+                                  @if (Auth::user()->type == 'super-admin')
                                   <div class="form-group">
-                                      <label>{{ __('University') }}</label>
-                                      <select
-                                          class="form-control  selectpicker @error('university') is-invalid @enderror"
-                                          name="university" data-selected-text-format="count" data-live-search="true">
-                                          <option>{{ __('Nothing selected') }}</option>
-                                          @foreach ($universities as $university)
-                                              <option value="{{ $university->id }}"
-                                                  @if (old('university', $college->university_id) && old('university', $college->university_id) == $university->id) selected @endif>
-                                                  {{ $university->name }}</option>
-                                          @endforeach
-                                      </select>
-                                      @error('university')
-                                          <div class="invalid-feedback">
-                                              {{ $message }}
-                                          </div>
-                                      @enderror
-                                  </div>
+                                    <label>{{ __('University') }}</label>
+                                    <select
+                                        class="form-control  selectpicker @error('university') is-invalid @enderror"
+                                        name="university" data-selected-text-format="count" data-live-search="true">
+                                        <option>{{ __('Nothing selected') }}</option>
+                                        @foreach ($universities as $university)
+                                            <option value="{{ $university->id }}"
+                                                @if (old('university', $college->university_id) && old('university', $college->university_id) == $university->id) selected @endif>
+                                                {{ $university->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('university')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                  @endif
                               </div>
                               <!-- /.col -->
                               <div class="col-md-6">

@@ -31,15 +31,13 @@ class DepartmentController extends Controller
     {
         //
         $colleges = College::all();
-        $users = User::whereHas(
-            'role',
-            function ($q) {
-                $q->where('name', 'Head of Department');
-            }
-        )->get();
+        $users = User::where('type','headDepartment')
+        ->get();
+
         $this->universityTemplate('department.add', __('Add Department'), [
             'colleges' => $colleges,
             'users' => $users,
+            
         ]);
     }
 
@@ -54,8 +52,9 @@ class DepartmentController extends Controller
         //
         $validated = $request->validate([
             'name' => ['required', 'unique:departments', 'min:3', 'max:255'],
-            'user' => ['required', new in_list('users')],
-            'college' => ['required', new in_list('colleges')],
+            'user' => ['required', 'int', 'exists:users,id'],
+            'college' => ['required', 'int', 'exists:colleges,id'],
+
         ]);
         $department = new Department;
         $department->name = $request->post('name');
@@ -92,12 +91,8 @@ class DepartmentController extends Controller
             return redirect()->route('university.department.index')->with('error', __('not fond') . ' ' . __('Department'));
         } else {
             $colleges = College::all();
-            $users = User::whereHas(
-                'role',
-                function ($q) {
-                    $q->where('name', 'Head of Department');
-                }
-            )->get();
+            $users = User::where('type','headDepartment')
+            ->get();
             $this->universityTemplate('department.edit', __('Edit Department'), [
                 'department' => $department,
                 'colleges' => $colleges,
@@ -118,8 +113,9 @@ class DepartmentController extends Controller
         //
         $validated = $request->validate([
             'name' => ['required', 'unique:departments,name,' . $id, 'min:3', 'max:255'],
-            'user' => ['required', new in_list('users')],
-            'college' => ['required', new in_list('colleges')],
+            'user' => ['required', 'int', 'exists:users,id'],
+            'college' => ['required', 'int', 'exists:colleges,id'],
+
         ]);
         $department = Department::find($id);
         $department->name = $request->post('name');

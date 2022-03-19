@@ -41,8 +41,9 @@ class UniversityController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
 
-        $this->adminTemplate('universities.create', __('Create university'), ['university' => new University(), 'cities' => City::all()]);
+        $this->adminTemplate('universities.create', __('Create university'), ['university' => new University(), 'user' => new User(),'roles' => $roles, 'cities' => City::all()]);
     }
 
     /**
@@ -58,19 +59,19 @@ class UniversityController extends Controller
             'type_username_id' => ['required', 'max:22', 'min:3', 'unique:users,type_username_id'],
             'university_name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
             'city_id' => ['nullable', 'int', 'exists:cities,id'],
-            'role' => [new value_in_column('roles', 'name', 'university')],
+            'role' => ['required', 'int', 'exists:roles,id'],
             'address' => ['required', 'max:250', 'min:3', new alpha_spaces_symbols],
             'phone_number' => ['required', 'unique:universities,phone_number', 'numeric', new CheckPhoneRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
         $user = new User;
-        $role = Role::where('name', 'university')->first();
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('university_name');
-        $user->role_id = $role['id'];
+        $user->role_id = $request->post('role');
         $user->addBy_id = Auth::id();
         $user->email = $request->post('email');
+        $user->type = 'university';
         $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();
@@ -127,8 +128,9 @@ class UniversityController extends Controller
      */
     public function edit(University $university)
     {
+        $roles = Role::all();
 
-        $this->adminTemplate('universities.edit', __('Edit city'), ['university' => $university, 'cities' => City::all(),]);
+        $this->adminTemplate('universities.edit', __('Edit city'), ['university' => $university, 'roles' => $roles,'cities' => City::all(),]);
     }
 
     /**
@@ -146,7 +148,7 @@ class UniversityController extends Controller
                 'university_id' => ['required', 'max:250', 'min:3', 'unique:universities,university_id,' . $university['id'], 'numeric'],
                 'university_name' => ['required', 'max:250', 'min:3', 'unique:universities,university_name,' . $university['id'], new alpha_spaces],
                 'city_id' => ['nullable', 'int', 'exists:cities,id'],
-                'role' => [new value_in_column('roles', 'name', 'university')],
+                'role' => ['required', 'int', 'exists:roles,id'],
                 'address' => ['required', 'max:250', 'min:3', new alpha_spaces_symbols],
                 'phone_number' => ['required', 'unique:universities,phone_number,' . $university['id'], 'numeric', new CheckPhoneRule],
                 'password' => [
@@ -160,13 +162,12 @@ class UniversityController extends Controller
                 ],
             ]);
             $validator->validate();
-            $role = Role::where('name', 'university')->first();
             $university->update([
                 'university_id' => $request->post('university_id'),
                 'university_name' => $request->post('university_name'),
                 'city_id' => $request->post('city_id'),
                 'address' => $request->post('address'),
-                'role_id' => $role,
+                'role_id' => $request->post('role'),
                 'phone_number' => $request->post('phone_number'),
                 'password' => Hash::make($request->password),
 

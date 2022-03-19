@@ -36,7 +36,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles]);
+        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles,'types'=>['headDepartment', 'deanDepartment', 'academicVice']]);
     }
 
     /**
@@ -48,9 +48,10 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'role' => ['required', new in_list('roles')],
+            'role' => ['required', 'int', 'exists:roles,id'],
             'type_username_id' => ['required', 'max:22', 'min:3', 'unique:users,type_username_id'],
             'name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
+            'type' => ['required', 'in:headDepartment,deanDepartment,academicVice'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
@@ -58,6 +59,7 @@ class UserController extends Controller
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('name');
         $user->role_id = $request->post('role');
+        $user->type = $request->post('type');
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();
         $userPassword = Str::random(10);

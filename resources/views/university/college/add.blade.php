@@ -54,6 +54,8 @@
                                       @enderror
 
                                   </div>
+
+                                  @if (Auth::user()->type == 'super-admin')
                                   <div class="form-group">
                                       <label>{{ __('University') }}</label>
                                       <select
@@ -72,6 +74,7 @@
                                           </div>
                                       @enderror
                                   </div>
+                                  @endif
                                   <div class="form-group">
                                       <label>{{ __('Dean of the College') }}</label>
                                       <select

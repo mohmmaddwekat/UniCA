@@ -55,7 +55,22 @@
 
       </div>
 
+      <div class="form-group">
+        <label>{{ __('Role') }}</label>
+        <select class="form-control  selectpicker @error('role') is-invalid @enderror" name="role"
+            data-selected-text-format="count" data-live-search="true">
+            <option>{{ __('Nothing selected') }}</option>
+          @foreach ($roles as $role)
+              <option value="{{ $role['id'] }}" @if ($role->id == old('role_id', $user['role_id'])) selected @endif>{{ $role['name'] }}</option>
+          @endforeach
+        </select>
 
+        @error('role')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
           </div>  
   
            
