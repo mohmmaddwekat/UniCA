@@ -96,7 +96,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
-        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user]);
+        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user, 'roles' => Role::all(),'types'=>['headDepartment', 'deanDepartment', 'academicVice']]);
     }
 
     /**
