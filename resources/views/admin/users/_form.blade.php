@@ -66,6 +66,7 @@
         </div>
         <!-- /.row -->
     </div>
+    
     <div class="card-footer">
         <button type="submit" class="btn btn-primary">{{ $savelabel }}</button>
     </div>
