@@ -16,11 +16,12 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->bigInteger('id');
             $table->string('name');
+            $table->string('track')->nullable();
             $table->integer('year');
             $table->integer('semester');
-            $table->primary('id');
             $table->foreignId('headDepartment_id')->nullable()->constrained('users', 'id')->nullOnDelete();
-            $table->foreignId('prerequisite')->nullable()->constrained('courses', 'id')->nullOnDelete();
+            $table->foreignId('prerequisite')->default(0)->constrained('courses', 'id')->nullOnDelete();
+            $table->primary(['id','prerequisite']);
             $table->timestamps();
         });
     }

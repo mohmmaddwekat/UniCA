@@ -1,8 +1,6 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-
-
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
@@ -33,7 +31,7 @@
                                 <div class="p-6 bg-white border-b border-gray-200">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            @if ($student->courses == null)
+                                            @if (count($student->courses) == 0)
                                                 <div class="card card-default">
                                                     <div class="card-header">
                                                         <h3 class="card-title">Student information</h3>
@@ -86,11 +84,23 @@
                                                                                 <option value="2">Second</option>
                                                                                 <option value="3">Third</option>
                                                                                 <option value="4">Fourth</option>
-                                                                                <option value="5">Fifth</option>
-                                                                                <option value="6">Sixth</option>
-                                                                                <option value="7">Seven</option>
                                                                             </select>
                                                                             @error('year')
+                                                                                <div class="invalid-feedback">
+                                                                                    {{ $message }}
+                                                                                </div>
+                                                                            @enderror
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>{{ __('Track') }}</label>
+                                                                            <select
+                                                                                class="form-control track selectpicker @error('track') is-invalid @enderror"
+                                                                                name="track"
+                                                                                data-selected-text-format="count"
+                                                                                title="{{ __('Nothing selected') }}"
+                                                                                data-live-search="true">
+                                                                            </select>
+                                                                            @error('track')
                                                                                 <div class="invalid-feedback">
                                                                                     {{ $message }}
                                                                                 </div>
@@ -149,7 +159,7 @@
                                                 <div class="card card-default">
                                                     <div class="card-header">
                                                         <h3 class="card-title">Student</h3>
-                                                        
+
                                                     </div>
                                                 </div>
                                             @endif
@@ -179,59 +189,76 @@
         <option value="2">Second</option>
         <option value="3">Third</option>
         `).selectpicker('refresh');
-        $("#example").find('tbody').remove().end();
-    });
-    $('.semester').on('change', function(e) {
-
-        var semesterSelected = $(".semester option").filter(":selected").val()
+        $(".track.selectpicker").find('option').remove().end().selectpicker('refresh');
         var yearSelected = $(".year option").filter(":selected").val()
         $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
-            url: "course/change/" + yearSelected + "/" + semesterSelected,
+            url: "course/year/" + yearSelected,
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            dataType: "json",
+            success: function(tracks) {
+                if (tracks.length > 0) {
+                    $(".track.selectpicker").find('option').remove().end().selectpicker('refresh');
+                    $(".track.selectpicker").append(`
+                        <option value="software">software</option>
+                        <option value="AI">AI</option>
+                        `).selectpicker('refresh');
+                }
+            },
+        });
+    });
+    $('.semester').on('change', function(e) {
+
+        var semesterSelected = $(".semester option").filter(":selected").val()
+        var yearSelected = $(".year option").filter(":selected").val()
+        var trackSelected = $(".track option").filter(":selected").val()
+        $.ajax({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            url: "course/change/" + yearSelected + "/" + semesterSelected + "/" + (trackSelected||0),
             contentType: "application/json; charset=utf-8",
             type: "POST",
             dataType: "json",
             success: function(courses) {
-                console.log(courses);
                 if (courses.length != 0) {
                     $("#example").find('tbody').remove().end();
                     courses.forEach(course => {
-                        // $('#example ').h;
                         $('#example').append(`<tbody></tbody><tr><td>${course.name}</td>
-          <td><div
-              class="icheck-success d-inline">
-              <input type="radio"
-                  name="course[${course.id}]"
-                  value="Success"
-                  id="radioSuccess_${course.id}">
-              <label for="radioSuccess_${course.id}">
-              </label>
-            </div></td>
-          <td><div
-              class="icheck-danger d-inline">
-              <input type="radio"
-              
-                  name="course[${course.id}]"
-                  value="Fail"
-                  id="radioDanger_${course.id}">
-              <label for="radioDanger_${course.id}">
-              </label>
-            </div></td>
-          <td><div
-              class="icheck-primary d-inline">
-              <input type="radio"
-                  name="course[${course.id}]"
-                  value="didnot study"
-                  id="radioPrimary_${course.id}">
-              <label for="radioPrimary_${course.id}">
-              </label>
-            </div></td></tr>
-      `);
+                            <td><div
+                                class="icheck-success d-inline">
+                                <input type="radio"
+                                    name="course[${course.id}]"
+                                    value="Success"
+                                    id="radioSuccess_${course.id}">
+                                <label for="radioSuccess_${course.id}">
+                                </label>
+                                </div></td>
+                            <td><div
+                                class="icheck-danger d-inline">
+                                <input type="radio"
+                                
+                                    name="course[${course.id}]"
+                                    value="Fail"
+                                    id="radioDanger_${course.id}">
+                                <label for="radioDanger_${course.id}">
+                                </label>
+                                </div></td>
+                            <td><div
+                                class="icheck-primary d-inline">
+                                <input type="radio"
+                                    name="course[${course.id}]"
+                                    value="didnot study"
+                                    id="radioPrimary_${course.id}">
+                                <label for="radioPrimary_${course.id}">
+                                </label>
+                                </div></td></tr>
+                        `);
                         $('#example').append(`</tbody>`);
                     });
-
                 }
             },
         });

@@ -17,15 +17,15 @@ class UserSeeder extends Seeder
     public function run()
     {
       $users = [
-         [
-             'name' =>'super-admin',
-             'email' => 'super-admin@gmail.com',
-             'type_username_id' =>'123456789',
-             'type' => 'super-admin',
-             'password' => Hash::make('123456789'),
-             'addBy_id'=>'0',
-             'remember_token' => Str::random(10),
-          ],
+        //  [
+        //      'name' =>'super-admin',
+        //      'email' => 'super-admin@gmail.com',
+        //      'type_username_id' =>'123456789',
+        //      'type' => 'super-admin',
+        //      'password' => Hash::make('123456789'),
+        //      'addBy_id'=>'0',
+        //      'remember_token' => Str::random(10),
+        //   ],
 
          //  [
          //    'name' =>'university',
@@ -36,16 +36,16 @@ class UserSeeder extends Seeder
          //    'addBy_id'=>'1',
          //    'remember_token' => Str::random(10),
          // ],
-         //  [
-         //     'name' =>'headDepartment',
-         //     'email' => 'headDepartment@gmail.com',
-         //     'type_username_id' =>'123123123',
-         //     'type' => 'headDepartment',
-         //     'password' => Hash::make('123456789'),
-         //     'addBy_id'=>'2',
+          [
+             'name' =>'headDepartment',
+             'email' => 'headDepartment@gmail.com',
+             'type_username_id' =>'123123123',
+             'type' => 'headDepartment',
+             'password' => Hash::make('123456789'),
+             'addBy_id'=>'2',
             
-         //     'remember_token' => Str::random(10),
-         //  ],
+             'remember_token' => Str::random(10),
+          ],
          //  [
          //     'name' =>'headDepartment2',
          //     'email' => 'headDepartment2@gmail.com',
@@ -73,15 +73,15 @@ class UserSeeder extends Seeder
          //     'addBy_id'=>'3',
          //     'remember_token' => Str::random(10),
          //  ],
-         //  [
-         //     'name' => "student3",
-         //     'email' => 'student3@gmail.com',
-         //     'type_username_id' =>'963963963',
-         //     'type' => 'student',
-         //     'password' => Hash::make('123456789'),
-         //     'addBy_id'=>'3',
-         //     'remember_token' => Str::random(10),
-         //  ],
+          [
+             'name' => "student3",
+             'email' => 'student3@gmail.com',
+             'type_username_id' =>'963963963',
+             'type' => 'student',
+             'password' => Hash::make('123456789'),
+             'addBy_id'=>'3',
+             'remember_token' => Str::random(10),
+          ],
          //  [
          //     'name' => "student4",
          //     'email' => 'student4@gmail.com',

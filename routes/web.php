@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Complaint\ComplaintsFormController;
 use App\Http\Controllers\Student\CourseController;
+use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -42,7 +43,8 @@ Route::group([
     'as' => 'course.',
     'middleware' =>  ['auth'],
 ], function () {
-    Route::post('/change/{year}/{semester}', [DashboardController::class, 'changeCourse'])->name('change');
+    Route::post('/change/{year}/{semester}/{track}', [DashboardController::class, 'changeCourse'])->name('change');
+    Route::post('/year/{year}', [DashboardController::class, 'yearCourse'])->name('year');
     Route::post('/store', [CourseController::class, 'store'])->name('add');
 });
 
@@ -126,6 +128,19 @@ Route::group([
             'id' => '[0-9]+',
         ],
     ], function () {
+        // Roles Route
+        Route::group([
+            'prefix' => '/suggestion',
+            'as' => 'suggestion.',
+            'middleware' =>  ['auth'],
+        ], function () {
+            Route::get('/', [SuggestionController::class, 'index'])->name('index');
+            Route::get('/add', [SuggestionController::class, 'create'])->name('add');
+            Route::post('/save', [SuggestionController::class, 'store'])->name('save');
+            Route::get('/edit/{id}', [SuggestionController::class, 'edit'])->name('edit');
+            Route::post('/update/{id}', [SuggestionController::class, 'update'])->name('update');
+            Route::get('/delete/{id}', [SuggestionController::class, 'destroy'])->name('delete');
+        });
         Route::get('/', [DepartmentController::class, 'index'])->name('index');
         Route::get('/add', [DepartmentController::class, 'create'])->name('add');
         Route::post('/save', [DepartmentController::class, 'store'])->name('save');
