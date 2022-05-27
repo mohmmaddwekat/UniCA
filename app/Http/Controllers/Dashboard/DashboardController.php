@@ -14,11 +14,13 @@ class DashboardController extends Controller
         $user = Auth::user();
         if ($user->type == 'student') {
             $this->dashboardTemplate('student', __('Student Dashboard'), ['student' => $user]);
+        } else {
+            $this->dashboardTemplate('index', __('Dashboard'));
         }
     }
     public function yearCourse($year)
     {
-        $track = Course::where([['year', '=', $year], ['track', '!=', null]])->get(['track'])->toArray();
+        $track = Course::where([['year', '=', $year], ['track', '!=', null]])->get(['track']);
         return $track;
     }
 

@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
         //Course::factory(17)->create();
 
         $this->call([
-            CitySeeder::class,
+            // CitySeeder::class,
 
             // UniversitySeeder::class,
             CourseSeeder::class,
 
-            UserSeeder::class,
+            // UserSeeder::class,
             // ComplaintsFormSeeder::class,
             
-            PermissionSeeder::class,
+            // PermissionSeeder::class,
         ]);
     }
 }

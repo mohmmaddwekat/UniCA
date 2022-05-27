@@ -179,7 +179,6 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-
 </div>
 
 <script>
@@ -200,12 +199,18 @@
             type: "POST",
             dataType: "json",
             success: function(tracks) {
-                if (tracks.length > 0) {
+                setTrack = new Set();
+                tracks.forEach(track => {
+                    setTrack.add(track['track']);
+                });
+                arrTrack = [...setTrack];
+                if (arrTrack.length > 0) {
                     $(".track.selectpicker").find('option').remove().end().selectpicker('refresh');
-                    $(".track.selectpicker").append(`
-                        <option value="software">software</option>
-                        <option value="AI">AI</option>
+                    arrTrack.forEach(track => {
+                        $(".track.selectpicker").append(`
+                        <option value="${track}">${track}</option>
                         `).selectpicker('refresh');
+                    });
                 }
             },
         });
@@ -219,48 +224,90 @@
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
-            url: "course/change/" + yearSelected + "/" + semesterSelected + "/" + (trackSelected||0),
+            url: "course/change/" + yearSelected + "/" + semesterSelected + "/" + (trackSelected || 0),
             contentType: "application/json; charset=utf-8",
             type: "POST",
             dataType: "json",
             success: function(courses) {
                 if (courses.length != 0) {
                     $("#example").find('tbody').remove().end();
+                    $('#example').append(`<tbody>`);
                     courses.forEach(course => {
-                        $('#example').append(`<tbody></tbody><tr><td>${course.name}</td>
-                            <td><div
+                        if (course['prerequisite'] === 0) {
+                            $('#example').append(`<tr><td>${course.name}</td>
+                            <td><div onclick="select(this);"
                                 class="icheck-success d-inline">
                                 <input type="radio"
                                     name="course[${course.id}]"
                                     value="Success"
-                                    id="radioSuccess_${course.id}">
+                                    id="radioSuccess_${course.id}" data-id = "${course.id}" data-prerequisite=${course.prerequisite}>
                                 <label for="radioSuccess_${course.id}">
                                 </label>
                                 </div></td>
-                            <td><div
+                            <td><div onclick="select(this);"
                                 class="icheck-danger d-inline">
                                 <input type="radio"
-                                
                                     name="course[${course.id}]"
                                     value="Fail"
-                                    id="radioDanger_${course.id}">
+                                    id="radioDanger_${course.id}" data-id = "${course.id}" prerequisite=${course.prerequisite}>
                                 <label for="radioDanger_${course.id}">
                                 </label>
                                 </div></td>
-                            <td><div
+                            <td><div onclick="select(this);"
                                 class="icheck-primary d-inline">
                                 <input type="radio"
                                     name="course[${course.id}]"
                                     value="didnot study"
-                                    id="radioPrimary_${course.id}">
+                                    id="radioPrimary_${course.id}" data-id = "${course.id}" prerequisite=${course.prerequisite}>
                                 <label for="radioPrimary_${course.id}">
                                 </label>
                                 </div></td></tr>
                         `);
-                        $('#example').append(`</tbody>`);
+                        } else {
+                            $('#example').append(`<tr><td>${course.name}</td>
+                            <td><div onclick="select(this);"
+                                class="icheck-success d-inline">
+                                <input type="radio"
+                                    name="course[${course.id}]"
+                                    value="Success"
+                                    id="radioSuccess_${course.id}" data-id = "${course.id}" data-prerequisite=${course.prerequisite} disabled>
+                                <label for="radioSuccess_${course.id}">
+                                </label>
+                                </div></td>
+                            <td><div onclick="select(this);"
+                                class="icheck-danger d-inline">
+                                <input type="radio"
+                                    name="course[${course.id}]"
+                                    value="Fail"
+                                    id="radioDanger_${course.id}" data-id = "${course.id}" data-prerequisite=${course.prerequisite} disabled>
+                                <label for="radioDanger_${course.id}">
+                                </label>
+                                </div></td>
+                            <td><div onclick="select(this);"
+                                class="icheck-primary d-inline">
+                                <input type="radio"
+                                    name="course[${course.id}]"
+                                    value="didnot study"
+                                    id="radioPrimary_${course.id}" data-id = "${course.id}" data-prerequisite=${course.prerequisite} disabled>
+                                <label for="radioPrimary_${course.id}">
+                                </label>
+                                </div></td></tr>
+                        `);
+                        }
                     });
+                    $('#example').append(`</tbody>`);
                 }
             },
         });
     });
+    
+    function select(input) {
+        radio = input.children[0];
+        prerequisite = radio.getAttribute('data-id')
+        checkBoxs = document.querySelectorAll(`[data-prerequisite = "${prerequisite}"]`);
+        checkBoxs.forEach(checkBox => {
+            checkBox.removeAttribute("disabled")
+        });
+    }
+
 </script>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Complaint\ComplaintsDetailsController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Complaint\ComplaintsFormController;
+use App\Http\Controllers\HeadDepartment\ExcelControler;
 use App\Http\Controllers\Student\CourseController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\University\CollegeController;
@@ -128,6 +129,7 @@ Route::group([
             'id' => '[0-9]+',
         ],
     ], function () {
+
         // Roles Route
         Route::group([
             'prefix' => '/suggestion',
@@ -141,6 +143,12 @@ Route::group([
             Route::post('/update/{id}', [SuggestionController::class, 'update'])->name('update');
             Route::get('/delete/{id}', [SuggestionController::class, 'destroy'])->name('delete');
         });
+        Route::get('/export/course', [ExcelControler::class, 'exportCoure'])->name('export.course');
+        Route::get('/export/student', [ExcelControler::class, 'exportStudent'])->name('export.student');
+        Route::get('/import/student', [ExcelControler::class, 'showImportStudent'])->name('import.student.show');
+        Route::post('/impor/student', [ExcelControler::class, 'importStudent'])->name('import.student.store');
+        Route::get('/import/course', [ExcelControler::class, 'showImportCourse'])->name('import.course.show');
+        Route::post('/import/course', [ExcelControler::class, 'importCourse'])->name('import.course.store');
         Route::get('/', [DepartmentController::class, 'index'])->name('index');
         Route::get('/add', [DepartmentController::class, 'create'])->name('add');
         Route::post('/save', [DepartmentController::class, 'store'])->name('save');
