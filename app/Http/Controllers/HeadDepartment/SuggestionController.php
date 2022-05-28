@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 
 class SuggestionController extends Controller
 {
@@ -23,11 +24,13 @@ class SuggestionController extends Controller
         // $user = User::where('id','=',auth()->id())->first();
         $users = User::where('type','=','student')->get();
         foreach ($users as  $user) {
-            // dd($user->department->courses);
             foreach ($user->department->courses as $course) {
-                dd($course->student);
+                echo "<pre>";
+                print($course->student);
+                echo "</pre>";
             }
         }
+        // DB::table('course_student')->w
         $date = new Date();
         $thisdate = new Date('28/5/2022');
         $date.now();

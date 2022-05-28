@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -18,12 +19,25 @@ class UsersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new User([
+            'key' => auth()->user()->key,
+            'department_id' => auth()->user()->department_id,
             'name' => $row['name'],
             'type_username_id' => $row['type_username_id'],
             'email' => $row['email'],
             'type' => 'student',
+            'role_id' => "4",
             'password' => Hash::make(Str::random(8)),
             'addBy_id' => auth()->id(),
         ]);
+        // $deanDepartment = User::findOrFail($complaintsForm->user->addBy_id);
+        $detailsDeanDepartment = [
+            'title' => 'complaint',
+            'name' => ' Dean of the department',
+            'body' => 'this student he need to ..'
+        ];
+        $complaintsForm->update([
+            'status' => 'In progress By the Dean of the department',
+        ]);
+        Mail::to($row['email'])->send(new ComplaintMail($detailsDeanDepartment));
     }
 }

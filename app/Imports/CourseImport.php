@@ -16,7 +16,7 @@ class CourseImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $user = User::where('id', '=', auth()->id())->first();
+        // $user = User::where('id', '=', auth()->id())->first();
         // dd($user->department->id);
         return new Course([
             'id' => $row['id'],
@@ -25,7 +25,7 @@ class CourseImport implements ToModel, WithHeadingRow
             'year' => $row['year'],
             'semester' => $row['semester'],
             'headDepartment_id' => auth()->id(),
-            'department_id' => $user->department->id,
+            'department_id' => auth()->user()->department_id,
             'prerequisite' => $row['prerequisite'],
         ]);
     }
