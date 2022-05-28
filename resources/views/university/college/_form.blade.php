@@ -32,6 +32,8 @@
     <!-- /.row -->
 </div>
 
+<p class="pl-2">Dean Department</p>
+
 <div class="card-body">
   <div class="row">
 

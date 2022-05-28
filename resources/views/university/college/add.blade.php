@@ -28,7 +28,6 @@
                               class="btn btn-block btn-outline-secondary">{{ __('back') }}</a>
                       </div>
                   </div>
-                  <x-auth-validation-errors class="m-4" :errors="$errors" />
 
                   <form class="needs-validation" action="{{ route('university.college.save') }}" method="post"
                       enctype="multipart/form-data">

@@ -84,7 +84,7 @@ class DepartmentController extends Controller
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('fullname');
         $user->role_id = '5';
-        $user->type = 'deanDepartment';
+        $user->type = 'headDepartment';
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();
         $user->department_id = 'null';
