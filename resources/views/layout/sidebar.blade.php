@@ -76,22 +76,22 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('university.department.import.student.show')}}" class="nav-link">
               <i class="fa-solid fa-graduation-cap"></i>
               <p>
                 {{__('Import Student')}}
               </p>
             </a>
-          </li>
-          <li class="nav-item">
+          </li> --}}
+          {{-- <li class="nav-item">
             <a href="{{route('university.department.import.course.show')}}" class="nav-link">
               <i class="fa-solid fa-graduation-cap"></i>
               <p>
                 {{__('Import Course')}}
               </p>
             </a>
-          </li>
+          </li> --}}
 
           <li class="nav-header">{{__('Roles & Users')}}</li>
           <li class="nav-item">

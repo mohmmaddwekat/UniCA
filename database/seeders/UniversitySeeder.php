@@ -19,10 +19,14 @@ class UniversitySeeder extends Seeder
                 'user_id' =>'2',
                 'city_id' => '1',
                 'address' =>'nablus',
-                'phone_number' => '0512346578',
-
+                'phone_number' => '0512346888',
              ],
-
+             [
+                'user_id' =>'3',
+                'city_id' => '6',
+                'address' =>'rammallh',
+                'phone_number' => '0512346588',
+             ],
             ];
             foreach($universities as $university){
                 University::create($university);

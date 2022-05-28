@@ -3,9 +3,18 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
+    protected $roles = [
+        'admin',
+        'university',
+        'academicVice',
+        'headDepartment',
+        'deanDepartment',
+        'student',
+    ];
     /**
      * Run the database seeds.
      *
@@ -13,6 +22,12 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        foreach ($this->roles as $name) {
+            DB::table('roles')->insert([
+                'name' => $name,
+
+
+            ]);
+        };
     }
 }

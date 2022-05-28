@@ -155,7 +155,6 @@
                                             $ids .=(string)$complaintsForm['id'];
 
                                           }
-                                          print_r($ids);
                                                             
                                                    ?>
 
@@ -169,8 +168,11 @@
                                                         style="font-size:13px">Decline</a>
                                                     <a href="{{ route('complaints.details.complaintResolved', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
+                                                        @if (Auth::user()->type !='deanDepartment')
+
                                                     <a href="{{ route('complaints.details.complaintDeanDepartment', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-primary m-1"
                                                         style="font-size:13px">Dean department</a>
+                                                        @endif
                                                 </div>
                                             </td>
                                         </tr>

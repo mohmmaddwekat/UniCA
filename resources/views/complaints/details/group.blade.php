@@ -70,9 +70,12 @@
                                         <a href="{{ route('complaints.details.complaintResolved',['group' ,'withdraw']) }}"
                                             type="button" class="btn btn-success m-1"
                                             style="font-size:13px">Resolved</a>
+                                            @if (Auth::user()->type !='deanDepartment')
+
                                         <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'withdraw']) }}"
                                             type="button" class="btn btn-primary m-1"
                                             style="font-size:13px">Dean department</a> 
+                                            @endif
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-striped">
@@ -131,9 +134,12 @@
                                                                 <a href="{{ route('complaints.details.complaintResolved', $complaintsFormWithdraw['id']) }}"
                                                                     type="button" class="btn btn-success m-1"
                                                                     style="font-size:13px">Resolved</a>
+                                                                    @if (Auth::user()->type !='deanDepartment')
+
                                                                 <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormWithdraw['id']) }}"
                                                                     type="button" class="btn btn-primary m-1"
                                                                     style="font-size:13px">Dean department</a>
+                                                                    @endif
                                                             </div>
                                                         </td>
 
@@ -158,9 +164,13 @@
                                             <a href="{{ route('complaints.details.complaintResolved',['group' ,'enroll']) }}"
                                             type="button" class="btn btn-success m-1"
                                             style="font-size:13px">Resolved</a>
+                                            @if (Auth::user()->type !='deanDepartment')
+
                                             <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'enroll']) }}"
                                             type="button" class="btn btn-primary m-1"
                                             style="font-size:13px">Dean department</a> 
+
+                                            @endif
                                     </div>
 
                                     <div class="table-responsive">
@@ -222,9 +232,12 @@
                                                                 <a href="{{ route('complaints.details.complaintResolved', $complaintsFormEnroll['id']) }}"
                                                                     type="button" class="btn btn-success m-1"
                                                                     style="font-size:13px">Resolved</a>
+                                                                    
+                                                                @if (Auth::user()->type !='deanDepartment')
                                                                 <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormEnroll['id']) }}"
                                                                     type="button" class="btn btn-primary m-1"
                                                                     style="font-size:13px">Dean department</a>
+                                                                    @endif
                                                             </div>
                                                         </td>
                                                     </tr>

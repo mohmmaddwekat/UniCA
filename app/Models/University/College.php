@@ -28,12 +28,27 @@ class College extends Model
                 'name',
                 'college_number',
         ];
+
+
+        // Inverse of One-to-Many (College belongs to only one University)
+        public function university()
+        {
+                return $this->belongsTo(
+                        University::class,    // Related Model 
+                        'university_id',      // FK for the related in the current model
+                        'id'                // PK in the related model
+                );
+        }
         public function departments()
         {
                 return $this->hasMany(Department::class);
         }
         public function user()
         {
-                return $this->belongsTo(User::class, 'university_id');
+                return $this->belongsTo(
+                        User::class,    // Related Model 
+                        'user_id',      // FK for the related in the current model
+                        'id'                // PK in the related model
+                );
         }
 }

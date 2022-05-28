@@ -6,11 +6,13 @@
 
         <div class="card-body">
             <div class="row">
+
                 <div class="col-md-6">
 
                     <div class="form-group">
                         <label for="name">{{ __('ID') }}</label>
-                        <input type="text" class="form-control @error('type_username_id') is-invalid @enderror"
+                        
+                        <span>{{ $key }}</span><input type="text" class="form-control @error('type_username_id') is-invalid @enderror"
                             name="type_username_id" value="{{ old('type_username_id', $user['type_username_id']) }}"
                             id="type_username_id" placeholder="{{ __('Enter ID') }}">
                     </div>
@@ -61,7 +63,7 @@
                           <option value="{{ $type }}" @if ($type == old('type', $user['type'])) selected @endif>{{ $type }}</option>
                       @endforeach
                     </select>
-                  </div>
+                </div>
             </div>
         </div>
         <!-- /.row -->

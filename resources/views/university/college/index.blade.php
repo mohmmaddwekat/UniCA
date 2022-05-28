@@ -49,9 +49,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>{{ __('Name') }}</th>
-                                        <th>{{ __('University') }}</th>
+                                        <th>{{ __('College') }}</th>
                                         <th>{{ __('College Number') }}</th>
+                                        <th>{{ __('Dean College') }}</th>
+                                        
                                         <th>{{ __('Action') }}</th>
                                     </tr>
                                 </thead>
@@ -61,8 +62,9 @@
                                         <tr>
                                             <td></td>
                                             <td>{{ $college->name }}</td>
-                                            <td>{{ $college->user->name }}</td>
                                             <td>{{ $college->college_number }}</td>
+                                            <td>{{ $college->user->name }}</td>
+
                                             <td>
                                                 <a href="{{ route('university.college.edit', $college->id) }}"
                                                     type="button" class="btn btn-outline-warning"><i
@@ -70,6 +72,7 @@
                                                 <a href="{{ route('university.college.delete', $college->id) }}"
                                                     type="button" class="btn btn-outline-danger"><i
                                                         class="fas fa-trash"></i></a>
+                                                        
                                             </td>
                                         </tr>
                                     @endforeach

@@ -100,8 +100,12 @@
                                                         style="font-size:13px">Decline</a>
                                                     <a href="{{ route('complaints.details.complaintResolved',$complaintsForm['id']) }}" type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
-                                                    <a href="{{ route('complaints.details.complaintDeanDepartment',$complaintsForm['id']) }}" type="button" class="btn btn-primary m-1"
+
+                                                        @if (Auth::user()->type !='deanDepartment')
+                                                        <a href="{{ route('complaints.details.complaintDeanDepartment',$complaintsForm['id']) }}" type="button" class="btn btn-primary m-1"
                                                         style="font-size:13px">Dean department</a>
+                                                        @endif
+
                                                 </div>
                                             </td>
                                         </tr>

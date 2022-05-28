@@ -26,7 +26,7 @@
             <!-- /.row -->
           </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary">{{ $savelabel }}</button>
+          <button type="submit" class="btn btn-primary">{{ __($savelabel) }}</button>
         </div>
     </div>
 </div>

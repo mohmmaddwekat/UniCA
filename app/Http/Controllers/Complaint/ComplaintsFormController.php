@@ -7,6 +7,8 @@ use App\Models\Complaint\ComplaintsForm;
 use App\Http\Requests\StoreComplaintsFormRequest;
 use App\Http\Requests\UpdateComplaintsFormRequest;
 use App\Mail\ComplaintMail;
+use App\Models\University\College;
+use App\Models\University\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,29 @@ class ComplaintsFormController extends Controller
      */
     public function index()
     {
-        $this->complaintTemplate('form.index',__('Complaints'),['complaintsForms' => ComplaintsForm::all()]);
+        
+        if (Auth::user()->type == 'headDepartment'){
+            $complaintsForm = ComplaintsForm::where('headDepartment_id', Auth::id())->get();
+
+        }
+        elseif(Auth::user()->type == 'student'){
+            $complaintsForm = ComplaintsForm::where('user_id', Auth::id())->get();
+        }
+        elseif(Auth::user()->type == 'deanDepartment'){
+            $college = College::where('user_id', Auth::id()) ->first();
+            $departments = Department::where('college_id', '=', $college->id)->get();
+            $user_id=array();
+            foreach ($departments as $key => $user){
+                array_push($user_id, $user['user_id']);
+            }
+
+            $complaintsForm = ComplaintsForm::whereIn('headDepartment_id', $user_id)->get();
+
+
+
+        }
+
+        $this->complaintTemplate('form.index',__('Complaints'),['complaintsForms' => $complaintsForm]);
     }
 
     /**

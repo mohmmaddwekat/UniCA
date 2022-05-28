@@ -84,12 +84,17 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Suggestion::class);
     }
-    public function colleges()
-    {
-        return $this->hasMany(College::class);
-    }
+
     public function department()
     {
         return $this->hasMany(Department::class, 'university_id');
+    }
+    public function colleges()
+    {
+        return $this->hasMany(
+            College::class,    // Related Moadel
+            'user_id',  // FK in the related model
+            'id'            // PK in the current model
+        );
     }
 }

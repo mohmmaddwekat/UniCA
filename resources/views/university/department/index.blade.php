@@ -50,7 +50,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{__('Name')}}</th>
+                            <th>{{__('Department')}}</th>
                             <th>{{__('Head of Department')}}</th>
                             <th>{{__('College')}}</th>
                             <th>{{__('Action')}}</th>
@@ -67,7 +67,7 @@
                           <tr>
                             <td></td>
                             <td>{{$department->name}}</td>
-                            <td>{{$department->head_of_department}}</td>
+                            <td>{{$department->user->name}}</td>
                             <td>{{$department->college->name}}</td>
                              <td>
                                

@@ -44,4 +44,14 @@ class University extends Model
         ]);
     }
     
+
+            // One-to-Many (university has many College)
+            public function college()
+            {
+                return $this->hasMany(
+                    College::class,    // Related Moadel
+                    'university_id',  // FK in the related model
+                    'id'            // PK in the current model
+                );
+            }
 }

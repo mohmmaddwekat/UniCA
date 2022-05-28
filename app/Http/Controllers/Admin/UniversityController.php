@@ -56,7 +56,8 @@ class UniversityController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'type_username_id' => ['required', 'max:22', 'min:3', 'unique:users,type_username_id'],
+            'key' => ['required', 'max:3', 'min:3', 'unique:users,key'],
+            'type_username_id' => ['required', 'digits:8', 'unique:users,type_username_id'],
             'university_name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
             'city_id' => ['nullable', 'int', 'exists:cities,id'],
             'role' => ['required', 'int', 'exists:roles,id'],
@@ -66,10 +67,14 @@ class UniversityController extends Controller
         ]);
         $validator->validate();
         $user = new User;
+
+        $user->key = $request->post('key');
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('university_name');
         $user->role_id = $request->post('role');
         $user->addBy_id = Auth::id();
+        $user->department_id = 'null';
+
         $user->email = $request->post('email');
         $user->type = 'university';
         $userPassword = Str::random(10);

@@ -12,7 +12,10 @@
     <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-      
+            <div class="form-group">
+              <label for="type_username_id">{{__('Key')}}</label>
+              <input type="text" class="form-control @error('key') is-invalid @enderror" name="key" value="{{ old('key', $university['key']) }}" id="key" placeholder="{{__('Enter key')}}" >
+          </div>
          
           <div class="form-group">
             <label for="type_username_id">{{__('University ID')}}</label>
@@ -65,11 +68,7 @@
           @endforeach
         </select>
 
-        @error('role')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
+      
     </div>
           </div>  
   

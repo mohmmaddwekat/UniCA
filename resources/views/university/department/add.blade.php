@@ -32,68 +32,11 @@
                       enctype="multipart/form-data">
                       <!-- /.card-header -->
 
-                      @if ($errors->any())
-                          @foreach ($errors as $error)
-                              {{ $error }}
-                          @endforeach
-                      @endif
 
                       @csrf
-                      <div class="card-body">
-                          <div class="row">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label for="exampleInputName1">{{ __('Name Department') }}</label>
-                                      <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                          name="name" value="{{ old('name') }}" id="exampleInputName1"
-                                          placeholder="{{ __('Enter Name') }}" required>
-                                  </div>
-       
-                              </div>
-                              <!-- /.col -->
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label>{{ __('College') }}</label>
-                                      <select class="form-control  selectpicker @error('college') is-invalid @enderror"
-                                          name="college" data-selected-text-format="count" data-live-search="true">
-                                          <option>{{ __('Nothing selected') }}</option>
-                                          @foreach ($colleges as $college)
-                                              <option value="{{ $college->id }}"
-                                                  @if (old('college') && old('college') == $college->id) selected @endif>
-                                                  {{ $college->name }}</option>
-                                          @endforeach
-                                      </select>
-                                      @error('college')
-                                          <div class="invalid-feedback">
-                                              {{ $message }}
-                                          </div>
-                                      @enderror
-                                  </div>
-                                  <div class="form-group">
-                                      <label>{{ __('Head of Department') }}</label>
-                                      <select class="form-control  selectpicker @error('user') is-invalid @enderror"
-                                          name="user" data-selected-text-format="count" data-live-search="true">
-                                          <option>{{ __('Nothing selected') }}</option>
-                                          @foreach ($users as $user)
-                                              <option value="{{ $user->id }}"
-                                                  @if (old('user') && old('user') == $user->id) selected @endif>{{ $user->name }}
-                                              </option>
-                                          @endforeach
-                                      </select>
-                                      @error('user')
-                                          <div class="invalid-feedback">
-                                              {{ $message }}
-                                          </div>
-                                      @enderror
-                                  </div>
-                              </div>
-                          </div>
-                          <!-- /.row -->
-                          <!-- /.row -->
-                      </div>
-                      <div class="card-footer">
-                          <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                      </div>
+                      @include('university.department._form',[
+                        'savelabel' => 'Add'
+                        ])
                   </form>
               </div>
           </div>

@@ -15,6 +15,12 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+                        <!-- type_username_id Address -->
+                        <div>
+                            <x-label for="id" :value="__('key')" />
+                            <x-input id="key" class="block mt-1 w-full" type="text" name="key" :value="old('key')" required autofocus />
+                        </div>
+
             <!-- type_username_id Address -->
             <div>
                 <x-label for="id" :value="__('Id')" />

@@ -28,12 +28,13 @@ class Department extends Model
                 'college',
                 'head_of_department',
         ];
-        public function college()
-        {
-                return $this->belongsTo(College::class);
-        }
+  
         public function user()
         {
                 return $this->belongsTo(User::class);
+        }
+        public function college()
+        {
+                return $this->belongsTo(College::class);
         }
 }

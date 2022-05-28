@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -35,8 +36,17 @@ class UserController extends Controller
      */
     public function create()
     {
+        $key = Auth::user()->key;
         $roles = Role::all();
-        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles,'types'=>['headDepartment', 'deanDepartment', 'academicVice']]);
+        if(Auth::user()->type != 'super-admin'){
+            foreach ($roles as  $index => $role) {
+                if ($role->name == 'admin' || $role->name == 'student' || $role->name == 'university') {
+                    unset($roles[$index]);
+                }
+            }
+        }
+  
+        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles, 'types' => ['headDepartment', 'deanDepartment', 'academicVice'], 'key' => $key]);
     }
 
     /**
@@ -47,26 +57,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $type_username_id = $request->post('type_username_id');
+        $key = Auth::user()->key;
         $validator = Validator::make($request->all(), [
             'role' => ['required', 'int', 'exists:roles,id'],
-            'type_username_id' => ['required', 'max:22', 'min:3', 'unique:users,type_username_id'],
+            'type_username_id' => [
+                'required',
+                'digits:8',
+                Rule::unique("users")->where(
+                    function ($query) use ($type_username_id, $key) {
+                        return $query->where(
+                            [
+                                ["type_username_id", "=", $type_username_id],
+                                ["key", "=", $key]
+                            ]
+                        );
+                    }
+                )
+            ],
             'name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
             'type' => ['required', 'in:headDepartment,deanDepartment,academicVice'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
         $user = new User;
+        $user->key = Auth::user()->key;
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('name');
         $user->role_id = $request->post('role');
         $user->type = $request->post('type');
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();
+        $user->department_id = 'null';
         $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();
-
-
 
         Password::sendResetLink(
             $request->only('email')
@@ -96,7 +121,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
 
-        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user, 'roles' => Role::all(),'types'=>['headDepartment', 'deanDepartment', 'academicVice']]);
+        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user, 'roles' => Role::all(), 'types' => ['headDepartment', 'deanDepartment', 'academicVice']]);
     }
 
     /**

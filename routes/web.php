@@ -170,8 +170,10 @@ Route::group([
         Route::post('/save', [CollegeController::class, 'store'])->name('save');
         Route::get('/edit/{id}', [CollegeController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [CollegeController::class, 'update'])->name('update');
-        Route::post('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete');
+        Route::delete('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete');
+
     });
+
 });
 
 // Complaints Route
