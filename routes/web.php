@@ -9,7 +9,7 @@ use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Complaint\ComplaintsFormController;
 use App\Http\Controllers\HeadDepartment\ExcelControler;
 use App\Http\Controllers\Student\CourseController;
-use App\Http\Controllers\SuggestionController;
+use App\Http\Controllers\HeadDepartment\SuggestionController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
 use Illuminate\Support\Facades\Route;

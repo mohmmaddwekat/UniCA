@@ -31,7 +31,7 @@
                                 <div class="p-6 bg-white border-b border-gray-200">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            @if (count($student->courses) == 0)
+                                            @if (count($student->coursesStudent) == 0)
                                                 <div class="card card-default">
                                                     <div class="card-header">
                                                         <h3 class="card-title">Student information</h3>
@@ -306,7 +306,11 @@
         prerequisite = radio.getAttribute('data-id')
         checkBoxs = document.querySelectorAll(`[data-prerequisite = "${prerequisite}"]`);
         checkBoxs.forEach(checkBox => {
-            checkBox.removeAttribute("disabled")
+            if (radio.value =="Success") {
+                checkBox.removeAttribute("disabled");
+            }else {
+                checkBox.setAttribute('disabled', '');
+            }
         });
     }
 

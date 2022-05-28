@@ -72,9 +72,13 @@ class User extends Authenticatable
             'id'            // PK in the current model
         );
     }
-    public function courses()
+    public function coursesStudent()
     {
         return $this->belongsToMany(Course::class, 'course_student', 'student_id');
+    }
+    public function courses()
+    {
+        return $this->hasMany(Course::class,'headDepartment_id');
     }
     public function role()
     {
@@ -87,7 +91,7 @@ class User extends Authenticatable
 
     public function department()
     {
-        return $this->hasMany(Department::class, 'university_id');
+        return $this->belongsTo(Department::class);
     }
     public function colleges()
     {

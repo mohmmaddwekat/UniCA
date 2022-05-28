@@ -10,21 +10,30 @@ class Course extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "id", 
-        "name", 
-        "track", 
-        "year", 
-        "semester", 
-        "headDepartment_id", 
-        "prerequisite"
+        "id",
+        "name",
+        "track",
+        "year",
+        "semester",
+        "headDepartment_id",
+        "prerequisite",
+        "department_id",
     ];
 
-    public function users()
+    public function student()
     {
-        return $this->belongsToMany(User::class, 'course_student', 'student_id');
+        return $this->belongsToMany(User::class, 'course_student', 'student_id','student_id');
+    }
+    public function headDepartment()
+    {
+        return $this->belongsTo(User::class, 'headDepartment_id');
     }
     public function suggestions()
     {
         return $this->belongsTo(Suggestion::class);
+    }
+    public function departments()
+    {
+        return $this->hasMany(Course::class, 'department_id');
     }
 }

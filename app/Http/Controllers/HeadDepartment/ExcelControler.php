@@ -41,9 +41,8 @@ class ExcelControler extends Controller
      */
     public function importCourse(Request $request)
     {
-        // dd(request()->file('file'));
         $request->validate([
-            'file' => 'required|file|mimes:csv,txt',
+            'file' => 'required|file|mimes:xlsx',
         ]);
         Excel::import(new CourseImport, request()->file('file'));
         return redirect()->route('dashboard.index');
@@ -57,7 +56,7 @@ class ExcelControler extends Controller
     public function importStudent(Request $request)
     {
         $request->validate([
-            'file' => 'required|file|mimes:csv',
+            'file' => 'required|file|mimes:xlsx',
         ]);
         Excel::import(new UsersImport, request()->file('file'));
         return redirect()->route('dashboard.index');
@@ -70,7 +69,7 @@ class ExcelControler extends Controller
      */
     public function exportCoure()
     {
-        return Excel::download(new ExportCourse, 'courses.csv');
+        return Excel::download(new ExportCourse, 'courses.xlsx');
         return back();
     }
     /**
@@ -81,7 +80,7 @@ class ExcelControler extends Controller
      */
     public function exportStudent()
     {
-        return Excel::download(new ExportUser, 'users.csv');
+        return Excel::download(new ExportUser, 'users.xlsx');
         return back();
     }
 }

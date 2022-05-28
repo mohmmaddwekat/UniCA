@@ -45,7 +45,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputFile">{{ __('Import Student File') }}</label>
                                     <div class="input-group">
-                                        <input type="file" name="file" accept=".xlsx" onchange="readImage(this);"
+                                        <input type="file" name="file" accept=".csv" onchange="readImage(this);"
                                             class="custom-file-input  @error('file') is-invalid @enderror"
                                             id="exampleInputFile">
                                         <label class="path custom-file-label"

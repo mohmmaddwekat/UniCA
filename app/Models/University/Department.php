@@ -2,6 +2,7 @@
 
 namespace App\Models\University;
 
+use App\Models\Admin\Course;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,13 +29,17 @@ class Department extends Model
                 'college',
                 'head_of_department',
         ];
-  
+
         public function user()
         {
-                return $this->belongsTo(User::class);
+                return $this->hasMany(User::class);
         }
         public function college()
         {
                 return $this->belongsTo(College::class);
+        }
+        public function courses()
+        {
+                return $this->hasMany(Course::class, 'department_id');
         }
 }

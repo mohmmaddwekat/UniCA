@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Admin\Course;
+use App\Models\User;
 use \Maatwebsite\Excel\Concerns\ToModel;
 use \Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -15,6 +16,8 @@ class CourseImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        $user = User::where('id', '=', auth()->id())->first();
+        // dd($user->department->id);
         return new Course([
             'id' => $row['id'],
             'name' => $row['name'],
@@ -22,6 +25,7 @@ class CourseImport implements ToModel, WithHeadingRow
             'year' => $row['year'],
             'semester' => $row['semester'],
             'headDepartment_id' => auth()->id(),
+            'department_id' => $user->department->id,
             'prerequisite' => $row['prerequisite'],
         ]);
     }

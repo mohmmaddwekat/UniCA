@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\HeadDepartment;
 
+use App\Models\Admin\Course;
+use App\Models\University\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class SuggestionController extends Controller
 {
@@ -15,9 +19,20 @@ class SuggestionController extends Controller
     public function index()
     {
         //
-        if (Auth::user()->type == 'headDepartment') {   
-            
+        
+        // $user = User::where('id','=',auth()->id())->first();
+        $users = User::where('type','=','student')->get();
+        foreach ($users as  $user) {
+            // dd($user->department->courses);
+            foreach ($user->department->courses as $course) {
+                dd($course->student);
+            }
         }
+        $date = new Date();
+        $thisdate = new Date('28/5/2022');
+        $date.now();
+        dd($date == $thisdate);
+        $this->departmentTemplate('suggestion','Suggestion Course',);
     }
 
     /**

@@ -16,7 +16,6 @@ class CreateSuggestionsTable extends Migration
         Schema::create('suggestions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->boolean('status');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained('users', 'id')
