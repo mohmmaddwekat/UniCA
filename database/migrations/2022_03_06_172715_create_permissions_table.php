@@ -13,8 +13,6 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('permissions');
-
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
             $table->string('code')->uniqid();
