@@ -19,10 +19,14 @@ class CreateCoursesTable extends Migration
             $table->string('track')->nullable();
             $table->integer('year');
             $table->integer('semester');
+            $table->foreignId('department_id')
+                ->nullable()
+                ->constrained('departments', 'id')
+                ->nullOnDelete();
             $table->foreignId('headDepartment_id')->nullable()->constrained('users', 'id')->nullOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('departments', 'id')->nullOnDelete();
             $table->foreignId('prerequisite')->default(0)->constrained('courses', 'id')->nullOnDelete();
-            $table->primary(['id','prerequisite']);
+            $table->primary(['id', 'prerequisite']);
             $table->timestamps();
         });
     }
