@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Mail\UserMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -29,15 +30,11 @@ class UsersImport implements ToModel, WithHeadingRow
             'password' => Hash::make(Str::random(8)),
             'addBy_id' => auth()->id(),
         ]);
-        // $deanDepartment = User::findOrFail($complaintsForm->user->addBy_id);
         $detailsDeanDepartment = [
-            'title' => 'complaint',
-            'name' => ' Dean of the department',
+            'title' => 'User reminder',
+            'name' => 'head of the department',
             'body' => 'this student he need to ..'
         ];
-        $complaintsForm->update([
-            'status' => 'In progress By the Dean of the department',
-        ]);
-        Mail::to($row['email'])->send(new ComplaintMail($detailsDeanDepartment));
+        Mail::to($row['email'])->send(new UserMail($detailsDeanDepartment));
     }
 }
