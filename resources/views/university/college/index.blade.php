@@ -39,8 +39,10 @@
                             <h3 class="card-title">{{ __('All College') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
+                                @can('add college')
                                 <a href="{{ route('university.college.add') }}"
                                     class="btn btn-block btn-outline-primary">{{ __('Add College') }}</a>
+                                @endcan
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -66,12 +68,16 @@
                                             <td>{{ $college->user->name }}</td>
 
                                             <td>
+                                                @can('edit college')
                                                 <a href="{{ route('university.college.edit', $college->id) }}"
                                                     type="button" class="btn btn-outline-warning"><i
                                                         class="fas fa-edit"></i></a>
+                                                @endcan
+                                                @can('delete college')
                                                 <a href="{{ route('university.college.delete', $college->id) }}"
                                                     type="button" class="btn btn-outline-danger"><i
                                                         class="fas fa-trash"></i></a>
+                                                @endcan
                                                         
                                             </td>
                                         </tr>

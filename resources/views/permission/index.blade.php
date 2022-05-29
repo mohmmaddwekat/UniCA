@@ -39,7 +39,9 @@
               <h3 class="card-title">{{__('All Permissions')}}</h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
+                  @can('add permission')
                   <a href="{{route('permission.add')}}" class="btn btn-block btn-outline-primary">{{__('Add Permission')}}</a>
+                  @endcan
               </div>
             </div>
 
@@ -59,8 +61,12 @@
                           <td></td>
                           <td>{{$permission->name}}</td>
                            <td>
-                              <a href="{{route('permission.edit',$permission->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                              <a href="{{route('permission.delete',$permission->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                            @can('edit permission')
+                            <a href="{{route('permission.edit',$permission->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            @endcan
+                            @can('delete permission')
+                            <a href="{{route('permission.delete',$permission->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                            @endcan
                           </td> 
                         </tr>
                     @endforeach

@@ -10,9 +10,6 @@ class PermissionSeeder extends Seeder
 {
     protected $permissions = [
         "show course",
-        "add course",
-        "edit course",
-        "delete course",
         "show universities",
         "add universities",
         "edit universities",

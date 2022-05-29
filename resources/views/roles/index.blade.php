@@ -39,7 +39,9 @@
               <h3 class="card-title">{{__('All Role')}}</h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
+                  @can('add roles')
                   <a href="{{route('roles.role.add')}}" class="btn btn-block btn-outline-primary">{{__('Add Actor')}}</a>
+                  @endcan
               </div>
             </div>
             <!-- /.card-header -->
@@ -58,7 +60,9 @@
                           <td></td>
                           <td>{{$role->name}}</td>
                            <td>
-                              <a href="{{route('roles.role.edit',$role->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            @can('edit roles')
+                            <a href="{{route('roles.role.edit',$role->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            @endcan
                           </td> 
                         </tr>
                     @endforeach
