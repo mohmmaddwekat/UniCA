@@ -43,7 +43,9 @@
               <h3 class="card-title">{{__('All user')}} </h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
+                  @can('add users')
                   <a href="{{route('admin.users.create')}}" class="btn btn-block btn-outline-primary">{{__('Add user')}}</a>
+                  @endcan
               </div>
             </div>
             <!-- /.card-header -->
@@ -74,14 +76,18 @@
                             <td><span class="font-weight-normal"> {{ $user['type_username_id'] }}</span></td>
                             <td><span class="font-weight-normal"> {{ $user['type'] }}</span></td>
                             <td><span class="font-weight-normal"> {{ $user['email'] }}</span></td>
-                           <td>                           
+                           <td>  
+                            @can('edit users')
                             <a href="{{ route('admin.users.edit', [$user['id']]) }}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            @endcan                         
+                            @can('delete users')
                             <form action="{{ route('admin.users.destroy', $user['id']) }}" method="post">
-                                @csrf
-                                @method('delete')
-
-                                <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                              @csrf
+                              @method('delete')
+                              
+                              <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                             </form>
+                            @endcan                         
                         </td>
                       </tr>
                       @empty

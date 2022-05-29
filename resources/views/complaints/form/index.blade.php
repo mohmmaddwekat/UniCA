@@ -39,7 +39,9 @@
               <h3 class="card-title">{{__('All Complaint')}}</h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
+                  @can('add form complaints')
                   <a href="{{route('complaints.form.create')}}" class="btn btn-block btn-outline-primary">{{__('Create Complaint')}}</a>
+                  @endcan
               </div>
             </div>
             <!-- /.card-header -->

@@ -43,7 +43,9 @@
               <h3 class="card-title">{{__('All City')}} </h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
+                  @can('add cities')
                   <a href="{{route('admin.cities.create')}}" class="btn btn-block btn-outline-primary">{{__('Add City')}}</a>
+                  @endcan
               </div>
             </div>
             <!-- /.card-header -->
@@ -69,14 +71,18 @@
                                 <span class="font-weight-normal"> {{ $city['name'] }}</span>
                             </td>
 
-                           <td>                           
+                           <td>         
+                            @can('edit cities')                  
                             <a href="{{ route('admin.cities.edit', [$city['id']]) }}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                            @endcan
+                            @can('delete cities')
                             <form action="{{ route('admin.cities.destroy', $city['id']) }}" method="post">
                                 @csrf
                                 @method('delete')
 
                                 <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
                             </form>
+                            @endcan
                         </td>
                       </tr>
                       @empty

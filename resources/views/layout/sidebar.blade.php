@@ -67,7 +67,7 @@
                           </a>
                       </li>
                   @endcan
-                  @if (auth()->user()->can('show college') ||auth()->user()->can('show college')|| auth()->user()->can('show department'))
+                  @if (auth()->user()->can('show college') ||auth()->user()->can('import student')||auth()->user()->can('import course')|| auth()->user()->can('show department'))
                       <li class="nav-header">{{ __('University') }}</li>
                   @endif
                   @can('show college')
@@ -110,7 +110,10 @@
                       </a>
                   </li>
                   @endcan
-                  <li class="nav-header">{{ __('Roles & Users') }}</li>
+                  @if (auth()->user()->can('show role') || auth()->user()->can('show permission') || auth()->user()->can('show users'))
+                      <li class="nav-header">{{ __('Roles & Users') }}</li>
+                  @endif
+                  @can('show role')
                   <li class="nav-item">
                       <a href="{{ route('roles.role.index') }}" class="nav-link">
                           <i class="fa-solid fa-book"></i>
@@ -119,6 +122,8 @@
                           </p>
                       </a>
                   </li>
+                  @endcan
+                  @can('show permission')
                   <li class="nav-item">
                       <a href="{{ route('permission.index') }}" class="nav-link">
                           <i class="fa-solid fa-book"></i>
@@ -127,6 +132,8 @@
                           </p>
                       </a>
                   </li>
+                  @endcan
+                  @can('show users')
                   <li class="nav-item">
                       <a href="{{ route('admin.users.index') }}" class="nav-link">
                           <i class="fa-solid fa-users"></i>
@@ -135,8 +142,11 @@
                           </p>
                       </a>
                   </li>
-
+                  @endcan
+                  @if (auth()->user()->can('show universities') || auth()->user()->can('show cities'))
                   <li class="nav-header">{{ __('Admin') }}</li>
+                  @endif
+                  @can('show universities')
                   <li class="nav-item">
                       <a href="{{ route('admin.universities.index') }}" class="nav-link">
                           <i class="fa-solid fa-school"></i>
@@ -145,6 +155,8 @@
                           </p>
                       </a>
                   </li>
+                  @endcan
+                  @can('show cities')
                   <li class="nav-item">
                       <a href="{{ route('admin.cities.index') }}" class="nav-link">
                           <i class="fa-solid fa-building"></i>
@@ -153,6 +165,7 @@
                           </p>
                       </a>
                   </li>
+                  @endcan
 
               </ul>
           </nav>

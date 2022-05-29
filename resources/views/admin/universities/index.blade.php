@@ -39,8 +39,10 @@
                             <h3 class="card-title">{{ __('All University') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
+                                @can('add universities')
                                 <a href="{{ route('admin.universities.create') }}"
                                     class="btn btn-block btn-outline-primary">{{ __('Add University') }}</a>
+                                @endcan
                             </div>
                         </div>
                         <!-- /.card-header -->
@@ -79,9 +81,12 @@
                                                     {{ $university['phone_number'] }}</span></td>
 
                                             <td>
+                                                @can('edit universities')
                                                 <a href="{{ route('admin.universities.edit', [$university['id']]) }}"
                                                     type="button" class="btn btn-outline-warning"><i
                                                         class="fas fa-edit"></i></a>
+                                                @endcan
+                                                @can('delete universities')
                                                 <form
                                                     action="{{ route('admin.universities.destroy', $university['id']) }}"
                                                     method="post">
@@ -91,6 +96,7 @@
                                                     <button type="submit" class="btn btn-outline-danger"><i
                                                             class="fas fa-trash"></i></button>
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty
