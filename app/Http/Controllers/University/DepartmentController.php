@@ -14,6 +14,7 @@ use App\Rules\alpha_spaces;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
+use Spatie\Permission\Models\Role;
 
 class DepartmentController extends Controller
 {
@@ -83,7 +84,8 @@ class DepartmentController extends Controller
         $user->key = Auth::user()->key;
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('fullname');
-        $user->role_id = '5';
+        Role::findOrCreate('headDepartment');
+        $user->assignRole('headDepartment');
         $user->type = 'headDepartment';
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();

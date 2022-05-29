@@ -37,16 +37,8 @@ class UserController extends Controller
     public function create()
     {
         $key = Auth::user()->key;
-        $roles = Role::all();
-        if(Auth::user()->type != 'super-admin'){
-            foreach ($roles as  $index => $role) {
-                if ($role->name == 'admin' || $role->name == 'student' || $role->name == 'university') {
-                    unset($roles[$index]);
-                }
-            }
-        }
-  
-        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'roles' => $roles, 'types' => ['headDepartment', 'deanDepartment', 'academicVice'], 'key' => $key]);
+
+        $this->adminTemplate('users.create', __('Create user'), ['user' => new User(), 'key' => $key]);
     }
 
     /**
@@ -76,7 +68,6 @@ class UserController extends Controller
                 )
             ],
             'name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
-            'type' => ['required', 'in:headDepartment,deanDepartment,academicVice'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
@@ -84,11 +75,12 @@ class UserController extends Controller
         $user->key = Auth::user()->key;
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('name');
-        $user->role_id = $request->post('role');
+        Role::findOrCreate('student');
+        $user->assignRole('student');
         $user->type = $request->post('type');
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();
-        $user->department_id = 'null';
+        $user->department_id = auth()->user()->department_id;
         $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();
@@ -123,7 +115,38 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        return redirect()->back();
+        $type_username_id = $request->post('type_username_id');
+        $key = Auth::user()->key;
+        $validator = Validator::make($request->all(), [
+            'type_username_id' => [
+                'required',
+                'digits:8',
+                Rule::unique("users")->where(
+                    function ($query) use ($type_username_id, $key) {
+                        return $query->where(
+                            [
+                                ["type_username_id", "=", $type_username_id],
+                                ["key", "=", $key]
+                            ]
+                        );
+                    }
+                )
+            ],
+            'name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+        ]);
+        $validator->validate();
+        $user->update([
+            'type_username_id' => $request->post('type_username_id'),
+            'name' => $request->post('name'),
+            'email' => $request->post('email'),
+
+        ]);
+        Password::sendResetLink(
+            $request->only('email')
+        );
+        Password::RESET_LINK_SENT;
+        return redirect()->route('admin.universities.index')->with('success', __('Success Edited'));
     }
 
     /**

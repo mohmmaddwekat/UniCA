@@ -7,18 +7,17 @@ use App\Http\Controllers\Admin\Controller;
 use App\Models\Admin\University;
 
 use App\Models\Admin\City;
-use App\Models\Roles\Role;
 use App\Models\User;
 use App\Rules\alpha_spaces;
 use App\Rules\alpha_spaces_symbols;
 use App\Rules\CheckPhoneRule;
-use App\Rules\value_in_column;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
+use Spatie\Permission\Models\Role;
 
 class UniversityController extends Controller
 {
@@ -39,9 +38,8 @@ class UniversityController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
 
-        $this->adminTemplate('universities.create', __('Create university'), ['university' => new University(), 'user' => new User(),'roles' => $roles, 'cities' => City::all()]);
+        $this->adminTemplate('universities.create', __('Create university'), ['university' => new University(), 'user' => new User(), 'cities' => City::all()]);
     }
 
     /**
@@ -58,18 +56,17 @@ class UniversityController extends Controller
             'type_username_id' => ['required', 'digits:8', 'unique:users,type_username_id'],
             'university_name' => ['required', 'max:250', 'min:3', 'unique:users,name', new alpha_spaces],
             'city_id' => ['nullable', 'int', 'exists:cities,id'],
-            'role' => ['required', 'int', 'exists:roles,id'],
             'address' => ['required', 'max:250', 'min:3', new alpha_spaces_symbols],
             'phone_number' => ['required', 'unique:universities,phone_number', 'numeric', new CheckPhoneRule],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         ]);
         $validator->validate();
         $user = new User;
-
         $user->key = $request->post('key');
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('university_name');
-        $user->role_id = $request->post('role');
+        Role::findOrCreate('university');
+        $user->assignRole('university');
         $user->addBy_id = Auth::id();
         $user->department_id = 'null';
 
@@ -78,6 +75,7 @@ class UniversityController extends Controller
         $userPassword = Str::random(10);
         $user->password = Hash::make($userPassword);
         $user->save();
+        $user->assignRole('');
 
         $universities = new University;
         $universities->user_id = $user->id;
@@ -93,23 +91,6 @@ class UniversityController extends Controller
         Password::RESET_LINK_SENT;
 
         return redirect()->back()->with('success', __('Message for reset password is sended'));
-
-
-        // $mail_data = [
-        //     'title' => 'Your information',
-        //     'name'=> $request->post('university_name'),
-        //     'email'=> $request->post('email'),
-        //     'userPassword'=> $userPassword,
-        // ];
-
-        //  FacadesMail::send('email-template', $mail_data, function($message) use ($mail_data){
-        //     $message->to('hamzaalkharouf5@gmail.com')
-        //             ->from('unica.mail0@gmail.com','UniCA')
-        //             ->subject('Your information for UniCA');
-        // });
-        //return redirect()->back()->with('success',__('We send password and details in your email'));
-
-
     }
 
     /**
@@ -151,7 +132,6 @@ class UniversityController extends Controller
                 'university_id' => ['required', 'max:250', 'min:3', 'unique:universities,university_id,' . $university['id'], 'numeric'],
                 'university_name' => ['required', 'max:250', 'min:3', 'unique:universities,university_name,' . $university['id'], new alpha_spaces],
                 'city_id' => ['nullable', 'int', 'exists:cities,id'],
-                'role' => ['required', 'int', 'exists:roles,id'],
                 'address' => ['required', 'max:250', 'min:3', new alpha_spaces_symbols],
                 'phone_number' => ['required', 'unique:universities,phone_number,' . $university['id'], 'numeric', new CheckPhoneRule],
                 'password' => [
@@ -170,7 +150,6 @@ class UniversityController extends Controller
                 'university_name' => $request->post('university_name'),
                 'city_id' => $request->post('city_id'),
                 'address' => $request->post('address'),
-                'role_id' => $request->post('role'),
                 'phone_number' => $request->post('phone_number'),
                 'password' => Hash::make($request->password),
 
@@ -180,13 +159,13 @@ class UniversityController extends Controller
                 'university_id' => ['required', 'max:250', 'min:3', 'unique:universities,university_id,' . $university['id'], 'numeric'],
                 'university_name' => ['required', 'max:250', 'min:3', 'unique:universities,university_name,' . $university['id'], new alpha_spaces],
                 'city_id' => ['nullable', 'int', 'exists:cities,id'],
-                'role' => [new value_in_column('roles', 'name', 'university')],
                 'address' => ['required', 'max:250', 'min:3', new alpha_spaces_symbols],
                 'phone_number' => ['required', 'unique:universities,phone_number,' . $university['id'], 'numeric', new CheckPhoneRule],
 
             ]);
             $validator->validate();
             $role = Role::where('name', 'university')->first();
+
             $university->update([
                 'university_id' => $request->post('university_id'),
                 'university_name' => $request->post('university_name'),
@@ -197,7 +176,6 @@ class UniversityController extends Controller
 
             ]);
         }
-
 
         return redirect()->route('admin.universities.index')->with('success', __('Success Edited'));
     }

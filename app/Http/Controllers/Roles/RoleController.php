@@ -82,6 +82,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
+        
         $role = Role::find($id);
         if ( $role == null) {
             return redirect()->route('roles.role.index')->with('error',__('not fond').' '.__('role'));
@@ -119,24 +120,4 @@ class RoleController extends Controller
         return redirect()->route('roles.role.index')->with('success',__('Edit success'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        $role = Role::find($id);
-        if ($role ==null) {
-            return redirect()->route('roles.role.index')->with('error',__('not fond').' '.__('role'));
-        }
-        if ($role->users()->pluck('id')->toArray()) {
-            return redirect()->route('roles.role.index')->with('error',__('This Roles cannot be deleted'));
-        } 
-        $role->delete();
-        $role->permissions()->detach();
-        return redirect()->route('roles.role.index')->with('success',__('delete success'));
-    }
 }

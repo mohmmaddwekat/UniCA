@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 class CollegeController extends Controller
 {
@@ -94,7 +95,8 @@ class CollegeController extends Controller
         $user->key = Auth::user()->key;
         $user->type_username_id = $request->post('type_username_id');
         $user->name = $request->post('fullname');
-        $user->role_id = '5';
+        Role::findOrCreate('deanDepartment');
+        $user->assignRole('deanDepartment');
         $user->type = 'deanDepartment';
         $user->email = $request->post('email');
         $user->addBy_id = Auth::id();

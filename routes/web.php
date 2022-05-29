@@ -111,7 +111,6 @@ Route::group([
     Route::post('/save', [RoleController::class, 'store'])->name('save');
     Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit');
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
-    Route::get('/delete/{id}', [RoleController::class, 'destroy'])->name('delete');
 });
 // Roles Route
 Route::group([

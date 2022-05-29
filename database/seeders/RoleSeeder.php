@@ -13,7 +13,6 @@ class RoleSeeder extends Seeder
             "show roles",
             "add roles",
             "edit roles",
-            "delete roles",
             "show permission",
             "add permission",
             "edit permission",
@@ -36,6 +35,7 @@ class RoleSeeder extends Seeder
             "add college",
             "edit college",
             "delete college",
+            "show users",
         ],
         'headDepartment' => [
             "show course",
@@ -48,24 +48,23 @@ class RoleSeeder extends Seeder
             "delete users",
             "import course",
             "import student",
+            "show details complaints",
+            "add details complaints",
+            "edit details complaints",
+            "delete details complaints",
+            "show form complaints",
+        ],
+        'deanDepartment' => [
             "show department",
             "show details complaints",
             "add details complaints",
             "edit details complaints",
             "delete details complaints",
-        ],
-        'deanDepartment' => [
-            "show college",
-            "show details complaints",
-            "add details complaints",
-            "edit details complaints",
-            "delete details complaints",
+            "show form complaints",
         ],
         'student' => [
             "show form complaints",
             "add form complaints",
-            "edit form complaints",
-            "delete form complaints",
         ],
     ];
     /**
@@ -75,7 +74,7 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        foreach ($this->roles as $role=>$permissions) {
+        foreach ($this->roles as $role => $permissions) {
             $role = Role::create(['name' => $role]);
             foreach ($permissions as $permission) {
                 $role->givePermissionTo($permission);

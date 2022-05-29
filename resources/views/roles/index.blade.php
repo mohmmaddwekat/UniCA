@@ -59,7 +59,6 @@
                           <td>{{$role->name}}</td>
                            <td>
                               <a href="{{route('roles.role.edit',$role->id)}}" type="button" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                              <a href="{{route('roles.role.delete',$role->id)}}" type="button" class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
                           </td> 
                         </tr>
                     @endforeach
