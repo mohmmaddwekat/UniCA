@@ -77,14 +77,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('university.department.suggestion.index')}}" class="nav-link">
-              <i class="fa-solid fa-graduation-cap"></i>
-              <p>
-                {{__('Suggestion')}}
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="{{route('university.department.import.student.show')}}" class="nav-link">
               <i class="fa-solid fa-graduation-cap"></i>
               <p>
@@ -107,6 +99,14 @@
               <i class="fa-solid fa-book"></i>
               <p>
                 {{__('Role')}}
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('permission.index')}}" class="nav-link">
+              <i class="fa-solid fa-book"></i>
+              <p>
+                {{__('Permissions')}}
               </p>
             </a>
           </li>

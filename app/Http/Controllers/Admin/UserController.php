@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
-use App\Models\Roles\Role;
 use App\Models\User;
 use App\Rules\alpha_spaces;
 use App\Rules\in_list;
@@ -14,6 +13,7 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -101,16 +101,6 @@ class UserController extends Controller
         return redirect()->back()->with('success', __('Go to email to change reset password' . $userPassword));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

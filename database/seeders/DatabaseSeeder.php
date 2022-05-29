@@ -32,12 +32,5 @@ class DatabaseSeeder extends Seeder
             ComplaintsFormSeeder::class,
    
         ]);
-
-        //admin
-        $ranges = range(1,72);
-        Role::find(1)->permissions()->attach($ranges); 
-        //university
-        $ranges = [1,2 ,3 ,4,5,6,7,8,9,10,11,12];
-        Role::find(2)->permissions()->attach($ranges); 
     }
 }

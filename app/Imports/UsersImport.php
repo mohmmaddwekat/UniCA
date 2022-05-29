@@ -30,11 +30,12 @@ class UsersImport implements ToModel, WithHeadingRow
             'password' => Hash::make(Str::random(8)),
             'addBy_id' => auth()->id(),
         ]);
-        $detailsDeanDepartment = [
+        $details = [
             'title' => 'User reminder',
             'name' => 'head of the department',
-            'body' => 'this student he need to ..'
+            'body' => 'Your account has been added to our site, log in and change your password from our site.',
+            'btn' => "UniCA",
         ];
-        Mail::to($row['email'])->send(new UserMail($detailsDeanDepartment));
+        Mail::to($row['email'])->send(new UserMail($details));
     }
 }

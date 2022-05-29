@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Roles;
+
 use App\Http\Controllers\Roles\Controller;
 
-use App\Models\Roles\Permission;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
+use App\Rules\alpha_spaces;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -17,6 +19,8 @@ class PermissionController extends Controller
     public function index()
     {
         //
+        $permissions = Permission::all();
+        $this->roleTemplate('permission.index', 'Permissions', ['permissions' => $permissions]);
     }
 
     /**
@@ -27,6 +31,7 @@ class PermissionController extends Controller
     public function create()
     {
         //
+        $this->roleTemplate('permission.add', 'Add Permission');
     }
 
     /**
@@ -38,6 +43,8 @@ class PermissionController extends Controller
     public function store(StorePermissionRequest $request)
     {
         //
+        Permission::create(['name' => $request->name]);
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -60,6 +67,8 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         //
+
+        $this->roleTemplate('permission.edit', 'Edit Permission', ['permission' => $permission]);
     }
 
     /**
@@ -72,8 +81,12 @@ class PermissionController extends Controller
     public function update(UpdatePermissionRequest $request, Permission $permission)
     {
         //
+        Permission::where('id','=',$permission->id)->first()->update([
+            'name' =>$request->name,
+        ]);
+        return redirect()->route('permission.index');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -83,5 +96,7 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         //
+        Permission::destroy($permission->id);
+        return redirect()->route('permission.index');
     }
 }

@@ -22,7 +22,7 @@ class Controller extends BaseController
 	 */
     public function roleTemplate($page , $page_title, $data = []){
         // prep.  data
-		$content['view_file'] = 'roles.' . $page;
+		$content['view_file'] =  $page;
 
 		$content['page_title'] = $page_title;
 

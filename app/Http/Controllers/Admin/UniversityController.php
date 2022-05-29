@@ -12,13 +12,11 @@ use App\Models\User;
 use App\Rules\alpha_spaces;
 use App\Rules\alpha_spaces_symbols;
 use App\Rules\CheckPhoneRule;
-use App\Rules\in_list;
 use App\Rules\value_in_column;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\Complaint\ComplaintsFormController;
 use App\Http\Controllers\HeadDepartment\ExcelControler;
 use App\Http\Controllers\Student\CourseController;
 use App\Http\Controllers\HeadDepartment\SuggestionController;
+use App\Http\Controllers\Roles\PermissionController;
 use App\Http\Controllers\University\CollegeController;
 use App\Http\Controllers\University\DepartmentController;
 use Illuminate\Support\Facades\Route;
@@ -112,6 +113,19 @@ Route::group([
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('update');
     Route::get('/delete/{id}', [RoleController::class, 'destroy'])->name('delete');
 });
+// Roles Route
+Route::group([
+    'prefix' => '/permission',
+    'as' => 'permission.',
+    'middleware' =>  ['auth'],
+], function () {
+    Route::get('/', [PermissionController::class, 'index'])->name('index');
+    Route::get('/add', [PermissionController::class, 'create'])->name('add');
+    Route::post('/save', [PermissionController::class, 'store'])->name('save');
+    Route::get('/edit/{permission}', [PermissionController::class, 'edit'])->name('edit');
+    Route::post('/update/{permission}', [PermissionController::class, 'update'])->name('update');
+    Route::get('/delete/{permission}', [PermissionController::class, 'destroy'])->name('delete');
+});
 
 // University Route
 
@@ -131,18 +145,6 @@ Route::group([
     ], function () {
 
         // Roles Route
-        Route::group([
-            'prefix' => '/suggestion',
-            'as' => 'suggestion.',
-            'middleware' =>  ['auth'],
-        ], function () {
-            Route::get('/', [SuggestionController::class, 'index'])->name('index');
-            Route::get('/add', [SuggestionController::class, 'create'])->name('add');
-            Route::post('/save', [SuggestionController::class, 'store'])->name('save');
-            Route::get('/edit/{id}', [SuggestionController::class, 'edit'])->name('edit');
-            Route::post('/update/{id}', [SuggestionController::class, 'update'])->name('update');
-            Route::get('/delete/{id}', [SuggestionController::class, 'destroy'])->name('delete');
-        });
         Route::get('/export/course', [ExcelControler::class, 'exportCoure'])->name('export.course');
         Route::get('/export/student', [ExcelControler::class, 'exportStudent'])->name('export.student');
         Route::get('/import/student', [ExcelControler::class, 'showImportStudent'])->name('import.student.show');
@@ -170,7 +172,7 @@ Route::group([
         Route::post('/save', [CollegeController::class, 'store'])->name('save');
         Route::get('/edit/{id}', [CollegeController::class, 'edit'])->name('edit');
         Route::post('/update/{id}', [CollegeController::class, 'update'])->name('update');
-        Route::delete('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete');
+        Route::get('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete');
 
     });
 
@@ -207,9 +209,5 @@ Route::group([
         Route::get('/complaint-decline/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDecline'])->name('complaintDecline');
         Route::get('/complaint-resolved/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved');
         Route::get('/complaint-deanDepartment/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment');
-
-        //Route::post('/save',[xzx::class,'store'])->name('save');
-        //oute::get('/edit/{id}',[xzx::class,'edit'])->name('edit');
-        //Route::post('/update/{id}',[xzx::class,'update'])->name('update');
     });
 });

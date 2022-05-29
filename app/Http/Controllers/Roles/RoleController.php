@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Roles;
 use App\Http\Controllers\Roles\Controller;
 
 
-use App\Models\Roles\Role;
-use App\Models\Roles\Permission;
-
 use App\Models\User;
 use App\Rules\alpha_num_spaces;
 use App\Rules\in_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
 class RoleController extends Controller
 {
     /**
@@ -23,7 +23,7 @@ class RoleController extends Controller
     {
         //
         $roles = Role::all(); 
-        $this->roleTemplate('index',__('Roles'),['roles'=>$roles]);
+        $this->roleTemplate('roles.index',__('Roles'),['roles'=>$roles]);
     }
 
     /**
@@ -34,30 +34,9 @@ class RoleController extends Controller
     public function create()
     {
         //
-        $users = User::all();
-        $permissions = Permission::all()->sortBy('id');
-        $codes =[];
-        foreach ($permissions as $permission) {
-            $code = str_replace("university.","",$permission->code);
-            $name = $permission->name;
-            if ($permission->name =='List') {
-                $name = 'index';
-            }else if ($permission->name =='Create'){
-                $name = 'add';
-            }
-            $code = str_replace('.'.strtolower($name),"",$code);
-            $code = str_replace('.'," ",$code);
-            array_push($codes,$code);
-        }
-        $countValue = array_count_values($codes);
-        $data = [];
-        foreach($countValue as $key=>$value){
-            array_push($data,[$key,DB::table('permissions')->where('code','LIKE','%'.'university.'.str_replace(' ',".",$key).'%')->get()->toArray()]);
-        }
-        $this->roleTemplate('add',__('Add role'),[
-            'users'=>$users,
-            'permissions'=>$data,
-            'countValue'=>$countValue,
+        $permissions = Permission::all();
+        $this->roleTemplate('roles.add',__('Add role'),[
+            'permissions'=>$permissions,
         ]);
     }
 
@@ -70,7 +49,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //
-        $validated = $request->validate([
+        $request->validate([
         'name' => ['required',new alpha_num_spaces,'min:3','max:255'],
         'permissions' => ['required', new in_list('permissions')],
         ]);
@@ -109,27 +88,9 @@ class RoleController extends Controller
         } else {
             $role_permissions = $role->permissions()->pluck('id')->toArray();
             $permissions = Permission::all()->sortBy('id');
-            $codes =[];
-            foreach ($permissions as $permission) {
-                $code = str_replace("university.","",$permission->code);
-                $name = $permission->name;
-                if ($permission->name =='List') {
-                    $name = 'index';
-                }else if ($permission->name =='Create'){
-                    $name = 'add';
-                }
-                $code = str_replace('.'.strtolower($name),"",$code);
-                $code = str_replace('.'," ",$code);
-                array_push($codes,$code);
-            }
-            $countValue = array_count_values($codes);
-            $data = [];
-            foreach($countValue as $key=>$value){
-                array_push($data,[$key,DB::table('permissions')->where('code','LIKE','%'.'university.'.str_replace(' ',".",$key).'%')->get()->toArray()]);
-            }
-            $this->roleTemplate('edit',__('Edit role'),[
+            $this->roleTemplate('roles.edit',__('Edit role'),[
                 'role'=>$role,
-                'permissions'=>$data,
+                'permissions'=>$permissions,
                 'role_permissions'=>$role_permissions,
             ]);
         }

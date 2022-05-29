@@ -4,22 +4,53 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
 
 class PermissionSeeder extends Seeder
 {
     protected $permissions = [
-        'university.role.index'=>'List',
-        'university.role.add'=>'Create',
-        'university.role.edit'=>'Edit',
-        'university.role.delete'=>'Delete',
-        'university.department.index'=>'List',
-        'university.department.add'=>'Create',
-        'university.department.edit'=>'Edit',
-        'university.department.delete'=>'Delete',
-        'university.college.index'=>'List',
-        'university.college.add'=>'Create',
-        'university.college.edit'=>'Edit',
-        'university.college.delete'=>'Delete',
+        "show course",
+        "add course",
+        "edit course",
+        "delete course",
+        "show universities",
+        "add universities",
+        "edit universities",
+        "delete universities",
+        "show cities",
+        "add cities",
+        "edit cities",
+        "delete cities",
+        "show users",
+        "add users",
+        "edit users",
+        "delete users",
+        "show roles",
+        "add roles",
+        "edit roles",
+        "delete roles",
+        "show permission",
+        "add permission",
+        "edit permission",
+        "delete permission",
+        "import course",
+        "import student",
+        "show department",
+        "add department",
+        "edit department",
+        "delete department",
+        "show college",
+        "add college",
+        "edit college",
+        "delete college",
+        "show form complaints",
+        "add form complaints",
+        "edit form complaints",
+        "delete form complaints",
+        "show details complaints",
+        "add details complaints",
+        "edit details complaints",
+        "delete details complaints",
     ];
    /**
     * Run the database seeds.
@@ -29,11 +60,8 @@ class PermissionSeeder extends Seeder
    public function run()
    {
        //
-       foreach($this->permissions as $code=>$name){
-           DB::table('permissions')->insert([
-           'code'=> $code,
-           'name'=> $name,
-       ]);
+       foreach($this->permissions as $name){
+        Permission::create(['name' => $name]);
        }
    }
 }

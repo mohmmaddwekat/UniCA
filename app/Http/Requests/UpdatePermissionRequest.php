@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\alpha_spaces;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePermissionRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdatePermissionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,7 @@ class UpdatePermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', new alpha_spaces, 'min:3', 'max:255','unique:permissions,name,'.$this->permission->id],
         ];
     }
 }
