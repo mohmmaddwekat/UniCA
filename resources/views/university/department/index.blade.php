@@ -68,7 +68,7 @@
                                         <tr>
                                             <td></td>
                                             <td>{{ $department->name }}</td>
-                                            <td>{{ $department->user->name }}</td>
+                                            <td>{{ $department->user[0]->name }}</td>
                                             <td>{{ $department->college->name }}</td>
                                             <td>
                                                 @can('edit department')

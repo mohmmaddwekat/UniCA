@@ -14,7 +14,19 @@ class DashboardController extends Controller
         $user = Auth::user();
         if ($user->type == 'student') {
             $this->dashboardTemplate('student', __('Student Dashboard'), ['student' => $user]);
-        } else {
+        } elseif($user->type == 'university') {
+
+        }
+        elseif($user->type == 'headDepartment') {
+
+        }
+        elseif($user->type == 'deanDepartment') {
+
+        }
+        elseif($user->type == 'super-admin') {
+
+        }
+        else {
             $this->dashboardTemplate('index', __('Dashboard'));
         }
     }
