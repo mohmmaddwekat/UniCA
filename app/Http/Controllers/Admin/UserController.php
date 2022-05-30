@@ -51,7 +51,7 @@ class UserController extends Controller
             $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
         }
         elseif(Auth::user()->type== 'headDepartment'){
-            $users= user::where('addBy_id', Auth::user()->addBy_id)->get();
+            $users= user::where('addBy_id', Auth::user()->id)->get();
             $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
         }
         else{
