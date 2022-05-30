@@ -36,17 +36,17 @@ require __DIR__ . '/auth.php';
 Route::group([
     'prefix' => '/dashboard',
     'as' => 'dashboard.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 });
 Route::group([
     'prefix' => '/course',
     'as' => 'course.',
-    'middleware' =>  ['auth','Local','permission:show course'],
+    'middleware' =>  ['auth', 'Local', 'permission:show course'],
 ], function () {
     Route::post('/change/{year}/{semester}/{track}', [DashboardController::class, 'changeCourse'])->name('change')
-    ->middleware('permission:show course');
+        ->middleware('permission:show course');
     Route::post('/year/{year}', [DashboardController::class, 'yearCourse'])->name('year');
     Route::post('/store', [CourseController::class, 'store'])->name('add');
 });
@@ -55,7 +55,7 @@ Route::group([
 Route::group([
     'prefix' => '/admin',
     'as' => 'admin.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
 
     // Universities Route
@@ -65,17 +65,17 @@ Route::group([
         'as' => 'universities.',
     ], function () {
         Route::get('/', [UniversityController::class, 'index'])->name('index')
-        ->middleware('permission:show universities');
+            ->middleware('permission:show universities');
         Route::get('/create', [UniversityController::class, 'create'])->name('create')
-        ->middleware('permission:add universities');
+            ->middleware('permission:add universities');
         Route::post('/', [UniversityController::class, 'store'])->name('store')
-        ->middleware('permission:add universities');
+            ->middleware('permission:add universities');
         Route::get('/{university}', [UniversityController::class, 'edit'])->name('edit')
-        ->middleware('permission:edit universities');
+            ->middleware('permission:edit universities');
         Route::put('/{university}', [UniversityController::class, 'update'])->name('update')
-        ->middleware('permission:edit universities');
+            ->middleware('permission:edit universities');
         Route::delete('/{university}', [UniversityController::class, 'destroy'])->name('destroy')
-        ->middleware('permission:delete universities');
+            ->middleware('permission:delete universities');
     });
 
     //City Controller
@@ -85,17 +85,17 @@ Route::group([
         'as' => 'cities.',
     ], function () {
         Route::get('/', [CityController::class, 'index'])->name('index')
-        ->middleware('permission:show cities'); 
+            ->middleware('permission:show cities');
         Route::get('/create', [CityController::class, 'create'])->name('create')
-        ->middleware('permission:add cities'); 
+            ->middleware('permission:add cities');
         Route::post('/', [CityController::class, 'store'])->name('store')
-        ->middleware('permission:add cities'); 
+            ->middleware('permission:add cities');
         Route::get('/{city}', [CityController::class, 'edit'])->name('edit')
-        ->middleware('permission:edit cities'); 
+            ->middleware('permission:edit cities');
         Route::put('/{city}', [CityController::class, 'update'])->name('update')
-        ->middleware('permission:edit cities'); 
+            ->middleware('permission:edit cities');
         Route::delete('/{city}', [CityController::class, 'destroy'])->name('destroy')
-        ->middleware('permission:delete cities'); 
+            ->middleware('permission:delete cities');
     });
 
     //user Controller
@@ -105,17 +105,17 @@ Route::group([
         'as' => 'users.',
     ], function () {
         Route::get('/', [UserController::class, 'index'])->name('index')
-        ->middleware('permission:show users'); 
+            ->middleware('permission:show users');
         Route::get('/create', [UserController::class, 'create'])->name('create')
-        ->middleware('permission:add users'); 
+            ->middleware('permission:add users');
         Route::post('/', [UserController::class, 'store'])->name('store')
-        ->middleware('permission:add users'); 
+            ->middleware('permission:add users');
         Route::get('/{user}', [UserController::class, 'edit'])->name('edit')
-        ->middleware('permission:edit users'); 
+            ->middleware('permission:edit users');
         Route::put('/{user}', [UserController::class, 'update'])->name('update')
-        ->middleware('permission:edit users'); 
+            ->middleware('permission:edit users');
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy')
-        ->middleware('permission:delete users'); 
+            ->middleware('permission:delete users');
     });
 });
 
@@ -123,37 +123,37 @@ Route::group([
 Route::group([
     'prefix' => '/roles',
     'as' => 'roles.role.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
     Route::get('/', [RoleController::class, 'index'])->name('index')
-    ->middleware('permission:show roles');
+        ->middleware('permission:show roles');
     Route::get('/add', [RoleController::class, 'create'])->name('add')
-    ->middleware('permission:add roles');
+        ->middleware('permission:add roles');
     Route::post('/save', [RoleController::class, 'store'])->name('save')
-    ->middleware('permission:add roles');
+        ->middleware('permission:add roles');
     Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit')
-    ->middleware('permission:edit roles');
+        ->middleware('permission:edit roles');
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('update')
-    ->middleware('permission:edit roles');
+        ->middleware('permission:edit roles');
 });
 // Roles Route
 Route::group([
     'prefix' => '/permission',
     'as' => 'permission.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
     Route::get('/', [PermissionController::class, 'index'])->name('index')
-    ->middleware('permission:show permission');
+        ->middleware('permission:show permission');
     Route::get('/add', [PermissionController::class, 'create'])->name('add')
-    ->middleware('permission:add permission');
+        ->middleware('permission:add permission');
     Route::post('/save', [PermissionController::class, 'store'])->name('save')
-    ->middleware('permission:add permission');
+        ->middleware('permission:add permission');
     Route::get('/edit/{permission}', [PermissionController::class, 'edit'])->name('edit')
-    ->middleware('permission:edit permission');
+        ->middleware('permission:edit permission');
     Route::post('/update/{permission}', [PermissionController::class, 'update'])->name('update')
-    ->middleware('permission:edit permission');
+        ->middleware('permission:edit permission');
     Route::get('/delete/{permission}', [PermissionController::class, 'destroy'])->name('delete')
-    ->middleware('permission:delete permission');
+        ->middleware('permission:delete permission');
 });
 
 // University Route
@@ -161,7 +161,7 @@ Route::group([
 Route::group([
     'prefix' => '/university',
     'as' => 'university.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
 
     // Department Route
@@ -175,35 +175,35 @@ Route::group([
 
         // Roles Route
         Route::get('/export/course', [ExcelControler::class, 'exportCoure'])->name('export.course')
-        ->middleware('permission:import course');
+            ->middleware('permission:import course');
 
         Route::get('/export/student', [ExcelControler::class, 'exportStudent'])->name('export.student')
-        ->middleware('permission:import student');
+            ->middleware('permission:import student');
 
         Route::get('/import/student', [ExcelControler::class, 'showImportStudent'])->name('import.student.show')
-        ->middleware('permission:import student');
+            ->middleware('permission:import student');
         Route::post('/import/student', [ExcelControler::class, 'importStudent'])->name('import.student.store')
-        ->middleware('permission:import student');
+            ->middleware('permission:import student');
 
         Route::get('/import/course', [ExcelControler::class, 'showImportCourse'])->name('import.course.show')
-        ->middleware('permission:import course');
+            ->middleware('permission:import course');
 
         Route::post('/import/course', [ExcelControler::class, 'importCourse'])->name('import.course.store')
-        ->middleware('permission:import course');
+            ->middleware('permission:import course');
 
         Route::get('/', [DepartmentController::class, 'index'])->name('index')
-        ->middleware('permission:show department');
-        
+            ->middleware('permission:show department');
+
         Route::get('/add', [DepartmentController::class, 'create'])->name('add')
-        ->middleware('permission:add department');
+            ->middleware('permission:add department');
         Route::post('/save', [DepartmentController::class, 'store'])->name('save')
-        ->middleware('permission:add department');
+            ->middleware('permission:add department');
         Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('edit')
-        ->middleware('permission:edit department');
+            ->middleware('permission:edit department');
         Route::post('/update/{id}', [DepartmentController::class, 'update'])->name('update')
-        ->middleware('permission:edit department');
+            ->middleware('permission:edit department');
         Route::post('/delete/{id}', [DepartmentController::class, 'destroy'])->name('delete')
-        ->middleware('permission:delete department');
+            ->middleware('permission:delete department');
     });
 
     // College Route
@@ -215,27 +215,25 @@ Route::group([
         ],
     ], function () {
         Route::get('/', [CollegeController::class, 'index'])->name('index')
-        ->middleware('permission:show college');
+            ->middleware('permission:show college');
         Route::get('/add', [CollegeController::class, 'create'])->name('add')
-        ->middleware('permission:add college');
+            ->middleware('permission:add college');
         Route::post('/save', [CollegeController::class, 'store'])->name('save')
-        ->middleware('permission:add college');
+            ->middleware('permission:add college');
         Route::get('/edit/{id}', [CollegeController::class, 'edit'])->name('edit')
-        ->middleware('permission:edit college');
+            ->middleware('permission:edit college');
         Route::post('/update/{id}', [CollegeController::class, 'update'])->name('update')
-        ->middleware('permission:edit college');
+            ->middleware('permission:edit college');
         Route::get('/delete/{id}', [CollegeController::class, 'destroy'])->name('delete')
-        ->middleware('permission:delete college');
-
+            ->middleware('permission:delete college');
     });
-
 });
 
 // Complaints Route
 Route::group([
     'prefix' => '/complaints',
     'as' => 'complaints.',
-    'middleware' =>  ['auth','Local'],
+    'middleware' =>  ['auth', 'Local'],
 ], function () {
     //Form Route
     Route::group([
@@ -243,11 +241,11 @@ Route::group([
         'as' => 'form.',
     ], function () {
         Route::get('/', [ComplaintsFormController::class, 'index'])->name('index')
-        ->middleware('permission:show form complaints');
+            ->middleware('permission:show form complaints');
         Route::get('/create', [ComplaintsFormController::class, 'create'])->name('create')
-        ->middleware('permission:add form complaints');
+            ->middleware('permission:add form complaints');
         Route::post('/store', [ComplaintsFormController::class, 'store'])->name('store')
-        ->middleware('permission:add form complaints');
+            ->middleware('permission:add form complaints');
     });
 
     //Details Route
@@ -256,17 +254,31 @@ Route::group([
         'as' => 'details.',
     ], function () {
         Route::get('/', [ComplaintsDetailsController::class, 'defult'])->name('index')
-        ->middleware('permission:show details complaints');
+            ->middleware('permission:show details complaints');
         Route::get('/group', [ComplaintsDetailsController::class, 'group'])->name('group')
-        ->middleware('permission:show details complaints');
-        Route::get('/complaintForStudent', [ComplaintsDetailsController::class, 'complaintForStudent'])->name('complaintForStudent')
-        ->middleware('permission:show details complaints');
+            ->middleware('permission:show details complaints');
+        Route::get('/complaint-for-student', [ComplaintsDetailsController::class, 'complaintForStudent'])->name('complaintForStudent')
+            ->middleware('permission:show details complaints');
 
-        Route::get('/complaint-decline/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDecline'])->name('complaintDecline')
-        ->middleware('permission:show details complaints');
-        Route::get('/complaint-resolved/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintResolved'])->name('complaintResolved')
-        ->middleware('permission:show details complaints');
-        Route::get('/complaint-deanDepartment/{complaintUser}/{typeComplaint?}', [ComplaintsDetailsController::class, 'complaintDeanDepartment'])->name('complaintDeanDepartment')
-        ->middleware('permission:show details complaints');
+
+        //Complaint Defult
+        Route::get('/complaint-resolved-defult/{complaintUser}', [ComplaintsDetailsController::class, 'complaintResolvedDefult'])->name('complaintResolvedDefult')->middleware('permission:show details complaints');
+        Route::get('/complaint-deanDepartment-Defult/{complaintUser}', [ComplaintsDetailsController::class, 'complaintDeanDepartmentDefult'])->name('complaintDeanDepartmentDefult')->middleware('permission:show details complaints');
+        Route::post('/complaint-decline-defult/{complaintUser}', [ComplaintsDetailsController::class, 'complaintDeclineDefult'])->name('complaintDeclineDefult')->middleware('permission:show details complaints');
+
+
+        //Complaint group
+        Route::get('/complaint-resolved-group/{typeComplaint}', [ComplaintsDetailsController::class, 'complaintResolvedGroup'])->name('complaintResolvedGroup')->middleware('permission:show details complaints');
+        Route::get('/complaint-deanDepartment-group/{typeComplaint}', [ComplaintsDetailsController::class, 'complaintDeanDepartmentGroup'])->name('complaintDeanDepartmentGroup')->middleware('permission:show details complaints');
+        Route::post('/complaint-decline-group/{typeComplaint}', [ComplaintsDetailsController::class, 'complaintDeclineGroup'])->name('complaintDeclineGroup')->middleware('permission:show details complaints');
+
+
+
+        //Complaint For Student
+        Route::get('/complaint-resolved-for-student/{userId}', [ComplaintsDetailsController::class, 'complaintResolvedForStudent'])->name('complaintResolvedForStudent')->middleware('permission:show details complaints');
+        Route::get('/complaint-deanDepartment-student/{userId}', [ComplaintsDetailsController::class, 'complaintDeanForStudent'])->name('complaintDeanForStudent')->middleware('permission:show details complaints');
+        Route::post('/complaint-decline-student/{userId}}', [ComplaintsDetailsController::class, 'complaintDeclineForStudent'])->name('complaintDeclineForStudent')->middleware('permission:show details complaints');
+
+
     });
 });

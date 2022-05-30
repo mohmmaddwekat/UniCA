@@ -54,13 +54,15 @@
                                     <option @if (Request::is('complaints/details/group')) selected @endif
                                         value="{{ route('complaints.details.group') }}">{{ __('Group') }}
                                     </option>
-                                    <option @if (Request::is('complaints/details/complaintForStudent')) selected @endif
+                                    <option @if (Request::is('complaints/details/complaint-for-student')) selected @endif
                                         value="{{ route('complaints.details.complaintForStudent') }}">
-                                        {{ __('complaintForStudent') }}</option>
+                                        {{ __('complaint for student') }}</option>
                                 </select>
                             </div>
                         </div>
                         <!-- /.card-header -->
+                        <x-auth-validation-errors class="m-4" :errors="$errors" />
+
                         <div class="card-body table-responsive">
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
                                 <thead>
@@ -149,38 +151,27 @@
                                             <td colspan="2">
                                                 <div class="btn-group">
 
-                                                    <?php
-                                                    
-                                                    $ids = '';
-                                                    
-                                                    foreach ($complaintsForms as $key => $complaintsForm) {
-                                                        $ids .= (string) $complaintsForm['id'];
-                                                    }
-                                                    
-                                                    ?>
+                                              
 
 
-
-
-
-
-                                                    <a href="{{ route('complaints.details.complaintDecline', [$ids, 'complaintForStudent']) }}"
-                                                        type="button" class="btn btn-danger m-1"
-                                                        style="font-size:13px">Decline</a>
-                                                    <a href="{{ route('complaints.details.complaintResolved', [$ids, 'complaintForStudent']) }}"
+                                                        <a href="{{ route('complaints.details.complaintResolvedForStudent',$complaintsForms[0]['user_id']) }}"
                                                         type="button" class="btn btn-success m-1"
-                                                        style="font-size:13px">Resolved</a>
-                                                    @if (Auth::user()->type != 'deanDepartment')
-                                                        <a href="{{ route('complaints.details.complaintDeanDepartment', [$ids, 'complaintForStudent']) }}"
+                                                        style="font-size:13px">{{ __('Resolved') }}</a>
+                                                        <a 
+                                                        type="button" class="btn btn-danger m-1"  data-toggle="modal" data-target="#modal-default-{{ $complaintsForms[0]['user_id'] }}"style="font-size:13px">{{ __('Decline') }}</a>
+                                                        @if (Auth::user()->type != 'deanDepartment')
+                                                        <a href="{{ route('complaints.details.complaintDeanForStudent',$complaintsForms[0]['user_id']) }}) }}"
                                                             type="button" class="btn btn-primary m-1"
-                                                            style="font-size:13px">Dean department</a>
-                                                    @endif
+                                                            style="font-size:13px">{{ __('Dean department') }}</a>
+                                                        @endif 
+
+
                                                 </div>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="10">
+                                            <td colspan="12">
                                                 No Complaints Found.
                                             </td>
                                         </tr>
@@ -202,4 +193,47 @@
     </section>
     <!-- /.content -->
 
+    @forelse ($unique_users_id as $complaintsForms)
+    <div class="modal fade" id="modal-default-{{ $complaintsForms[0]['user_id'] }}">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{ __('Decline Order') }}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+                <p>{{ __('Do you want to decline all order for ') }}{{ $complaintsForms[0]->user->name }}</p>
+
+              <form action="{{ route('complaints.details.complaintDeclineForStudent', $complaintsForms[0]['user_id']) }}" method="post">
+                @csrf
+    
+                <div class="form-group">
+                    <label>{{ __('Notes') }}</label>
+                    <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button  type="submit"  class="btn btn-danger">{{ __('Decline') }}</button>
+
+                  </div>
+                </form>
+            </div>
+    
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal --> 
+      @empty
+      <tr>
+          <td colspan="10">
+              No Complaints Found.
+          </td>
+      </tr>
+  @endforelse
+  
 </div>

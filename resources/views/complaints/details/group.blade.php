@@ -60,25 +60,31 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <x-auth-validation-errors class="m-4" :errors="$errors" />
 
                             <div class="row mb-5">
 
                                 <div class="col-6">
                                     <h2 class="sub-header  m-2">complaints Form Withdraw</h2>
                                     <div class="btn-group">
-                                        <a href="{{ route('complaints.details.complaintDecline',['group' ,'withdraw']) }}"
-                                            type="button" class="btn btn-danger m-1"
-                                            style="font-size:13px">Decline</a>
-                                        <a href="{{ route('complaints.details.complaintResolved',['group' ,'withdraw']) }}"
-                                            type="button" class="btn btn-success m-1"
-                                            style="font-size:13px">Resolved</a>
-                                            @if (Auth::user()->type !='deanDepartment')
 
-                                        <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'withdraw']) }}"
-                                            type="button" class="btn btn-primary m-1"
-                                            style="font-size:13px">Dean department</a> 
-                                            @endif
+                                            <div class="btn-group">
+                                                <div class="btn-group">
+                                                    <a href="{{ route('complaints.details.complaintResolvedGroup', 'withdraw') }}"
+                                                    type="button" class="btn btn-success m-1"
+                                                    style="font-size:13px">{{ __('Resolved') }}</a>
+                                                    <a 
+                                                    type="button" class="btn btn-danger m-1"  data-toggle="modal" data-target="#modal-default-withdraw"style="font-size:13px">{{ __('Decline') }}</a>
+                                                    @if (Auth::user()->type != 'deanDepartment')
+                                                    <a href="{{ route('complaints.details.complaintDeanDepartmentGroup', 'withdraw') }}"
+                                                        type="button" class="btn btn-primary m-1"
+                                                        style="font-size:13px">{{ __('Dean department') }}</a>
+                                                    @endif 
+                                                </div>
+                                            </div>
+        
                                     </div>
+                                    
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
@@ -129,19 +135,17 @@
                                                                 {{ $complaintsFormWithdraw['hour'] }}</span></td>
 
                                                         <td>
-                                                            <div class="btn-group">
-                                                                <a href="{{ route('complaints.details.complaintDecline', $complaintsFormWithdraw['id']) }}"
-                                                                    type="button" class="btn btn-danger m-1"
-                                                                    style="font-size:13px">Decline</a>
-                                                                <a href="{{ route('complaints.details.complaintResolved', [$complaintsFormWithdraw['id'],$complaintsFormWithdraw['type']]) }}"
-                                                                    type="button" class="btn btn-success m-1"
-                                                                    style="font-size:13px">Resolved</a>
-                                                                    @if (Auth::user()->type !='deanDepartment')
-
-                                                                <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormWithdraw['id']) }}"
+                                                                <div class="btn-group">
+                                                                <a href="{{ route('complaints.details.complaintResolvedDefult', $complaintsFormWithdraw['id']) }}"
+                                                                type="button" class="btn btn-success m-1"
+                                                                style="font-size:13px">{{ __('Resolved') }}</a>
+                                                                <a 
+                                                                type="button" class="btn btn-danger m-1"  data-toggle="modal" data-target="#modal-default-{{ $complaintsFormWithdraw['id'] }}"style="font-size:13px">{{ __('Decline') }}</a>
+                                                                @if (Auth::user()->type != 'deanDepartment')
+                                                                <a href="{{ route('complaints.details.complaintDeanDepartmentDefult', $complaintsFormWithdraw['id']) }}"
                                                                     type="button" class="btn btn-primary m-1"
-                                                                    style="font-size:13px">Dean department</a>
-                                                                    @endif
+                                                                    style="font-size:13px">{{ __('Dean department') }}</a>
+                                                                @endif 
                                                             </div>
                                                         </td>
 
@@ -160,19 +164,18 @@
                                 <div class="col-6">
                                     <h2 class="sub-header m-2">Complaints Form Enroll</h2>
                                     <div class="btn-group">
-                                        <a href="{{ route('complaints.details.complaintDecline',['group' ,'enroll']) }}"
-                                            type="button" class="btn btn-danger m-1"
-                                            style="font-size:13px">Decline</a>
-                                            <a href="{{ route('complaints.details.complaintResolved') }}"
+                                        <div class="btn-group">
+                                            <a href="{{ route('complaints.details.complaintResolvedGroup', 'enroll') }}"
                                             type="button" class="btn btn-success m-1"
-                                            style="font-size:13px">Resolved</a>
-                                            @if (Auth::user()->type !='deanDepartment')
-
-                                            <a href="{{ route('complaints.details.complaintDeanDepartment',['group' ,'enroll']) }}"
-                                            type="button" class="btn btn-primary m-1"
-                                            style="font-size:13px">Dean department</a> 
-
-                                            @endif
+                                            style="font-size:13px">{{ __('Resolved') }}</a>
+                                            <a 
+                                            type="button" class="btn btn-danger m-1"  data-toggle="modal" data-target="#modal-default-enroll"style="font-size:13px">{{ __('Decline') }}</a>
+                                            @if (Auth::user()->type != 'deanDepartment')
+                                            <a href="{{ route('complaints.details.complaintDeanDepartmentGroup', 'enroll') }}"
+                                                type="button" class="btn btn-primary m-1"
+                                                style="font-size:13px">{{ __('Dean department') }}</a>
+                                            @endif 
+                                        </div>
                                     </div>
 
                                     <div class="table-responsive">
@@ -228,25 +231,23 @@
                                                                 {{ $complaintsFormEnroll['hour'] }}</span></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="{{ route('complaints.details.complaintDecline', $complaintsFormEnroll['id']) }}"
-                                                                    type="button" class="btn btn-danger m-1"
-                                                                    style="font-size:13px">Decline</a>
-                                                                <a href="{{ route('complaints.details.complaintResolved', [$complaintsFormEnroll['id'],$complaintsFormEnroll['type']]) }}"
-                                                                    type="button" class="btn btn-success m-1"
-                                                                    style="font-size:13px">Resolved</a>
-                                                                    
-                                                                @if (Auth::user()->type !='deanDepartment')
-                                                                <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsFormEnroll['id']) }}"
+                                                                <a href="{{ route('complaints.details.complaintResolvedDefult', $complaintsFormEnroll['id']) }}"
+                                                                type="button" class="btn btn-success m-1"
+                                                                style="font-size:13px">{{ __('Resolved') }}</a>
+                                                                <a 
+                                                                type="button" class="btn btn-danger m-1"  data-toggle="modal" data-target="#modal-default-{{ $complaintsFormEnroll['id'] }}"style="font-size:13px">{{ __('Decline') }}</a>
+                                                                @if (Auth::user()->type != 'deanDepartment')
+                                                                <a href="{{ route('complaints.details.complaintDeanDepartmentDefult', $complaintsFormEnroll['id']) }}"
                                                                     type="button" class="btn btn-primary m-1"
-                                                                    style="font-size:13px">Dean department</a>
-                                                                    @endif
+                                                                    style="font-size:13px">{{ __('Dean department') }}</a>
+                                                                @endif 
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 @empty
                                                     <tr>
                                                         <td colspan="10">
-                                                            No complaints Form Enroll Found.
+                                                            {{ __('No complaints Form Enroll Found.') }}
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -266,5 +267,178 @@
             <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+
+
+
+    @forelse ($complaintsFormWithdraws as $complaintsFormWithdraw)
+    <div class="modal fade" id="modal-default-{{ $complaintsFormWithdraw['id'] }}">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{ __('Decline Order') }}</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{ __('Name Student') }} : {{ $complaintsFormWithdraw->user->name }}</p>
+              <p>{{ __('ID') }} : {{ $complaintsFormWithdraw->user->type_username_id }}</p>
+              <p>{{ __('Type') }} : {{ $complaintsFormWithdraw['type'] }}</p>
+              <p>{{ __('Course Number') }} : {{ $complaintsFormWithdraw['course_number'] }}</p>
+              <p>{{ __('Section') }} : {{ $complaintsFormWithdraw['section'] }}</p>
+              <p>{{ __('Course Name') }} : {{ $complaintsFormWithdraw['course_name'] }}</p>
+              <p>{{ __('Teacher Name') }} : {{ $complaintsFormWithdraw['teacher_name'] }}</p>
+              <p>{{ __('Days') }} : {{ $complaintsFormWithdraw['days'] }}</p>
+              <p>{{ __('Hour') }} : {{ $complaintsFormWithdraw['hour'] }}</p>
+
+              <form action="{{ route('complaints.details.complaintDeclineDefult', $complaintsFormWithdraw['id']) }}" method="post">
+                @csrf
+    
+                <div class="form-group">
+                    <label>{{ __('Notes') }}</label>
+                    <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                    <button  type="submit"  class="btn btn-danger">{{ __('Decline') }}</button>
+
+                  </div>
+                </form>
+            </div>
+    
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+      <!-- /.modal --> 
+      @empty
+      <tr>
+          <td colspan="10">
+              No Complaints Found.
+          </td>
+      </tr>
+  @endforelse
+
+
+
+  @forelse ($complaintsFormEnrolls as $complaintsFormEnroll)
+  <div class="modal fade" id="modal-default-{{ $complaintsFormEnroll['id'] }}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">{{ __('Decline Order') }}</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{ __('Name Student') }} : {{ $complaintsFormEnroll->user->name }}</p>
+            <p>{{ __('ID') }} : {{ $complaintsFormEnroll->user->type_username_id }}</p>
+            <p>{{ __('Type') }} : {{ $complaintsFormEnroll['type'] }}</p>
+            <p>{{ __('Course Number') }} : {{ $complaintsFormEnroll['course_number'] }}</p>
+            <p>{{ __('Section') }} : {{ $complaintsFormEnroll['section'] }}</p>
+            <p>{{ __('Course Name') }} : {{ $complaintsFormEnroll['course_name'] }}</p>
+            <p>{{ __('Teacher Name') }} : {{ $complaintsFormEnroll['teacher_name'] }}</p>
+            <p>{{ __('Days') }} : {{ $complaintsFormEnroll['days'] }}</p>
+            <p>{{ __('Hour') }} : {{ $complaintsFormEnroll['hour'] }}</p>
+
+            <form action="{{ route('complaints.details.complaintDeclineDefult', $complaintsFormEnroll['id']) }}" method="post">
+              @csrf
+  
+              <div class="form-group">
+                  <label>{{ __('Notes') }}</label>
+                  <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+                </div>
+                <div class="modal-footer justify-content-between">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                  <button  type="submit"  class="btn btn-danger">{{ __('Decline') }}</button>
+
+                </div>
+              </form>
+          </div>
+  
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+  </div>
+    <!-- /.modal --> 
+    @empty
+    <tr>
+        <td colspan="10">
+            No Complaints Found.
+        </td>
+    </tr>
+@endforelse
+
+
+<div class="modal fade" id="modal-default-withdraw">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{ __('Decline Order (withdraw)') }}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ __('Do you want to decline the group withdraw') }}</p>
+
+          <form action="{{ route('complaints.details.complaintDeclineGroup', 'withdraw') }}" method="post">
+            @csrf
+
+            <div class="form-group">
+                <label>{{ __('Notes') }}</label>
+                <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                <button  type="submit"  class="btn btn-danger">{{ __('Decline') }}</button>
+
+              </div>
+            </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <div class="modal fade" id="modal-default-enroll">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{ __('Decline Order (enroll)') }}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ __('Do you want to decline the group enroll') }}</p>
+
+          <form action="{{ route('complaints.details.complaintDeclineGroup', 'enroll') }}" method="post">
+            @csrf
+
+            <div class="form-group">
+                <label>{{ __('Notes') }}</label>
+                <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('Close') }}</button>
+                <button  type="submit"  class="btn btn-danger">{{ __('Decline') }}</button>
+
+              </div>
+            </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
 
 </div>
