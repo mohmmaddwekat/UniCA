@@ -126,15 +126,15 @@ Route::group([
     'middleware' =>  ['auth'],
 ], function () {
     Route::get('/', [RoleController::class, 'index'])->name('index')
-    ->middleware('permission:show role');
+    ->middleware('permission:show roles');
     Route::get('/add', [RoleController::class, 'create'])->name('add')
-    ->middleware('permission:add role');
+    ->middleware('permission:add roles');
     Route::post('/save', [RoleController::class, 'store'])->name('save')
-    ->middleware('permission:add role');
+    ->middleware('permission:add roles');
     Route::get('/edit/{id}', [RoleController::class, 'edit'])->name('edit')
-    ->middleware('permission:edit role');
+    ->middleware('permission:edit roles');
     Route::post('/update/{id}', [RoleController::class, 'update'])->name('update')
-    ->middleware('permission:edit role');
+    ->middleware('permission:edit roles');
 });
 // Roles Route
 Route::group([
@@ -176,18 +176,25 @@ Route::group([
         // Roles Route
         Route::get('/export/course', [ExcelControler::class, 'exportCoure'])->name('export.course')
         ->middleware('permission:import course');
+
         Route::get('/export/student', [ExcelControler::class, 'exportStudent'])->name('export.student')
         ->middleware('permission:import student');
+
         Route::get('/import/student', [ExcelControler::class, 'showImportStudent'])->name('import.student.show')
-        ->middleware('permission:import studnet');
+        ->middleware('permission:import student');
+
         Route::post('/import/student', [ExcelControler::class, 'importStudent'])->name('import.student.store')
         ->middleware('permission:import student');
+
         Route::get('/import/course', [ExcelControler::class, 'showImportCourse'])->name('import.course.show')
         ->middleware('permission:import course');
+
         Route::post('/import/course', [ExcelControler::class, 'importCourse'])->name('import.course.store')
         ->middleware('permission:import course');
+
         Route::get('/', [DepartmentController::class, 'index'])->name('index')
         ->middleware('permission:show department');
+        
         Route::get('/add', [DepartmentController::class, 'create'])->name('add')
         ->middleware('permission:add department');
         Route::post('/save', [DepartmentController::class, 'store'])->name('save')

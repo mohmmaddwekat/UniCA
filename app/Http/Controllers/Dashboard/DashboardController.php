@@ -31,7 +31,10 @@ class DashboardController extends Controller
                 'statisticFour' => $statisticFour,
                 'complaintsForms' =>$complaintsForm,
             ]);
-        } else {
+        } elseif (Auth::user()->type == 'headDepartment') {
+            $this->dashboardTemplate('index', __('Dashboard'),[
+                'user' => $user,
+            ]);
         }
         
     }
