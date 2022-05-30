@@ -4,8 +4,10 @@ namespace App\Imports;
 
 use App\Models\Admin\Course;
 use App\Models\User;
+use App\Rules\alpha_spaces;
 use \Maatwebsite\Excel\Concerns\ToModel;
 use \Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Illuminate\Support\Facades\Validator;
 
 class CourseImport implements ToModel, WithHeadingRow
 {
@@ -18,6 +20,17 @@ class CourseImport implements ToModel, WithHeadingRow
     {
         // $user = User::where('id', '=', auth()->id())->first();
         // dd($user->department->id);
+ 
+
+
+        $validator = Validator::make($row, [
+
+
+            'name' => ['required', 'max:250', 'min:3', 'unique:courses,name', new alpha_spaces],
+            ],
+        );
+        $validator->validate();
+
         return new Course([
             'id' => $row['id'],
             'name' => $row['name'],

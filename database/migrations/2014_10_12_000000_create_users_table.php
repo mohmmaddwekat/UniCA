@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('key');
             $table->string('type_username_id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('type', ['student', 'university', 'headDepartment', 'deanDepartment', 'academicVice', 'super-admin'])->default('student');

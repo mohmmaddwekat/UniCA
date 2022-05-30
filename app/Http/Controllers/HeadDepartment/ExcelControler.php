@@ -58,7 +58,8 @@ class ExcelControler extends Controller
         $request->validate([
             'file' => 'required|file|mimes:xlsx',
         ]);
-        Excel::import(new UsersImport, request()->file('file'));
+         Excel::import(new UsersImport, request()->file('file'));
+
         return redirect()->route('dashboard.index');
     }
     /**

@@ -19,6 +19,8 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card card-default">
+                <x-auth-validation-errors class="m-4" :errors="$errors" />
+
                 <form class="needs-validation" action="{{ route('university.department.import.student.store') }}"
                     method="post" enctype="multipart/form-data">
                     <!-- /.card-header -->

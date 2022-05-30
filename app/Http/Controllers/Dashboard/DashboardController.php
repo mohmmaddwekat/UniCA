@@ -32,12 +32,26 @@ class DashboardController extends Controller
                 'complaintsForms' =>$complaintsForm,
             ]);
         } elseif (Auth::user()->type == 'headDepartment') {
+
             $statisticOne = $user->complaintHeadDepartment->count();
             $statisticOne = $user->complaintHeadDepartment->count();
             $this->dashboardTemplate('index', __('Dashboard'),[
                 'user' => $user,
                 'statisticOne' => $statisticOne,
             ]);
+        } elseif (Auth::user()->type == 'university') {
+            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user, ]);
+        }
+        elseif (Auth::user()->type == 'super-admin') {
+            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user, ]);
+
+        }
+        elseif (Auth::user()->type == 'deanDepartment') {
+            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user, ]);
+
+        }else{
+            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user, ]);
+
         }
         
     }
