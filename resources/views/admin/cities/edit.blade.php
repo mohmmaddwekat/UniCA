@@ -1,3 +1,4 @@
+<link href ="/assets/css/app.css" rel = "stylesheet">
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
