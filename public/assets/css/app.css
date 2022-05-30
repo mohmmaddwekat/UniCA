@@ -152,22 +152,67 @@
     background-color: #2c96d3;
 }
 
-/*
-.nav-header
-{
-    color:#fff;
-}
-
-.fa-tachometer-alt
-{
-    color:#fff;
-}
-
-.nav-item
+.btn-secondary
 {
     background-color: #fff;
+    color: #2E3A5C;
 }
-*/
+
 [class*=sidebar-dark-] .sidebar a {
     color: #ffffff;
+}
+
+[class*="sidebar-dark-"] .nav-header {
+    background-color: inherit;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/*Navbar*/
+
+.fa-bell
+{
+    color: #2E3A5C;
+}
+
+.fa-sign-in-alt
+{
+    color: #2E3A5C;
+}
+
+.fa-user-circle
+{
+    color: #2E3A5C;
+    padding: 5px 10px 0px 10px;
+}
+
+a
+{
+    color:#2E3A5C;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.dropdown-menu-right
+{
+    background-color: #fff;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border-width: 3px;
+}
+
+/*Home Page*/
+
+.antialiased
+{
+    background-color:lightgrey;
+    position: relative;
+}
+
+.logo-container
+{
+    border-radius: 30px;
+    background-color: #2E3A5C;
+    background-image: url("/assets/img/logo.jpeg") !important;
 }

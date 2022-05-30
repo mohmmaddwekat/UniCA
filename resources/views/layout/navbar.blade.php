@@ -1,3 +1,5 @@
+<link href ="/assets/css/app.css" rel = "stylesheet">
+
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -78,7 +80,6 @@
           <i class="fas fa-sign-in-alt"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          
             
                   <!-- Authentication -->
                   <form method="POST" action="{{ route('logout') }}">
