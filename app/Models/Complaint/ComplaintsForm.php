@@ -32,4 +32,14 @@ class ComplaintsForm extends Model
                 'name' => 'NULL'
             ]);
         }    
+        public function headDepartment()
+        {
+            return $this->belongsTo(
+                User::class,    // Related Model 
+                'headDepartment_id',      // FK for the related in the current model
+                'id'                // PK in the related model
+            )->withDefault([
+                'name' => 'NULL'
+            ]);
+        }    
 }

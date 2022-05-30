@@ -36,14 +36,14 @@ require __DIR__ . '/auth.php';
 Route::group([
     'prefix' => '/dashboard',
     'as' => 'dashboard.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 });
 Route::group([
     'prefix' => '/course',
     'as' => 'course.',
-    'middleware' =>  ['auth','permission:show course'],
+    'middleware' =>  ['auth','Local','permission:show course'],
 ], function () {
     Route::post('/change/{year}/{semester}/{track}', [DashboardController::class, 'changeCourse'])->name('change')
     ->middleware('permission:show course');
@@ -55,7 +55,7 @@ Route::group([
 Route::group([
     'prefix' => '/admin',
     'as' => 'admin.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
 
     // Universities Route
@@ -123,7 +123,7 @@ Route::group([
 Route::group([
     'prefix' => '/roles',
     'as' => 'roles.role.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
     Route::get('/', [RoleController::class, 'index'])->name('index')
     ->middleware('permission:show roles');
@@ -140,7 +140,7 @@ Route::group([
 Route::group([
     'prefix' => '/permission',
     'as' => 'permission.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
     Route::get('/', [PermissionController::class, 'index'])->name('index')
     ->middleware('permission:show permission');
@@ -161,7 +161,7 @@ Route::group([
 Route::group([
     'prefix' => '/university',
     'as' => 'university.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
 
     // Department Route
@@ -182,7 +182,6 @@ Route::group([
 
         Route::get('/import/student', [ExcelControler::class, 'showImportStudent'])->name('import.student.show')
         ->middleware('permission:import student');
-
         Route::post('/import/student', [ExcelControler::class, 'importStudent'])->name('import.student.store')
         ->middleware('permission:import student');
 
@@ -236,7 +235,7 @@ Route::group([
 Route::group([
     'prefix' => '/complaints',
     'as' => 'complaints.',
-    'middleware' =>  ['auth'],
+    'middleware' =>  ['auth','Local'],
 ], function () {
     //Form Route
     Route::group([

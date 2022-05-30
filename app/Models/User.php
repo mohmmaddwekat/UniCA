@@ -72,6 +72,14 @@ class User extends Authenticatable
             'id'            // PK in the current model
         );
     }
+    public function complaintHeadDepartment()
+    {
+        return $this->hasMany(
+            ComplaintsForm::class,    // Related Moadel
+            'headDepartment_id',  // FK in the related model
+            'id'            // PK in the current model
+        );
+    }
     public function coursesStudent()
     {
         return $this->belongsToMany(Course::class, 'course_student', 'student_id');
@@ -83,10 +91,6 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
-    }
-    public function suggestions()
-    {
-        return $this->belongsTo(Suggestion::class);
     }
 
     public function department()

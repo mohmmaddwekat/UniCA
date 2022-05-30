@@ -44,24 +44,24 @@
       </li>
       <!-- Language Dropdown Menu -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-            {{-- @if (session('lang')=='en')
-            <i class="flag-icon flag-icon-us"></i>
+        <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
+            @if (session('lang') == 'en')
+                <i class="flag-icon flag-icon-us"></i>
             @else
-            <i class="flag-icon flag-icon-eg mr-2"></i>
-            @endif --}}
-            <i class="flag-icon flag-icon-eg mr-2"></i>
-          <i class="flag-icon flag-icon-us"></i>
+                <i class="flag-icon flag-icon-eg mr-2"></i>
+            @endif
         </a>
         <div class="dropdown-menu dropdown-menu-right p-0">
-          <a href="" class="dropdown-item active">
-            <i class="flag-icon flag-icon-us mr-2"></i> {{__('English')}}
-          </a>
-          <a href="" class="dropdown-item">
-            <i class="flag-icon flag-icon-eg mr-2"></i> {{__('Arabic')}}
-          </a>
+            <a href="{{ url()->current() . '?lang=en' }}"
+                class="dropdown-item @if (session('lang') == 'en') active @endif">
+                <i class="flag-icon flag-icon-us mr-2"></i> {{ __('English') }}
+            </a>
+            <a href="{{ url()->current() . '?lang=ar' }}"
+                class="dropdown-item @if (session('lang') == 'ar') active @endif">
+                <i class="flag-icon flag-icon-eg mr-2"></i> {{ __('Arabic') }}
+            </a>
         </div>
-      </li>
+    </li>
       {{-- <li class="nav-item">
         <a class="nav-link"data-slide="true" href="#">
          <div class="custom-control  custom-switch" >

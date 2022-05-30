@@ -18,7 +18,7 @@
               </div>
 
               <div class="info">
-                  <a href="" class="d-block">University</a>
+                  <a href="" class="d-block">{{auth()->user()->name}}</a>
               </div>
           </div>
           <!-- SidebarSearch Form -->
