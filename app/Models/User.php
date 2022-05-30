@@ -105,4 +105,12 @@ class User extends Authenticatable
             'id'            // PK in the current model
         );
     }
+    public function collegesofUniversity()
+    {
+        return $this->hasMany(
+            College::class,    // Related Moadel
+            'university_id',  // FK in the related model
+            'id'            // PK in the current model
+        );
+    }
 }

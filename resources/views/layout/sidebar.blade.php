@@ -47,7 +47,9 @@
                           </p>
                       </a>
                   </li>
-                  <li class="nav-header">{{ __('Student') }}</li>
+                  @if (auth()->user()->can('show form complaints') || auth()->user()->can('show details complaints'))
+                      <li class="nav-header">{{ __('Student') }}</li>
+                  @endif
 
                   @can('show form complaints')
                       <li class="nav-item">
@@ -112,10 +114,10 @@
                       </a>
                   </li>
                   @endcan
-                  @if (auth()->user()->can('show role') || auth()->user()->can('show permission') || auth()->user()->can('show users'))
+                  @if (auth()->user()->can('show roles') || auth()->user()->can('show permission') || auth()->user()->can('show users'))
                       <li class="nav-header">{{ __('Roles & Users') }}</li>
                   @endif
-                  @can('show role')
+                  @can('show roles')
                   <li class="nav-item">
                       <a href="{{ route('roles.role.index') }}" class="nav-link">
                           <i class="fa-solid fa-book"></i>
