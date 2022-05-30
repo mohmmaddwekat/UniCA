@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd55855f445deb02507fb72261445589",
+    "content-hash": "6227a9e9775c1a3cda3f62270afdc922",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3403,6 +3403,84 @@
                 }
             ],
             "time": "2022-05-16T12:09:59+00:00"
+        },
+        {
+            "name": "spiti/laravel-permission",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SPITIRU/laravel-permission-beautybox.git",
+                "reference": "a30248bf3c4f58c1ea4d6ae214f1b809214cb5f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SPITIRU/laravel-permission-beautybox/zipball/a30248bf3c4f58c1ea4d6ae214f1b809214cb5f3",
+                "reference": "a30248bf3c4f58c1ea4d6ae214f1b809214cb5f3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^5.8|^6.0|^8.0",
+                "illuminate/container": "^5.8|^6.0|^8.0",
+                "illuminate/contracts": "^5.8|^6.0|^8.0",
+                "illuminate/database": "^5.8|^6.0|^8.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8|^4.0",
+                "phpunit/phpunit": "^8.0",
+                "predis/predis": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 5.8 and up!",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/SPITIRU/laravel-permission-beautybox/issues",
+                "source": "https://github.com/SPITIRU/laravel-permission-beautybox/tree/3.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/spatie",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-08-18T11:55:30+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

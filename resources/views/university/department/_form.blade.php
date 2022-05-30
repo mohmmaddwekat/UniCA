@@ -1,3 +1,5 @@
+<link href ="/assets/css/app.css" rel = "stylesheet">
+
 <x-auth-validation-errors class="m-4" :errors="$errors" />
 
 <div class="card-body">

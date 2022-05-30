@@ -136,8 +136,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $key = Auth::user()->key;
 
-        $this->adminTemplate('users.edit', __('Edit user'), ['user' => $user, 'roles' => Role::all(), 'types' => ['headDepartment', 'deanDepartment', 'academicVice']]);
+        $this->adminTemplate('users.edit', __('Edit user'), ['key' => $key,'user' => $user, 'roles' => Role::all(), 'types' => ['headDepartment', 'deanDepartment', 'academicVice']]);
     }
 
     /**

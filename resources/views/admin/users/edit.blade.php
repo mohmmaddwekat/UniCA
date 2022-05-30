@@ -1,4 +1,6 @@
 
+<link href ="/assets/css/app.css" rel = "stylesheet">
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -34,7 +36,7 @@
         @method('put')
         
         @include('admin.users._form',[
-        'savelabel' => 'edit'
+        'savelabel' => 'Edit'
         ])
         </form>
       </div>
