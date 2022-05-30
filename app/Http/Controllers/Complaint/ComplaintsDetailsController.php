@@ -14,6 +14,7 @@ use App\Models\University\Department;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Http\Request;
 
 class ComplaintsDetailsController extends Controller
 {
@@ -237,79 +238,79 @@ class ComplaintsDetailsController extends Controller
 
     public function complaintResolved($complaintUser, $typeComplaint = null)
     {
-        if (Auth::user()->type == 'headDepartment') {
-
-            if ($typeComplaint == 'withdraw') {
-                $complaintsForms = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['type', 'withdraw']])->get();
-            } elseif ($typeComplaint == 'enroll') {
-                $complaintsForms = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['type', 'enroll']])->get();
-            } elseif ($typeComplaint == 'complaintForStudent') {
-
-                $complaint_users_id = str_split($complaintUser);
+        if ($typeComplaint != null && $complaintUser != 'group') {
 
 
-                foreach ($complaint_users_id as $complaint_user_id) {
-
-                    $complaintsForm = ComplaintsForm::findOrFail($complaint_user_id);
-
-                    $details = [
-                        'title' => 'complaint',
-                        'name' => $complaintsForm->user->name,
-                        'body' => 'complaint-Resolved'
-                    ];
-
-                    $complaintsForm->update([
-                        'status' => 'Resolved',
-                    ]);
-                    Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
+            if (Auth::user()->type == 'headDepartment') {
+            
+                if ($typeComplaint == 'withdraw') {
+                    $complaintsForms = ComplaintsForm::where([['id', $complaintUser], ['type', 'withdraw']])->get();
+                } elseif ($typeComplaint == 'enroll') {
+    
+                    $complaintsForms = ComplaintsForm::where([['id', $complaintUser], ['type', 'enroll']])->get();
+    
+                } elseif ($typeComplaint == 'complaintForStudent') {
+                    $complaint_users_id = str_split($complaintUser);
+    
+                    foreach ($complaint_users_id as $complaint_user_id) {
+    
+                        $complaintsForm = ComplaintsForm::findOrFail($complaint_user_id);
+    
+                        $details = [
+                            'title' => 'complaint',
+                            'name' => $complaintsForm->user->name,
+                            'body' => 'complaint-Resolved'
+                        ];
+    
+                        $complaintsForm->update([
+                            'status' => 'Resolved',
+                        ]);
+                        Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
+                    }
+    
+                    return redirect()->back()->with('success', __('Success Resolved'));
+                } else {
+    
+                    return redirect()->back()->with('error', __('Error '));
                 }
-
-                return redirect()->back()->with('success', __('Success Resolved'));
-            } else {
-                return redirect()->back()->with('error', __('Error '));
+    
             }
+            elseif (Auth::user()->type == 'deanDepartment') {
+    
+    
+                if ($typeComplaint == 'withdraw') {
 
-        }
-        elseif (Auth::user()->type == 'deanDepartment') {
-            $college = College::where('user_id', Auth::id())->first();
-            $departments = Department::where('college_id', '=', $college->id)->get();
-            $user_id = array();
-            foreach ($departments as $key => $user) {
-                array_push($user_id, $user['user_id']);
-            }
-            if ($typeComplaint == 'withdraw') {
-                $complaintsForms = ComplaintsForm::whereIn('headDepartment_id', $user_id)->where('type', 'withdraw')->get();
-            } elseif ($typeComplaint == 'enroll') {
-                $complaintsForms = ComplaintsForm::whereIn('headDepartment_id', $user_id)->where('type', 'enroll')->get();
-            } elseif ($typeComplaint == 'complaintForStudent') {
-
-                $complaint_users_id = str_split($complaintUser);
-
-
-                foreach ($complaint_users_id as $complaint_user_id) {
-
-                    $complaintsForm = ComplaintsForm::findOrFail($complaint_user_id);
-
-                    $details = [
-                        'title' => 'complaint',
-                        'name' => $complaintsForm->user->name,
-                        'body' => 'complaint-Resolved'
-                    ];
-
-                    $complaintsForm->update([
-                        'status' => 'Resolved',
-                    ]);
-                    Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
+                    $complaintsForms = ComplaintsForm::where('id', $complaintUser)->where('type', 'withdraw')->get();
+    
+                } elseif ($typeComplaint == 'enroll') {
+                    $complaintsForms = ComplaintsForm::where('id', $complaintUser)->where('type', 'enroll')->get();
+                } elseif ($typeComplaint == 'complaintForStudent') {
+    
+                    $complaint_users_id = str_split($complaintUser);
+    
+    
+                    foreach ($complaint_users_id as $complaint_user_id) {
+    
+                        $complaintsForm = ComplaintsForm::findOrFail($complaint_user_id);
+    
+                        $details = [
+                            'title' => 'complaint',
+                            'name' => $complaintsForm->user->name,
+                            'body' => 'complaint-Resolved'
+                        ];
+    
+                        $complaintsForm->update([
+                            'status' => 'Resolved',
+                        ]);
+                        Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
+                    }
+    
+                    return redirect()->back()->with('success', __('Success Resolved'));
+                } else {
+                    return redirect()->back()->with('error', __('Error '));
                 }
-
-                return redirect()->back()->with('success', __('Success Resolved'));
-            } else {
-                return redirect()->back()->with('error', __('Error '));
             }
-        }
-        if ($typeComplaint != null) {
-
-
+            
 
             foreach ($complaintsForms as $userComplaintsForm) {
 
@@ -329,7 +330,59 @@ class ComplaintsDetailsController extends Controller
 
 
             return redirect()->back()->with('success', __('Success Resolved'));
+        }elseif ($typeComplaint != null && $complaintUser == 'group') {
+
+            $college = College::where('user_id', Auth::id())->first();
+            $departments = Department::where('college_id', '=', $college->id)->get();
+
+            $departments_id = array();
+            foreach ($departments as $key => $user) {
+                array_push($departments_id, $user['user_id']);
+            }
+            $students = User::whereIn('addBy_id', $departments_id)->get();
+
+            $students_id = array();
+            foreach ($students as $key => $student) {
+                array_push($students_id, $student['id']);
+            }
+
+            if( $typeComplaint = 'withdraw'){
+                $complaintsForms = ComplaintsForm::whereIn('user_id', $students_id)->where('type', 'withdraw')->get();
+
+            }
+            elseif( $typeComplaint = 'enroll'){
+                $complaintsForms = ComplaintsForm::whereIn('user_id', $students_id)->where('type', 'enroll')->get();
+
+            }else {
+                return redirect()->back()->with('error', __('Error '));
+            }
+
+
+            foreach ($complaintsForms as $userComplaintsForm) {
+
+                $data_complaintsForm = ComplaintsForm::findOrFail($userComplaintsForm['id']);
+
+                $details = [
+                    'title' => 'complaint',
+                    'name' => $data_complaintsForm->user->name,
+                    'body' => 'complaint-Resolved'
+                ];
+
+                $data_complaintsForm->update([
+                    'status' => 'Resolved',
+                ]);
+
+                //Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
+            }
+
+
+            return redirect()->back()->with('success', __('Success Resolved'));
+
+
+                
+
         } else {
+            dd('');
             $complaintsForm = ComplaintsForm::findOrFail($complaintUser);
 
             $details = [

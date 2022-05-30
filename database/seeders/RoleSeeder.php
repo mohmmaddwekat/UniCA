@@ -48,6 +48,7 @@ class RoleSeeder extends Seeder
             "show form complaints",
         ],
         'deanDepartment' => [
+            "show users",
             "show department",
             "show details complaints",
             "show form complaints",

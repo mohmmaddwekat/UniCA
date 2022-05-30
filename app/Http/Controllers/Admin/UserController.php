@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
+use App\Models\University\College;
+use App\Models\University\Department;
 use App\Models\User;
 use App\Rules\alpha_spaces;
 use App\Rules\in_list;
@@ -24,7 +26,39 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->adminTemplate('users.index', __('users'), ['users' => user::all()]);
+  
+        if(Auth::user()->type== 'university'){
+            $users= user::where('key', Auth::user()->key)->get();
+            $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
+        }
+        elseif(Auth::user()->type== 'deanDepartment'){
+
+            $college = College::where('user_id', Auth::id()) ->first();
+            $departments = Department::where('college_id', '=', $college->id)->get();
+            $user_id=array();
+            foreach ($departments as $key => $user){
+                array_push($user_id, $user['user_id']);
+            }
+            $users =user::whereIn('addBy_id', $user_id)->get();
+            foreach ($users as $key => $user){
+                array_push($user_id, $user['id']);
+            }
+
+            array_push($user_id, $users);
+
+            $users= user::whereIn('id', $user_id)->get();
+
+            $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
+        }
+        elseif(Auth::user()->type== 'headDepartment'){
+            $users= user::where('addBy_id', Auth::user()->addBy_id)->get();
+            $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
+        }
+        else{
+            return  redirect()->route('dashboard.index');
+        }
+        
+
     }
 
 

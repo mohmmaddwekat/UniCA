@@ -148,31 +148,31 @@
                                                 <div class="btn-group">
 
                                                     <?php
-    
-                                                            $ids ='';
-
-                                          foreach ($complaintsForms as $key => $complaintsForm) {
-                                            $ids .=(string)$complaintsForm['id'];
-
-                                          }
-                                                            
-                                                   ?>
-
+                                                    
+                                                    $ids = '';
+                                                    
+                                                    foreach ($complaintsForms as $key => $complaintsForm) {
+                                                        $ids .= (string) $complaintsForm['id'];
+                                                    }
+                                                    
+                                                    ?>
 
 
 
 
 
-                                                    <a href="{{ route('complaints.details.complaintDecline', [ $ids,'complaintForStudent']) }}"
+
+                                                    <a href="{{ route('complaints.details.complaintDecline', [$ids, 'complaintForStudent']) }}"
                                                         type="button" class="btn btn-danger m-1"
                                                         style="font-size:13px">Decline</a>
-                                                    <a href="{{ route('complaints.details.complaintResolved', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-success m-1"
+                                                    <a href="{{ route('complaints.details.complaintResolved', [$ids, 'complaintForStudent']) }}"
+                                                        type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
-                                                        @if (Auth::user()->type !='deanDepartment')
-
-                                                    <a href="{{ route('complaints.details.complaintDeanDepartment', [ $ids,'complaintForStudent']) }}" type="button" class="btn btn-primary m-1"
-                                                        style="font-size:13px">Dean department</a>
-                                                        @endif
+                                                    @if (Auth::user()->type != 'deanDepartment')
+                                                        <a href="{{ route('complaints.details.complaintDeanDepartment', [$ids, 'complaintForStudent']) }}"
+                                                            type="button" class="btn btn-primary m-1"
+                                                            style="font-size:13px">Dean department</a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
