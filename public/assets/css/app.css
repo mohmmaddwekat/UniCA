@@ -115,8 +115,10 @@
 
 .main-sidebar
 {
-    background-image: url("/assets/img/background1.jpeg") !important;
-   
+    background-image: url("/assets/img/background4.jpeg") !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
 }
 
 .brand-text
@@ -127,4 +129,45 @@
 .img-circle
 {
     box-shadow: #2c96d3;
+}
+
+.font-weight-light
+{
+    color: #fff;
+}
+
+.d-block
+{
+    color: #fff;
+}
+
+.input-group .form-control-sidebar
+{
+    background-color: #fff;
+    color: #2E3A5C;
+}
+
+.input-group-append .btn-sidebar
+{
+    background-color: #2c96d3;
+}
+
+/*
+.nav-header
+{
+    color:#fff;
+}
+
+.fa-tachometer-alt
+{
+    color:#fff;
+}
+
+.nav-item
+{
+    background-color: #fff;
+}
+*/
+[class*=sidebar-dark-] .sidebar a {
+    color: #ffffff;
 }
