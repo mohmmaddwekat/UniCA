@@ -131,7 +131,7 @@
                                                                 <a href="{{ route('complaints.details.complaintDecline', $complaintsFormWithdraw['id']) }}"
                                                                     type="button" class="btn btn-danger m-1"
                                                                     style="font-size:13px">Decline</a>
-                                                                <a href="{{ route('complaints.details.complaintResolved', $complaintsFormWithdraw['id']) }}"
+                                                                <a href="{{ route('complaints.details.complaintResolved', [$complaintsFormWithdraw['id'],$complaintsFormWithdraw['type']]) }}"
                                                                     type="button" class="btn btn-success m-1"
                                                                     style="font-size:13px">Resolved</a>
                                                                     @if (Auth::user()->type !='deanDepartment')
@@ -161,7 +161,7 @@
                                         <a href="{{ route('complaints.details.complaintDecline',['group' ,'enroll']) }}"
                                             type="button" class="btn btn-danger m-1"
                                             style="font-size:13px">Decline</a>
-                                            <a href="{{ route('complaints.details.complaintResolved',['group' ,'enroll']) }}"
+                                            <a href="{{ route('complaints.details.complaintResolved') }}"
                                             type="button" class="btn btn-success m-1"
                                             style="font-size:13px">Resolved</a>
                                             @if (Auth::user()->type !='deanDepartment')
@@ -229,7 +229,7 @@
                                                                 <a href="{{ route('complaints.details.complaintDecline', $complaintsFormEnroll['id']) }}"
                                                                     type="button" class="btn btn-danger m-1"
                                                                     style="font-size:13px">Decline</a>
-                                                                <a href="{{ route('complaints.details.complaintResolved', $complaintsFormEnroll['id']) }}"
+                                                                <a href="{{ route('complaints.details.complaintResolved', [$complaintsFormEnroll['id'],$complaintsFormEnroll['type']]) }}"
                                                                     type="button" class="btn btn-success m-1"
                                                                     style="font-size:13px">Resolved</a>
                                                                     

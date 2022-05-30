@@ -73,7 +73,7 @@
                             </td>
 
                             <td><span class="font-weight-normal"> {{ $user['name'] }}</span></td>
-                            <td><span class="font-weight-normal"> {{ $user['type_username_id'] }}</span></td>
+                            <td><span class="font-weight-normal">{{ $user['key'] }}-{{ $user['type_username_id'] }}</span></td>
                             <td><span class="font-weight-normal"> {{ $user['type'] }}</span></td>
                             <td><span class="font-weight-normal"> {{ $user['email'] }}</span></td>
                            <td>  

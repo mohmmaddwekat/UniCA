@@ -40,11 +40,14 @@
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 <select class="form-control" name="forma" onchange="location = this.value;">
-                                    <option  @if (Request::is('/complaints/details/defult')) selected @endif  value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
+                                    <option @if (Request::is('/complaints/details/defult')) selected @endif
+                                        value="{{ route('complaints.details.index') }}">{{ __('Defult') }}
                                     </option>
-                                    <option @if (Request::is('complaints/details/group')) selected @endif  value="{{ route('complaints.details.group') }}">{{ __('Group') }}
+                                    <option @if (Request::is('complaints/details/group')) selected @endif
+                                        value="{{ route('complaints.details.group') }}">{{ __('Group') }}
                                     </option>
-                                    <option  @if (Request::is('complaints/details/complaintForStudent')) selected @endif  value="{{ route('complaints.details.complaintForStudent') }}">
+                                    <option @if (Request::is('complaints/details/complaintForStudent')) selected @endif
+                                        value="{{ route('complaints.details.complaintForStudent') }}">
                                         {{ __('complaintForStudent') }}</option>
                                 </select>
                             </div>
@@ -96,15 +99,18 @@
                                                     {{ $complaintsForm['hour'] }}</span></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <a href="{{ route('complaints.details.complaintDecline',$complaintsForm['id']) }}" type="button" class="btn btn-danger m-1"
+                                                    <a href="{{ route('complaints.details.complaintDecline', $complaintsForm['id']) }}"
+                                                        type="button" class="btn btn-danger m-1"
                                                         style="font-size:13px">Decline</a>
-                                                    <a href="{{ route('complaints.details.complaintResolved',$complaintsForm['id']) }}" type="button" class="btn btn-success m-1"
+                                                    <a href="{{ route('complaints.details.complaintResolved', [$complaintsForm['id'],$complaintsForm['type']]) }}"
+                                                        type="button" class="btn btn-success m-1"
                                                         style="font-size:13px">Resolved</a>
 
-                                                        @if (Auth::user()->type !='deanDepartment')
-                                                        <a href="{{ route('complaints.details.complaintDeanDepartment',$complaintsForm['id']) }}" type="button" class="btn btn-primary m-1"
-                                                        style="font-size:13px">Dean department</a>
-                                                        @endif
+                                                    @if (Auth::user()->type != 'deanDepartment')
+                                                        <a href="{{ route('complaints.details.complaintDeanDepartment', $complaintsForm['id']) }}"
+                                                            type="button" class="btn btn-primary m-1"
+                                                            style="font-size:13px">Dean department</a>
+                                                    @endif
 
                                                 </div>
                                             </td>
@@ -133,3 +139,49 @@
     <!-- /.content -->
 
 </div>
+
+{{-- 
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-default">
+    Decline
+  </button>
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Decline Order</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ __('Name Student') }} : {{ $complaintsForm->user->name }}</p>
+          <p>{{ __('ID') }} : {{ $complaintsForm->user->type_username_id }}</p>
+          <p>{{ __('Type') }} : {{ $complaintsForm['type'] }}</p>
+          <p>{{ __('Course Number') }} : {{ $complaintsForm['course_number'] }}</p>
+          <p>{{ __('Section') }} : {{ $complaintsForm['section'] }}</p>
+          <p>{{ __('Course Name') }} : {{ $complaintsForm['course_name'] }}</p>
+          <p>{{ __('Teacher Name') }} : {{ $complaintsForm['teacher_name'] }}</p>
+          <p>{{ __('Days') }} : {{ $complaintsForm['days'] }}</p>
+          <p>{{ __('Hour') }} : {{ $complaintsForm['hour'] }}</p>
+          <form action="{{ route('complaints.details.complaintDecline',$complaintsForm['id']) }}" method="post">
+            @csrf
+
+            <div class="form-group">
+                <label>{{ __('Notes') }}</label>
+                <textarea class="form-control" rows="3" name="notes" placeholder="{{ __('Enter Your Notes') }}"></textarea>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{{ route('complaints.details.complaintDecline',$complaintsForm['id']) }}" type="button" class="btn btn-danger m-1"
+                style="font-size:13px">Decline</a>
+              </div>
+            </form>
+        </div>
+
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+  <!-- /.modal --> --}}
