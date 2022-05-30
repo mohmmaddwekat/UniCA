@@ -12,11 +12,11 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->type == 'student') {
-            $this->dashboardTemplate('student', __('Student Dashboard'), ['student' => $user]);
-        } else {
-            $this->dashboardTemplate('index', __('Dashboard'));
-        }
+        // if ($user->type == 'student') {
+        //     $this->dashboardTemplate('student', __('Student Dashboard'), ['student' => $user]);
+        // } else {
+            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user]);
+        // }
     }
     public function yearCourse($year)
     {
