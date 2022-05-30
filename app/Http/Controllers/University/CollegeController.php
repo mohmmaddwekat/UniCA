@@ -228,16 +228,18 @@ class CollegeController extends Controller
      */
     public function destroy($id)
     {
-     $college = College::find($id);
+        //
+
+
+        $college = College::find($id);
+        $user = User::find($college->user_id);
+
         if ($college == null) {
             return redirect()->route('university.college.index')->with('error', __('not fond') . ' ' . __('college'));
         }
-        $user = User::find($college->user_id);
-        $user_has_college_number = User::find($college->college_number)->get();
 
-
-        dd($user_has_college_number);
         $college->delete();
+        
         $user->delete();
 
         return redirect()->route('university.college.index')->with('success', __('delete success'));
