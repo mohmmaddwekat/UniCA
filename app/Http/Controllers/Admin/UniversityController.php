@@ -114,7 +114,7 @@ class UniversityController extends Controller
     {
         $roles = Role::all();
 
-        $this->adminTemplate('universities.edit', __('Edit city'), ['university' => $university, 'roles' => $roles,'cities' => City::all(),]);
+        $this->adminTemplate('universities.edit', __('Edit city'), ['university' => $university, 'roles' => $roles, 'cities' => City::all(),]);
     }
 
     /**
@@ -188,6 +188,15 @@ class UniversityController extends Controller
      */
     public function destroy(University $university)
     {
+        if ($university == null) {
+            return redirect()->route('admin.universities.index')->with('error', __('not fond') . ' ' . __('college'));
+        }
+        if ($university->user()->get()->count() != 0) {
+            return  redirect()->route('admin.universities.index')->with('error', __('Can\'t delete'));
+        }
+        if ($university->college()->get()->count() != 0) {
+            return  redirect()->route('admin.universities.index')->with('error', __('Can\'t delete'));
+        }
         $university->delete();
         return  redirect()->route('admin.universities.index')->with('success', __('Success Deleted'));
     }

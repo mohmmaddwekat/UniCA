@@ -192,8 +192,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
 
+        if ($user == null) {
+            return redirect()->route('admin.users.index')->with('error', __('not fond') . ' ' . __('college'));
+        }
+        if ($user->coursesStudent()->get()->count() != 0) {
+            return  redirect()->route('admin.users.index')->with('error', __('Can\'t delete'));
+        }
+        $user->delete();
         return  redirect()->route('admin.users.index')->with('success', __('Success Deleted'));
     }
 }

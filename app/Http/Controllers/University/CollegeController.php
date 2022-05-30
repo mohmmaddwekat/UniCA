@@ -123,17 +123,6 @@ class CollegeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -236,6 +225,9 @@ class CollegeController extends Controller
 
         if ($college == null) {
             return redirect()->route('university.college.index')->with('error', __('not fond') . ' ' . __('college'));
+        }
+        if ($college->departments()->get()->count() != 0) {
+            return  redirect()->route('university.college.index')->with('error', __('Can\'t delete'));
         }
 
         $college->delete();

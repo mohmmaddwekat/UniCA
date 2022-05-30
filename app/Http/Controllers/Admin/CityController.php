@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Http\Controllers\Admin\Controller;
 
 use App\Models\Admin\City;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CityController extends Controller
 {
-  
+
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +20,7 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        $this->adminTemplate('cities.index',__('Cities'),['cities'=>City::all()]);
-
+        $this->adminTemplate('cities.index', __('Cities'), ['cities' => City::all()]);
     }
 
 
@@ -33,8 +33,7 @@ class CityController extends Controller
     public function create()
     {
 
-        $this->adminTemplate('cities.create',__('Create city'),['city'=>new City()]);
-
+        $this->adminTemplate('cities.create', __('Create city'), ['city' => new City()]);
     }
 
     /**
@@ -46,15 +45,14 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:250','min:3','unique:cities,name', 'alpha'],
+            'name' => ['required', 'max:250', 'min:3', 'unique:cities,name', 'alpha'],
         ]);
         $validator->validate();
 
         $Cities = new City;
         $Cities->name = $request->post('name');
         $Cities->save();
-        return redirect()->route('admin.cities.index')->with('success',__('Success craeted'));
-
+        return redirect()->route('admin.cities.index')->with('success', __('Success craeted'));
     }
 
     /**
@@ -77,8 +75,7 @@ class CityController extends Controller
     public function edit(City $city)
     {
 
-        $this->adminTemplate('cities.edit',__('Edit city'),['city'=>$city]);
-
+        $this->adminTemplate('cities.edit', __('Edit city'), ['city' => $city]);
     }
 
     /**
@@ -90,15 +87,15 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-      
+
         $validator = Validator::make($request->all(), [
-            'name' => ['required','max:250','min:3','unique:cities,name', 'alpha'],
+            'name' => ['required', 'max:250', 'min:3', 'unique:cities,name', 'alpha'],
         ]);
         $validator->validate();
         $city->name = $request->post('name');
         $city->save();
 
-        return redirect()->route('admin.cities.index')->with('success',__('success Updated'));
+        return redirect()->route('admin.cities.index')->with('success', __('success Updated'));
     }
 
     /**
@@ -109,9 +106,13 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
+        if ($city == null) {
+            return redirect()->route('admin.cities.index')->with('error', __('not fond') . ' ' . __('college'));
+        }
+        if ($city->university()->get()->count() != 0) {
+            return  redirect()->route('admin.cities.index')->with('error', __('Can\'t delete'));
+        }
         $city->delete();
-
         return  redirect()->route('admin.cities.index')->with('success', __('Success Deleted'));
     }
-
 }

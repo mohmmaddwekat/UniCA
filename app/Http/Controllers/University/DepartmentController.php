@@ -116,16 +116,6 @@ class DepartmentController extends Controller
         return redirect()->route('university.department.index')->with('success', __('Go to email to change reset password' . $userPassword));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -226,6 +216,12 @@ class DepartmentController extends Controller
 
         if ($department == null) {
             return redirect()->route('university.department.index')->with('error', __('not fond') . ' ' . __('Department'));
+        }
+        if ($department->courses()->get()->count() != 0) {
+            return  redirect()->route('university.department.index')->with('error', __('Can\'t delete'));
+        }
+        if ($department->courses()->get()->count() != 0) {
+            return  redirect()->route('university.department.index')->with('error', __('Can\'t delete'));
         }
         $department->delete();
         $user->delete();

@@ -96,6 +96,12 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         //
+        if ($permission == null) {
+            return redirect()->route('permission.index')->with('error', __('not fond') . ' ' . __('college'));
+        }
+        if ($permission->roles()->get()->count() != 0) {
+            return  redirect()->route('permission.index')->with('error', __('Can\'t delete'));
+        }
         Permission::destroy($permission->id);
         return redirect()->route('permission.index');
     }
