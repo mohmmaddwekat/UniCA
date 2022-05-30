@@ -18,28 +18,29 @@ class CourseImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        // $user = User::where('id', '=', auth()->id())->first();
-        // dd($user->department->id);
+        
  
+        $course = Course::where('id','=',$row['id'])->where('name','=',$row['name'])->get();
+        if (count($course) ==0) {
+            return new Course([
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'track' => $row['track'] === "NULL" ? null : $row['track'],
+                'year' => $row['year'],
+                'semester' => $row['semester'],
+                'headDepartment_id' => auth()->id(),
+                'department_id' => auth()->user()->department_id,
+                'prerequisite' => $row['prerequisite'],
+            ]);
+        }
+        // $validator = Validator::make($row, [
 
 
-        $validator = Validator::make($row, [
+        //     'name' => ['required', 'max:250', 'min:3', 'unique:courses,name'],
+        //     ],
+        // );
+        // $validator->validate();
 
-
-            'name' => ['required', 'max:250', 'min:3', 'unique:courses,name'],
-            ],
-        );
-        $validator->validate();
-
-        return new Course([
-            'id' => $row['id'],
-            'name' => $row['name'],
-            'track' => $row['track'] === "NULL" ? null : $row['track'],
-            'year' => $row['year'],
-            'semester' => $row['semester'],
-            'headDepartment_id' => auth()->id(),
-            'department_id' => auth()->user()->department_id,
-            'prerequisite' => $row['prerequisite'],
-        ]);
+        
     }
 }
