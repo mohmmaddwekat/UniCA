@@ -94,7 +94,7 @@ class CollegeController extends Controller
         $user = new User;
         $user->key = Auth::user()->key;
         $user->type_username_id = $request->post('type_username_id');
-        $user->name = $request->post('fullname');
+        $user->fullname = $request->post('fullname');
         Role::findOrCreate('deanDepartment');
         $user->assignRole('deanDepartment');
         $user->type = 'deanDepartment';
@@ -212,7 +212,7 @@ class CollegeController extends Controller
 
         $user->update([
             'type_username_id' => $request->post('type_username_id'),
-            'name' => $request->post('name'),
+            'fullname' => $request->post('fullname'),
             'email' => $request->post('email'),
         ]);
 
@@ -228,19 +228,18 @@ class CollegeController extends Controller
      */
     public function destroy($id)
     {
-        //
-
-
-        $college = College::find($id);
-        $user = User::find($college->user_id);
-
+     $college = College::find($id);
         if ($college == null) {
-            return redirect()->route('admin.college.index')->with('error', __('not fond') . ' ' . __('college'));
+            return redirect()->route('university.college.index')->with('error', __('not fond') . ' ' . __('college'));
         }
+        $user = User::find($college->user_id);
+        $user_has_college_number = User::find($college->college_number)->get();
 
+
+        dd($user_has_college_number);
         $college->delete();
         $user->delete();
 
-        return redirect()->route('admin.college.index')->with('success', __('delete success'));
+        return redirect()->route('university.college.index')->with('success', __('delete success'));
     }
 }

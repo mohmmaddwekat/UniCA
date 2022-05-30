@@ -26,7 +26,7 @@ class CourseImport implements ToModel, WithHeadingRow
         $validator = Validator::make($row, [
 
 
-            'name' => ['required', 'max:250', 'min:3', 'unique:courses,name', new alpha_spaces],
+            'name' => ['required', 'max:250', 'min:3', 'unique:courses,name'],
             ],
         );
         $validator->validate();

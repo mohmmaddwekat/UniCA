@@ -34,10 +34,16 @@ class Department extends Model
         {
                 return $this->hasMany(User::class);
         }
+    
         public function college()
         {
-                return $this->belongsTo(College::class);
+                return $this->belongsTo(
+                        College::class,    // Related Model 
+                        'college_id',      // FK for the related in the current model
+                        'id'                // PK in the related model
+                );
         }
+
         public function courses()
         {
                 return $this->hasMany(Course::class, 'department_id');

@@ -27,6 +27,7 @@ class College extends Model
         protected $fillable = [
                 'name',
                 'college_number',
+                'id'
         ];
 
 
@@ -39,10 +40,16 @@ class College extends Model
                         'id'                // PK in the related model
                 );
         }
+
         public function departments()
         {
-                return $this->hasMany(Department::class);
+                return $this->hasMany(
+                        Department::class,    // Related Moadel
+                        'college_id',  // FK in the related model
+                        'id'            // PK in the current model
+                );
         }
+
         public function user()
         {
                 return $this->belongsTo(

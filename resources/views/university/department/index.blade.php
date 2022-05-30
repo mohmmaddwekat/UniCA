@@ -71,7 +71,7 @@
                                             <td></td>
                                             <td>{{ $department->name }}</td>
                                             <td>{{ $department->user[0]->name }}</td>
-                                            <td>{{ $department->college->name }}</td>
+                                            <td>{{ $department->college->id}}</td>
                                             <td>
                                                 @can('edit department')
                                                     <a href="{{ route('university.department.edit', $department->id) }}"
