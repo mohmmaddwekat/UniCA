@@ -71,7 +71,7 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of other User</span>
+                      <span class="info-box-text">Number of other Users</span>
                       <span class="info-box-number">{{$statisticFour}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -84,12 +84,12 @@
                 <div class="col-12">
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('All University') }} </h3>
+                            <h3 class="card-title">{{ __('All Universities') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 @can('add universities')
                                 <a href="{{ route('admin.universities.create') }}"
-                                    class="btn btn-block btn-outline-primary">{{ __('Add University') }}</a>
+                                    class="btn btn-block btn-outline-primary">{{ __('Add New University') }}</a>
                                 @endcan
                             </div>
                         </div>

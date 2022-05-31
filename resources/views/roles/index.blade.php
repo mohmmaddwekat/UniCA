@@ -38,11 +38,11 @@
         <div class="col-12">
           <div class="card " >
             <div class="card-header">
-              <h3 class="card-title">{{__('All Role')}}</h3>
+              <h3 class="card-title">{{__('All Roles')}}</h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
                   @can('add roles')
-                  <a href="{{route('roles.role.add')}}" class="btn btn-block btn-outline-primary">{{__('Add Actor')}}</a>
+                  <a href="{{route('roles.role.add')}}" class="btn btn-block btn-outline-primary">{{__('Add New Role')}}</a>
                   @endcan
               </div>
             </div>
