@@ -33,7 +33,7 @@
                                         <div class="col-md-12">
                                             <div class="card card-default">
                                                 <div class="card-header">
-                                                    <h3 class="card-title">Student information</h3>
+                                                    <h3 class="card-title">{{__('Student information')}}</h3>
                                                 </div>
                                                 <div class="card-body p-0">
                                                     <div class="bs-stepper">
@@ -45,8 +45,7 @@
                                                                     aria-controls="Academic-information-part"
                                                                     id="Academic-information-part-trigger">
                                                                     <span class="bs-stepper-circle">1</span>
-                                                                    <span class="bs-stepper-label">Academic
-                                                                        information</span>
+                                                                    <span class="bs-stepper-label">{{__('Academic information')}}</span>
                                                                 </button>
                                                             </div>
                                                             <div class="line"></div>
@@ -56,8 +55,7 @@
                                                                     aria-controls="courses-information-part"
                                                                     id="courses-information-part-trigger">
                                                                     <span class="bs-stepper-circle">2</span>
-                                                                    <span class="bs-stepper-label">Courses
-                                                                        information</span>
+                                                                    <span class="bs-stepper-label">{{__('Courses information')}}</span>
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -76,10 +74,10 @@
                                                                             data-selected-text-format="count"
                                                                             title="{{ __('Nothing selected') }}"
                                                                             data-live-search="true">
-                                                                            <option value="1">First</option>
-                                                                            <option value="2">Second</option>
-                                                                            <option value="3">Third</option>
-                                                                            <option value="4">Fourth</option>
+                                                                            <option value="1">{{__('First')}}</option>
+                                                                            <option value="2">{{__('Second')}}</option>
+                                                                            <option value="3">{{__('Third')}}</option>
+                                                                            <option value="4">{{__('Fourth')}}</option>
                                                                         </select>
                                                                         @error('year')
                                                                             <div class="invalid-feedback">
@@ -110,9 +108,9 @@
                                                                             data-selected-text-format="count"
                                                                             title="{{ __('Nothing selected') }}"
                                                                             data-live-search="true">
-                                                                            <option value="1">First</option>
-                                                                            <option value="2">Second</option>
-                                                                            <option value="3">Third</option>
+                                                                            <option value="1">{{__('First')}}</option>
+                                                                            <option value="2">{{__('Second')}}</option>
+                                                                            <option value="3">{{__('Third')}}</option>
                                                                         </select>
                                                                         @error('semester')
                                                                             <div class="invalid-feedback">
@@ -131,19 +129,19 @@
                                                                         style="width:100%">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Name course</th>
-                                                                                <th>Success</th>
-                                                                                <th>Fail</th>
-                                                                                <th>didn't study it</th>
+                                                                                <th>{{__('Name course')}}</th>
+                                                                                <th>{{__('Success')}}</th>
+                                                                                <th>{{__('Fail')}}</th>
+                                                                                <th>{{__('didn\'t study it')}}</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                         </tbody>
                                                                     </table>
                                                                     <a class="btn btn-primary"
-                                                                        onclick="stepper.previous()">Previous</a>
+                                                                        onclick="stepper.previous()">{{__('Previous')}}</a>
                                                                     <button type="submit"
-                                                                        class="btn btn-primary">Submit</button>
+                                                                        class="btn btn-primary">{{__('Submit')}}</button>
                                                                 </div>
                                                             </form>
                                                         </div>

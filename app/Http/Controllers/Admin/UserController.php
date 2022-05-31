@@ -43,7 +43,9 @@ class UserController extends Controller
             foreach ($users as $key => $user){
                 array_push($user_id, $user['id']);
             }
+
             array_push($user_id, $users);
+
             $users= user::whereIn('id', $user_id)->get();
 
             $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
@@ -84,7 +86,6 @@ class UserController extends Controller
         $type_username_id = $request->post('type_username_id');
         $key = Auth::user()->key;
         $validator = Validator::make($request->all(), [
-            'role' => ['required', 'int', 'exists:roles,id'],
             'type_username_id' => [
                 'required',
                 'digits:8',
