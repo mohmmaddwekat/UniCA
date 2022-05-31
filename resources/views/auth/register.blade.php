@@ -39,12 +39,9 @@
             <br>
 
             <div class="flex">
-            <x-button class="ml-4">
-                <a href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </x-button>
-                </a>
-
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('student.register') }}">
+                        {{ __('Already registered?') }}
+                    </a>
                 <x-button class="ml-4">
                     {{ __('Register') }}
                 </x-button>

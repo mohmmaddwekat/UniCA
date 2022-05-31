@@ -19,25 +19,40 @@
 
  
       <!-- Language Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false" href="#">
-            @if (session('lang') == 'en')
+      <div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+    @if (session('lang') == 'en')
                 {{ __('English') }}
             @else
                 {{ __('Arabic') }}
             @endif
-        </a>
-        <div class="dropdown-menu dropdown-menu-right p-0">
-            <a href="{{ url()->current() . '?lang=en' }}"
+  </a>
+
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="#">
+    </a></li>
+    <li><a class="dropdown-item" href="#"><a href="{{ url()->current() . '?lang=en' }}"
                 class="dropdown-item @if (session('lang') == 'en') active @endif">
                 {{ __('English') }}
-            </a>
+            </a></li>
             <a href="{{ url()->current() . '?lang=ar' }}"
                 class="dropdown-item @if (session('lang') == 'ar') active @endif">
                 {{ __('Arabic') }}
             </a>
+  </ul>
+</div>
+
+      
+      {{-- <li class="nav-item">
+        <a class="nav-link"data-slide="true" href="#">
+         <div class="custom-control  custom-switch" >
+          <input type="checkbox" class="custom-control-input" id="customSwitch1" @if ($theme == 'dark-mode')
+          checked
+          @endif>
+          <label class="custom-control-label" for="customSwitch1"></label>
         </div>
-    </li>
+        </a>
+      </li> --}}
         
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
