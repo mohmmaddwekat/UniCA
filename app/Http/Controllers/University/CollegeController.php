@@ -27,9 +27,8 @@ class CollegeController extends Controller
     public function index()
     {
         //
-        $colleges = College::all();
         $this->universityTemplate('college.index', __('College'), [
-            'colleges' => $colleges,
+            'colleges' => auth()->user()->collegesofUniversity,
 
         ]);
     }

@@ -26,7 +26,12 @@ class DepartmentController extends Controller
     public function index()
     {
         //
-        $departments = Department::all();
+        $departments = [];
+        $colleges = auth()->user()->collegesofUniversity;
+
+        foreach ($colleges as $college) {
+            array_push($departments,...$college->departments()->get());
+        }
         $this->universityTemplate('department.index', __('Department'), ['departments' => $departments]);
     }
 
@@ -41,7 +46,7 @@ class DepartmentController extends Controller
         $this->universityTemplate('department.add', __('Add Department'), [
             'colleges' => College::all(),
             'user' => new User,
-            'department'=>new Department(),
+            'department' => new Department(),
             'key' => Auth::user()->key,
         ]);
     }
@@ -103,7 +108,7 @@ class DepartmentController extends Controller
         $department->save();
 
 
-  
+
         $user->department_id = $department->id;
         $user->save();
 
@@ -158,9 +163,9 @@ class DepartmentController extends Controller
         $department = Department::find($id);
         $user = User::find($department->user_id);
 
-        
+
         $validator = Validator::make($request->all(), [
-            'name' => ['required', 'unique:departments,name,'. $id, 'min:3', 'max:255'],
+            'name' => ['required', 'unique:departments,name,' . $id, 'min:3', 'max:255'],
             'college' => ['required', 'int', 'exists:colleges,id'],
 
             'type_username_id' => [
@@ -197,8 +202,8 @@ class DepartmentController extends Controller
             'email' => $request->post('email'),
         ]);
 
-    
-        
+
+
         return redirect()->route('university.department.index')->with('success', __('Edit success'));
     }
 
