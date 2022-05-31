@@ -600,7 +600,7 @@ progress {
 }
 
 .img-fluid {
-  max-width: 100%;
+  max-width: auto;
   height: auto;
 }
 
@@ -7358,6 +7358,7 @@ textarea.form-control-lg {
 
 .mb-0 {
   margin-bottom: 0 !important;
+  color: #2E3A5C;
 }
 
 .mb-1 {
@@ -7378,6 +7379,7 @@ textarea.form-control-lg {
 
 .mb-5 {
   margin-bottom: 3rem !important;
+  border-radius: 120px;
 }
 
 .mb-auto {
@@ -7762,8 +7764,13 @@ textarea.form-control-lg {
 
 .text-white {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
+  color: #2E3A5C !important;
 }
+
+.text-white1 {
+    --bs-text-opacity: 1;
+    color: #fff !important;
+  }
 
 .text-body {
   --bs-text-opacity: 1;
@@ -7808,7 +7815,7 @@ textarea.form-control-lg {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: lightgray;
 }
 
 .bg-secondary {
@@ -11332,10 +11339,10 @@ html {
   font-size: 2rem;
 }
 .divider-custom.divider-light .divider-custom-line {
-  background-color: #fff;
+  background-color: #2E3A5C;
 }
 .divider-custom.divider-light .divider-custom-icon {
-  color: #fff;
+  color: #2E3A5C;
 }
 
 .btn-xl {
@@ -11506,4 +11513,11 @@ html {
 
 .copyright {
   background-color: #1a252f;
+}
+
+.elevation-3
+{
+    height: 80px;
+    width: 80px;
+    border-radius: 120px;
 }
