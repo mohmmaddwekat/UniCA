@@ -200,6 +200,15 @@ a
     border-width: 3px;
 }
 
+.language
+{
+    background-color: #fff;
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border-width: 3px;
+}
+
 /*Home Page*/
 
 .logo-container
@@ -272,7 +281,12 @@ a
     color: #2E3A5C;
 }
 
+.ml-3
+{
+    color: #fff;
+}
+
 .flex
 {
-    justify-content: center;
+    justify-content: right;
 }
