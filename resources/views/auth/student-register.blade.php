@@ -1,8 +1,10 @@
+<link href ="/assets/css/app.css" rel ="stylesheet">
+
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img class="loginLogo" src="/assets/img/background3.jpeg"></img>
             </a>
         </x-slot>
 
@@ -24,7 +26,8 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <br>
+            <div class="flex">
                 <x-button>
                     {{ __('Register') }}
                 </x-button>

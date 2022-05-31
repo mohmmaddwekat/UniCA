@@ -202,12 +202,6 @@ a
 
 /*Home Page*/
 
-.antialiased
-{
-    background-color:lightgrey;
-    position: relative;
-}
-
 .logo-container
 {
     border-radius: 30px;
@@ -216,4 +210,69 @@ a
 }
 
 
+/*Log In*/
 
+.loginLogo
+{
+    width: 150px;
+    height: 150px;
+    border-radius: 120px;
+}
+
+.bodyLogin
+{
+    width: auto;
+    height: auto;
+    background-color: lightgray;
+}
+
+.loginContainer
+{
+    border-radius: 120px;
+}
+
+#key
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+#type_username_id
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+#name
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+#password
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+#email
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+.items-center
+{
+    border-radius: 20px;
+    background-color:#fff;
+}
+
+.ml-2
+{
+    color: #2E3A5C;
+}
+
+.flex
+{
+    justify-content: center;
+}
