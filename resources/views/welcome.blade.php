@@ -37,12 +37,12 @@
 
                         @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
+                        <a href="{{ url('/login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
                     @else
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#login">Log In</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ url('/login') }}">Log In</a></li>
 
                         @if (Route::has('register'))
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#register">Register</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{{ url('/register') }}">Register</a></li>
                         @endif
                     @endauth
                         @endif
