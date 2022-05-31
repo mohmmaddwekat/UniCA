@@ -151,11 +151,7 @@
 
                                                     </tr>
                                                 @empty
-                                                    <tr>
-                                                        <td colspan="10">
-                                                            No complaints Form Withdraw Found.
-                                                        </td>
-                                                    </tr>
+        
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -245,11 +241,7 @@
                                                         </td>
                                                     </tr>
                                                 @empty
-                                                    <tr>
-                                                        <td colspan="10">
-                                                            {{ __('No complaints Form Enroll Found.') }}
-                                                        </td>
-                                                    </tr>
+  
                                                 @endforelse
                                             </tbody>
                                         </table>
@@ -314,11 +306,7 @@
     </div>
       <!-- /.modal --> 
       @empty
-      <tr>
-          <td colspan="10">
-              No Complaints Found.
-          </td>
-      </tr>
+
   @endforelse
 
 
@@ -366,11 +354,7 @@
   </div>
     <!-- /.modal --> 
     @empty
-    <tr>
-        <td colspan="10">
-            No Complaints Found.
-        </td>
-    </tr>
+
 @endforelse
 
 

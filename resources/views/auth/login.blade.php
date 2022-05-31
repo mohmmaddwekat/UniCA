@@ -49,13 +49,7 @@
             <br>
 
             <div class="flex">
-                @if (Route::has('student.register'))
-                <x-button class="ml-3">
-                    <a href="{{ route('student.register') }}">
-                        {{ __('Register') }}
-                    </a>
-                </x-button>
-                @endif
+
 
                 <x-button class="ml-3">
                     {{ __('Log in') }}

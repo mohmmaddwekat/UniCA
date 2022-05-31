@@ -183,11 +183,7 @@
     </div>
       <!-- /.modal --> 
       @empty
-      <tr>
-          <td colspan="10">
-              No Complaints Found.
-          </td>
-      </tr>
+
   @endforelse
 </div>
 

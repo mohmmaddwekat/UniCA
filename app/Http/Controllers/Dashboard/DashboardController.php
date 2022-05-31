@@ -99,7 +99,17 @@ class DashboardController extends Controller
  
             $count_all_users_college= $users->count();
 
-            $this->dashboardTemplate('deanDepartment', __('Dashboard'), ['user' => $user, 'count_department'=>$count_department,'count_all_users_college'=>$count_all_users_college]);
+                $college = College::where('user_id', Auth::id())->first();
+                $departments = Department::where('college_id', '=', $college->id)->get();
+                $user_id = array();
+                foreach ($departments as $key => $user) {
+                    array_push($user_id, $user['user_id']);
+                }
+    
+                $complaintsForms  = ComplaintsForm::whereIn('headDepartment_id', $user_id)->where([['status', '=', 'In progress By the Dean of the department']])->get();
+            
+            
+            $this->dashboardTemplate('deanDepartment', __('Dashboard'), ['complaintsForms'=>$complaintsForms ,'user' => $user, 'count_department'=>$count_department,'count_all_users_college'=>$count_all_users_college]);
         }
     }
 
