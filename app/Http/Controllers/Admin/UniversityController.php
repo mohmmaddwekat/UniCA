@@ -90,7 +90,7 @@ class UniversityController extends Controller
 
         Password::RESET_LINK_SENT;
 
-        return redirect()->back()->with('success', __('Message for reset password is sended'));
+        return redirect()->back()->with('success', __('Reset Password Message Is Sent Successfully'));
     }
 
     /**
@@ -177,7 +177,7 @@ class UniversityController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.universities.index')->with('success', __('Success Edited'));
+        return redirect()->route('admin.universities.index')->with('success', __('University has been edited successfully'));
     }
 
     /**
@@ -189,15 +189,15 @@ class UniversityController extends Controller
     public function destroy(University $university)
     {
         if ($university == null) {
-            return redirect()->route('admin.universities.index')->with('error', __('not fond') . ' ' . __('college'));
+            return redirect()->route('admin.universities.index')->with('error', __('University is not found') . ' ' . __('college'));
         }
         if ($university->user()->get()->count() != 0) {
-            return  redirect()->route('admin.universities.index')->with('error', __('Can\'t delete'));
+            return  redirect()->route('admin.universities.index')->with('error', __('University could not been deleted, no users found!'));
         }
         if ($university->college()->get()->count() != 0) {
-            return  redirect()->route('admin.universities.index')->with('error', __('Can\'t delete'));
+            return  redirect()->route('admin.universities.index')->with('error', __('University could not been deleted, no collages found!'));
         }
         $university->delete();
-        return  redirect()->route('admin.universities.index')->with('success', __('Success Deleted'));
+        return  redirect()->route('admin.universities.index')->with('success', __('University has been deleted successfully'));
     }
 }

@@ -26,7 +26,7 @@ class StudentController extends Controller
 
             // check if remember_token of is null ,  null if Student is already registered
             if ($user->remember_token != null) {
-                return back()->withErrors('Student is already registered');
+                return back()->withErrors('A student with this email is already registered');
             }
 
             $status = Password::sendResetLink(
@@ -38,8 +38,6 @@ class StudentController extends Controller
                 : back()->withInput($request->only('email'))->withErrors(['email' => __($status)]);
         }
         return back()->withErrors('User is not Found, Please make sure to enter university email');
-
-        // $users = User::where('email', $request->post('email'))->get();
 
     }
 }

@@ -110,10 +110,32 @@
     "Lecture Days":"أيام دوام المحاضرة",
     "Lecture Time":"موعد المحاضرة",
     "Complaint Status":"حالة الشكوى",
-    "Student Information":""
-   
-   
-
+    "Student Information":"معلومات الطالب",
+    "Import Course":"تصديرمساق ",
+    "Import Student":"اضافة طالب من الجهاز",
+    "Welcome to UniCA":"اهلا وسهلا بك في",
+    "City Is Updated Successfully":"تم تعديل المدينة بنجاح",
+    "Collage Not Found":"الكلية غير موجودة",
+    "City could not be deleted":"لم يتم حذف المدينة",
+    "City Deleted Successfully":"تم حذف المدينة بنجاح",
+    "Reset Password Message Is Sent Successfully":"تم ارسال رسالة تعديل كلمة السر بنجاح",
+    "University has been edited successfully":"تم تعديل الجامعة بنجاح",
+    "University is not found":"الجامعة غير موجودة",
+    "University could not been deleted, no users found!":" لا يوجد مستخدمين,لم يتم حذف الجامعة",
+    "University could not been deleted, no collages found!":"لا يوجد كليات, لم يتم حذف الجامعة",
+    "University has been deleted successfully":"تم حذف الجامعة بنجاح",
+    "Go to email to reset your password":"الرجاء اعادة تعيين كلمة السر عن طريق البريد الالكتروني",
+    "Password has been edited successfully":"تم تعديل كلمة السر بنجاح!",
+    "Student has been deleted successfully":"تم حذف الطالب بنجاح",
+    "Student could not be deleted":"لا يمكن حذف الطالب",
+    "User is not Found, Please make sure to enter university email":"هذا المستخدم غير موجود الرجاء التحفف من ادخال البريد الالكتروني الجامعي",
+    "A student with this email is already registered":"هذا المستخدم موجود ",
+    "In progress By the Dean of the department":"الشكوى قيد المعالجة بواسطة عميد الكلية",
+    "In progress By the head of the department":"الشكوى قيد المعالجة بواسطة رئيس القسم",
+    "Complaint has been resolved successfully":"تم حل الشكوى بنجاح",
+    "Complaint is sent successfully":"تم ارسال الشكوى بنجاح",
+    "Complaint is sent successfully to the dean of department":"تم ارسال الشكوى بنجاح لعميد الكلية",
+    "Complaint is sent successfully to head of department":"تم ارسال الشكوى بنجاح لرئيس القسم",
 
 
     

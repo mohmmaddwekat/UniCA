@@ -30,7 +30,7 @@ class ComplaintMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Mail from Unica For Complaint')
+        return $this->subject('Complaint Mail from UniCA')
                     ->view('emails.complaints.complaint');
     }
 }

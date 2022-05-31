@@ -122,7 +122,7 @@ class UserController extends Controller
         );
         Password::RESET_LINK_SENT;
 
-        return redirect()->back()->with('success', __('Go to email to change reset password' . $userPassword));
+        return redirect()->back()->with('success', __('Go to email to reset your password' . $userPassword));
     }
 
 
@@ -179,7 +179,7 @@ class UserController extends Controller
             $request->only('email')
         );
         Password::RESET_LINK_SENT;
-        return redirect()->route('admin.universities.index')->with('success', __('Success Edited'));
+        return redirect()->route('admin.universities.index')->with('success', __('Password has been edited successfully'));
     }
 
     /**
@@ -192,12 +192,12 @@ class UserController extends Controller
     {
 
         if ($user == null) {
-            return redirect()->route('admin.users.index')->with('error', __('not fond') . ' ' . __('college'));
+            return redirect()->route('admin.users.index')->with('error', __('Collage is not found') );
         }
         if ($user->coursesStudent()->get()->count() != 0) {
-            return  redirect()->route('admin.users.index')->with('error', __('Can\'t delete'));
+            return  redirect()->route('admin.users.index')->with('error', __('Student could not be deleted'));
         }
         $user->delete();
-        return  redirect()->route('admin.users.index')->with('success', __('Success Deleted'));
+        return  redirect()->route('admin.users.index')->with('success', __('Student has been deleted successfully'));
     }
 }

@@ -106,12 +106,12 @@ class ComplaintsFormController extends Controller
             ]);
             Mail::to('hamzaalkharouf5@gmail.com')->send(new ComplaintMail($detailsDeanDepartment));
             $complaintsForm->save();
-            return redirect()->back()->with('success',__('Success send to Dean Department'));
+            return redirect()->back()->with('success',__('Complaint is sent successfully to the deam of department'));
 
          }else{
             $complaintsForm->status = 'In progress By the head of the department';
             $complaintsForm->save();
-            return redirect()->back()->with('success',__('Success Sended'));
+            return redirect()->back()->with('success',__('Complaint is sent successfully to head of department'));
          }
 
     }

@@ -95,7 +95,7 @@ class CityController extends Controller
         $city->name = $request->post('name');
         $city->save();
 
-        return redirect()->route('admin.cities.index')->with('success', __('success Updated'));
+        return redirect()->route('admin.cities.index')->with('success', __('City Is Updated Successfully'));
     }
 
     /**
@@ -107,12 +107,12 @@ class CityController extends Controller
     public function destroy(City $city)
     {
         if ($city == null) {
-            return redirect()->route('admin.cities.index')->with('error', __('not fond') . ' ' . __('college'));
+            return redirect()->route('admin.cities.index')->with('error', __('Collage Not Found!') );
         }
         if ($city->university()->get()->count() != 0) {
-            return  redirect()->route('admin.cities.index')->with('error', __('Can\'t delete'));
+            return  redirect()->route('admin.cities.index')->with('error', __('City could not be deleted!'));
         }
         $city->delete();
-        return  redirect()->route('admin.cities.index')->with('success', __('Success Deleted'));
+        return  redirect()->route('admin.cities.index')->with('success', __('City Deleted Successfully'));
     }
 }

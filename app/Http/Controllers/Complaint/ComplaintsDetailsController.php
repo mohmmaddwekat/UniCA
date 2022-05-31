@@ -137,7 +137,7 @@ class ComplaintsDetailsController extends Controller
                 'status' => 'Resolved',
             ]);
             Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
-            return redirect()->back()->with('success', __('Success Resolved'));
+            return redirect()->back()->with('success', __('Complaint has been resolved successfully'));
         } elseif (Auth::user()->type == 'deanDepartment') {
             $complaintsForm = ComplaintsForm::findOrFail($complaintID);
             $details = [
@@ -149,7 +149,7 @@ class ComplaintsDetailsController extends Controller
                 'status' => 'Resolved',
             ]);
             Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
-            return redirect()->back()->with('success', __('Success Resolved'));
+            return redirect()->back()->with('success', __('Complaint has been resolved successfully'));
         }
 
         return redirect()->back();
@@ -173,7 +173,7 @@ class ComplaintsDetailsController extends Controller
                 'status' => 'Declined',
             ]);
             Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
-            return redirect()->back()->with('success', __('Success Resolved'));
+            return redirect()->back()->with('success', __('Complaint has been resolved successfully'));
         } elseif (Auth::user()->type == 'deanDepartment') {
             $complaintsForm = ComplaintsForm::findOrFail($complaintID);
             $details = [
@@ -185,7 +185,7 @@ class ComplaintsDetailsController extends Controller
                 'status' => 'Declined',
             ]);
             Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
-            return redirect()->back()->with('success', __('Success Resolved'));
+            return redirect()->back()->with('success', __('Complaint has been resolved successfully'));
         }
 
         return redirect()->back();
@@ -208,7 +208,7 @@ class ComplaintsDetailsController extends Controller
                 'status' => 'In progress By the Dean of the department',
             ]);
             Mail::to($complaintsForm->user->email)->send(new ComplaintMail($details));
-            return redirect()->back()->with('success', __('Success Resolved'));
+            return redirect()->back()->with('success', __('Complaint has been resolved successfully'));
         }
 
         return redirect()->back();

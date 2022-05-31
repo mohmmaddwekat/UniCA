@@ -40,9 +40,9 @@ class UsersImport implements ToModel, WithHeadingRow
             $user->assignRole('student');
 
             $details = [
-                'title' => 'User reminder',
-                'name' => 'head of the department',
-                'body' => 'Your account has been added to our site, log in and change your password from our site.',
+                'title' => 'Welcome to UniCA',
+                'name' => 'head of department',
+                'body' => 'Your account has been added to our site. You can now set your password.',
                 'btn' => "UniCA",
             ];
             Mail::to($row['email'])->send(new UserMail($details));
