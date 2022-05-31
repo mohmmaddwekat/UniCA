@@ -115,10 +115,8 @@
 
 .main-sidebar
 {
-    background-image: url("/assets/img/background4.jpeg") !important;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+ 
+    background-color: #2e3a5c;
 }
 
 .brand-text
@@ -216,3 +214,6 @@ a
     background-color: #2E3A5C;
     background-image: url("/assets/img/logo.jpeg") !important;
 }
+
+
+

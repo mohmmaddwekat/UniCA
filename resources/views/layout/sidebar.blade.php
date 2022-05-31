@@ -12,13 +12,8 @@
       <div class="sidebar">
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="image">
-                  <img src="{{ url('/assets/img/logo.jpeg') }}" class="img-circle elevation-2"
-                      alt="User Image">
-              </div>
-
               <div class="info">
-                  <a href="" class="d-block">{{auth()->user()->name}} {{auth()->user()->type}}</a>
+                  <a href="" class="d-block">{{auth()->user()->name}}</a>
               </div>
           </div>
           <!-- SidebarSearch Form -->
@@ -178,8 +173,7 @@
       <!-- /.sidebar -->
 
       <div class="sidebar-custom">
-          <a href="#" class="btn btn-link"><i class="fas fa-cogs"></i></a>
-          <a href="" class="btn btn-secondary hide-on-collapse pos-right">{{ __('Logout') }}</a>
-      </div>
+        <p class="text-light brand-text">{{auth()->user()->type}}</p>
+    </div>
       <!-- /.sidebar-custom -->
   </aside>
