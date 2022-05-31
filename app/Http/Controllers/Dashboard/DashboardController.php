@@ -7,6 +7,7 @@ use App\Models\Admin\Course;
 use App\Models\Admin\University;
 use App\Models\Complaint\ComplaintsForm;
 use App\Models\University\College;
+use App\Models\University\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,30 @@ class DashboardController extends Controller
                 'statisticFour' => $statisticFour,
             ]);
         } elseif (Auth::user()->type == 'deanDepartment') {
-            $this->dashboardTemplate('index', __('Dashboard'), ['user' => $user,]);
+            // $NumStudent = User::where('department_id', Auth::user()->department())->get();
+
+            $college = College::where('user_id', Auth::id())->first();
+            $departments = Department::where('college_id', '=', $college->id)->get();
+
+            //number department of college
+            $count_department= $departments->count();
+
+            //Count user of college
+            $user_id=array();
+            foreach ($departments as $key => $user){
+                array_push($user_id, $user['user_id']);
+            }
+            $users =user::whereIn('addBy_id', $user_id)->get();
+            foreach ($users as $key => $user){
+                array_push($user_id, $user['id']);
+            }
+            array_push($user_id, $users);
+            $users= user::whereIn('id', $user_id)->get();
+
+ 
+            $count_all_users_college= $users->count();
+
+            $this->dashboardTemplate('deanDepartment', __('Dashboard'), ['user' => $user, 'count_department'=>$count_department,'count_all_users_college'=>$count_all_users_college]);
         }
     }
 
