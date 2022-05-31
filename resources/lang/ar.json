@@ -23,7 +23,7 @@
     "Previous":"السابق",
     "Next":"التالي",
     "Last":"الأخير",
-    "Number of other users":"",
+    "Number of other users":"عدد المستخدمين الآخرين",
     "Showing entries":"يعرض مدخلات",
     "Copyright":"حقوق النشر",
     "All rights reserved":"جميع الحقوق محفوظة",
@@ -109,6 +109,9 @@
     "Instructor Name":"اسم مدرس المساق",
     "Lecture Days":"أيام دوام المحاضرة",
     "Lecture Time":"موعد المحاضرة",
+    "Complaint Status":"حالة الشكوى",
+    "Student Information":""
+   
    
 
 

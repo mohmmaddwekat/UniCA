@@ -63,7 +63,7 @@
                           <th>{{__('Instructor Name')}}</th>
                           <th>{{__('Lecture Days')}}</th>
                           <th>{{__('Lecture Time')}}</th>
-                          <th>{{__('Status')}}</th>
+                          <th>{{__('Complaint Status')}}</th>
 
                       </tr>
                   </thead>
