@@ -36,6 +36,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'addBy_id' => auth()->id(),
             ]);
             Role::findOrCreate('student');
+            
             $user->assignRole('student');
 
             $details = [
