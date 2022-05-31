@@ -26,12 +26,27 @@ class DepartmentController extends Controller
     public function index()
     {
         //
-        $departments = [];
-        $colleges = auth()->user()->collegesofUniversity;
+        if (Auth::user()->type == 'deanDepartment') {
+            // $departments = [];
+            College::where('user_id',Auth::id());
 
-        foreach ($colleges as $college) {
-            array_push($departments,...$college->departments()->get());
+
+             $departments = [];
+             foreach (Auth::user()->colleges as $college) {
+                array_push($departments, ...$college->departments()->get());
+            }
+
+
+
+        } elseif (Auth::user()->type == 'university') {
+            $departments = [];
+            $colleges = auth()->user()->collegesofUniversity;
+
+            foreach ($colleges as $college) {
+                array_push($departments, ...$college->departments()->get());
+            }
         }
+
         $this->universityTemplate('department.index', __('Department'), ['departments' => $departments]);
     }
 
