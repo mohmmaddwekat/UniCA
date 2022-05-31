@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Roles;
+
 use App\Http\Controllers\Roles\Controller;
-
-
-use App\Models\User;
 use App\Rules\alpha_num_spaces;
 use App\Rules\in_list;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -60,17 +57,6 @@ class RoleController extends Controller
         }
         $role->permissions()->attach($request->post('permissions',[]));
         return redirect()->route('roles.role.index')->with('success',__('Add success'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

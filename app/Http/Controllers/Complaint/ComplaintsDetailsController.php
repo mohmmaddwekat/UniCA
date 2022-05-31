@@ -4,18 +4,14 @@ namespace App\Http\Controllers\Complaint;
 
 use App\Http\Controllers\Complaint\Controller;
 
-use App\Models\Complaint\ComplaintsDetails;
-use App\Http\Requests\StoreComplaintsDetailsRequest;
-use App\Http\Requests\UpdateComplaintsDetailsRequest;
+
 use App\Mail\ComplaintMail;
 use App\Models\Complaint\ComplaintsForm;
 use App\Models\University\College;
 use App\Models\University\Department;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class ComplaintsDetailsController extends Controller
 {

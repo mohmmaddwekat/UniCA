@@ -1,8 +1,12 @@
+<link href ="/assets/css/app.css" rel ="stylesheet">
+
+<body class="bodyLogin">
+<div class="loginContainer">
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <img class="loginLogo" src="/assets/img/background3.jpeg"></img>
             </a>
         </x-slot>
 
@@ -32,11 +36,13 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            
+            <br>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+            <div class="flex">
+            <x-button class="ml-4">
+                <a href="{{ route('login') }}">
                     {{ __('Already registered?') }}
+                </x-button>
                 </a>
 
                 <x-button class="ml-4">
@@ -46,3 +52,5 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+</div>
+</body>

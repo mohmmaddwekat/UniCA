@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\University;
 
-use App\Models\Admin\University;
 use App\Models\University\College;
 use App\Models\User;
-use App\Rules\in_list;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -13,7 +11,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Rules\alpha_spaces;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 
@@ -27,9 +24,8 @@ class CollegeController extends Controller
     public function index()
     {
         //
-        $colleges = College::all();
         $this->universityTemplate('college.index', __('College'), [
-            'colleges' => $colleges,
+            'colleges' => auth()->user()->collegesofUniversity,
 
         ]);
     }
@@ -189,9 +185,6 @@ class CollegeController extends Controller
 
         ]);
         $validator->validate();
-
-
-
 
         $college->update([
             'name' => $request->post('name'),
