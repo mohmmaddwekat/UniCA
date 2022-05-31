@@ -162,10 +162,7 @@ class ComplaintsDetailsController extends Controller
     public function complaintDeclineDefult(Request $request, $complaintID)
     {
 
-        $validator = Validator::make($request->all(), [
-            'notes' => ['max:500', 'min:3', 'string'],
-        ]);
-        $validator->validate();
+
 
         $complaintsForm = ComplaintsForm::findOrFail($complaintID);
 
@@ -322,10 +319,7 @@ class ComplaintsDetailsController extends Controller
     public function complaintDeclineGroup(Request $request, $typeComplaint)
     {
 
-        $validator = Validator::make($request->all(), [
-            'notes' => ['max:500', 'min:3', 'string'],
-        ]);
-        $validator->validate();
+
 
 
 
@@ -460,10 +454,7 @@ class ComplaintsDetailsController extends Controller
 
     public function complaintDeclineForStudent(Request $request, $userId)
     {
-        $validator = Validator::make($request->all(), [
-            'notes' => ['max:500', 'min:3', 'string'],
-        ]);
-        $validator->validate();
+
 
         if (Auth::user()->type == 'headDepartment') {
             $complaintsForms = ComplaintsForm::where([['user_id', $userId], ['status', 'In progress By the head of the department']])->get();

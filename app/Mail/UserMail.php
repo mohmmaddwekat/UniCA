@@ -31,6 +31,6 @@ class UserMail extends Mailable
     public function build()
     {
         return $this->subject('Mail from Unica For User')
-                    ->view('emails.user.user');
+                    ->view('emails.users.user');
     }
 }

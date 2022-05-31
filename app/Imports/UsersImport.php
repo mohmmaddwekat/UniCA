@@ -3,16 +3,13 @@
 namespace App\Imports;
 
 use App\Mail\UserMail;
-use App\Models\Roles\Role;
 use App\Models\User;
-use App\Rules\alpha_spaces;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class UsersImport implements ToModel, WithHeadingRow
 {
@@ -27,7 +24,7 @@ class UsersImport implements ToModel, WithHeadingRow
         $user = User::where('key', '=', auth()->user()->key)->where('type_username_id', '=', $row['type_username_id'])->where('email', '=', $row['email'])->get();
         if (count($user) == 0) {
 
-            return new User([
+            $user =  new User([
                 'key' => auth()->user()->key,
                 'department_id' => auth()->user()->department_id,
                 'name' => $row['name'],
@@ -48,6 +45,7 @@ class UsersImport implements ToModel, WithHeadingRow
                 'btn' => "UniCA",
             ];
             Mail::to($row['email'])->send(new UserMail($details));
+            return $user;
         }
     }
 }
