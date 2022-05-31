@@ -38,16 +38,29 @@ class DashboardController extends Controller
                 'complaintsForms' => $complaintsForm,
             ]);
         } elseif (Auth::user()->type == 'headDepartment') {
-            if (Auth::user()->type == 'headDepartment') {
-                $complaintsForm = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['status', '=', 'In progress By the head of the department']])->get();
-            }
+            $complaintsForms = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['status', '=', 'In progress By the head of the department']])->get();
+            $complaintsForms_enroll = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['status', '=', 'In progress By the head of the department'],['type','enroll']])->get();
+            $complaintsForms_withdraw = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['status', '=', 'In progress By the head of the department'],['type','withdraw']])->get();
+
+            $departments = Department::where('user_id', '=', Auth::id())->first();
+            $users_of_department = User::Where('department_id',$departments->id)->get()->count();
             
-            $statisticOne = $user->complaintHeadDepartment->count();
-            $statisticOne = $user->complaintHeadDepartment->count();
-            $this->dashboardTemplate('index', __('Dashboard'), [
+
+
+             $count_order =$complaintsForms->count();
+             $complaintsForms_enroll=$complaintsForms_withdraw->count();
+             $complaintsForms_withdraw=$complaintsForms_withdraw->count();
+
+            $this->dashboardTemplate('headDepartment', __('Dashboard'), [
                 'user' => $user,
-                'statisticOne' => $statisticOne,
+                'complaintsForms' => $complaintsForms,
+                'users_of_department'=>$users_of_department,
+                'count_order'=>$count_order,
+                'complaintsForms_enroll'=>$complaintsForms_enroll,
+                'complaintsForms_withdraw'=>$complaintsForms_withdraw,
             ]);
+
+
         } elseif (Auth::user()->type == 'super-admin') {
             $statisticOne = Role::all()->count();
             $statisticTwo = Permission::all()->count();
@@ -79,7 +92,6 @@ class DashboardController extends Controller
                 'statisticFour' => $statisticFour,
             ]);
         } elseif (Auth::user()->type == 'deanDepartment') {
-            // $NumStudent = User::where('department_id', Auth::user()->department())->get();
 
             $college = College::where('user_id', Auth::id())->first();
             $departments = Department::where('college_id', '=', $college->id)->get();
@@ -112,7 +124,13 @@ class DashboardController extends Controller
                 $complaintsForms  = ComplaintsForm::whereIn('headDepartment_id', $user_id)->where([['status', '=', 'In progress By the Dean of the department']])->get();
             
             
-            $this->dashboardTemplate('deanDepartment', __('Dashboard'), ['complaintsForms'=>$complaintsForms ,'user' => $user, 'count_department'=>$count_department,'count_all_users_college'=>$count_all_users_college]);
+            $this->dashboardTemplate('deanDepartment', __('Dashboard'), [
+                'complaintsForms'=>$complaintsForms ,
+                'user' => $user, 
+                'count_department'=>$count_department,
+                'count_all_users_college'=>$count_all_users_college,
+                
+            ]);
         }
     }
 

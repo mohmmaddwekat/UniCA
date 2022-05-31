@@ -45,7 +45,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputName1">{{ __('Name Role') }}</label>
+                                            <label for="exampleInputName1">{{ __('Role Name') }}</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                 name="name" value="{{ old('name', $role->name) }}"
                                                 id="exampleInputName1" placeholder="{{ __('Enter Name') }}" required>

@@ -10,7 +10,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                    <label for="exampleInputName1">{{__('Name City')}}</label>
+                    <label for="exampleInputName1">{{__('City Name')}}</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $city['name']) }}" id="exampleInputName1" placeholder="{{__('Enter Name')}}" required>
 
                 </div>

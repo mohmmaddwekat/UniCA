@@ -127,7 +127,7 @@ class UserSeeder extends Seeder
                 'type' => 'headDepartment',
                 'password' => Hash::make('123456789'),
                 'addBy_id' => '2',
-                'department_id' => '1',
+                'department_id' => '3',
                 'remember_token' => Str::random(10),
             ],
             [

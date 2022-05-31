@@ -38,7 +38,7 @@
                 <div class="col-12">
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('All College') }} </h3>
+                            <h3 class="card-title">{{ __('All Collages') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 @can('add college')
@@ -53,9 +53,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>{{ __('College') }}</th>
+                                        <th>{{ __('Collage') }}</th>
                                         <th>{{ __('College Number') }}</th>
-                                        <th>{{ __('Dean College') }}</th>
+                                        <th>{{ __('Dean of Department') }}</th>
                                         
                                         <th>{{ __('Action') }}</th>
                                     </tr>

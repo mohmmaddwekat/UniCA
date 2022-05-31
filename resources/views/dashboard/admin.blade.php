@@ -84,12 +84,12 @@
                 <div class="col-12">
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('All University') }} </h3>
+                            <h3 class="card-title">{{ __('All Universities') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 @can('add universities')
                                 <a href="{{ route('admin.universities.create') }}"
-                                    class="btn btn-block btn-outline-primary">{{ __('Add University') }}</a>
+                                    class="btn btn-block btn-outline-primary">{{ __('Add New University') }}</a>
                                 @endcan
                             </div>
                         </div>

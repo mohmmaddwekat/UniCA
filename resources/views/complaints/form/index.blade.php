@@ -38,7 +38,7 @@
         <div class="col-12">
           <div class="card " >
             <div class="card-header">
-              <h3 class="card-title">{{__('All Complaint')}}</h3>
+              <h3 class="card-title">{{__('All Complaints')}}</h3>
               <div class="card-tools">
                   <!-- Collapse Button -->
                   @can('add form complaints')
@@ -54,16 +54,16 @@
                       <tr>
 
                           <th>#</th>
-                          <th>{{ __('Name Student') }}</th>
-                          <th>{{ __('ID Student') }}</th>
-                          <th>{{__('Type')}}</th>
+                          <th>{{ __('Student Name') }}</th>
+                          <th>{{ __('Student ID') }}</th>
+                          <th>{{__('Complaint Type')}}</th>
                           <th>{{__('Course Number')}}</th>
                           <th>{{__('Section')}}</th>
                           <th>{{__('Course Name')}}</th>
-                          <th>{{__('Teacher Name')}}</th>
-                          <th>{{__('Days')}}</th>
-                          <th>{{__('Hour')}}</th>
-                          <th>{{__('Status')}}</th>
+                          <th>{{__('Instructor Name')}}</th>
+                          <th>{{__('Lecture Days')}}</th>
+                          <th>{{__('Lecture Time')}}</th>
+                          <th>{{__('Complaint Status')}}</th>
 
                       </tr>
                   </thead>

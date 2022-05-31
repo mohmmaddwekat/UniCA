@@ -43,7 +43,9 @@ class UserController extends Controller
             foreach ($users as $key => $user){
                 array_push($user_id, $user['id']);
             }
+
             array_push($user_id, $users);
+
             $users= user::whereIn('id', $user_id)->get();
 
             $this->adminTemplate('users.index', __('users'), ['users' =>  $users]);
