@@ -58,7 +58,6 @@
                           <th>{{__('ID')}}</th>
                           <th>{{__('Type')}}</th>
                           <th>{{__('email')}}</th>
-
                           <th>{{__('Action')}}</th>
                       </tr>
                   </thead>

@@ -26,7 +26,7 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-thumbs-down"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Failing courses</span>
+                      <span class="info-box-text">{{__('Failing courses')}}</span>
                       <span class="info-box-number">
                         {{$statisticOne}}
                       </span>
@@ -41,7 +41,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-thumbs-up"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Successful courses</span>
+                      <span class="info-box-text">{{__('Successful courses')}}</span>
                       <span class="info-box-number">{{$statisticTwo}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -58,7 +58,7 @@
                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shopping-cart"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Courses you haven't studied</span>
+                      <span class="info-box-text">{{__('Courses you haven\'t studied')}}</span>
                       <span class="info-box-number">{{$statisticThree}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -71,7 +71,7 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Complaint</span>
+                      <span class="info-box-text">{{__('Complaint')}}</span>
                       <span class="info-box-number">{{$statisticFour}}</span>
                     </div>
                     <!-- /.info-box-content -->

@@ -26,7 +26,7 @@
                     <span class="info-box-icon bg-danger elevation-1"><i class="fa-solid fa-city"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of Colleges</span>
+                      <span class="info-box-text">{{__('Number of Colleges')}}</span>
                       <span class="info-box-number">
                         {{$statisticOne}}
                       </span>
@@ -41,7 +41,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-city"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of Departments</span>
+                      <span class="info-box-text">{{__('Number of Departments')}}</span>
                       <span class="info-box-number">{{$statisticTwo}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -58,7 +58,7 @@
                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of student</span>
+                      <span class="info-box-text">{{__('Number of students')}}</span>
                       <span class="info-box-number">{{$statisticThree}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -71,7 +71,7 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of Dean Department</span>
+                      <span class="info-box-text">{{__('Number of Dean Departments')}}</span>
                       <span class="info-box-number">{{$statisticFour}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -84,7 +84,7 @@
                 <div class="col-12">
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">{{ __('All College') }} </h3>
+                            <h3 class="card-title">{{ __('All Colleges') }} </h3>
                             <div class="card-tools">
                                 <!-- Collapse Button -->
                                 @can('add college')

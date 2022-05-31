@@ -66,14 +66,14 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">University Control Automation System</p>
+                <p class="masthead-subheading font-weight-light mb-0">{{__('University Control Automation System')}}</p>
             </div>
         </header>
         <!-- Portfolio Section-->
         <section class="page-section portfolio" id="portfolio">
             <div class="container">
                 <!-- Portfolio Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">{{__('Portfolio')}}</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -126,7 +126,7 @@
         <section class="page-section bg-primary text-white mb-0" id="about">
             <div class="container">
                 <!-- About Section Heading-->
-                <h2 class="page-section-heading text-center text-uppercase text-white">About Us</h2>
+                <h2 class="page-section-heading text-center text-uppercase text-white">{{__('About Us')}}</h2>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
@@ -135,9 +135,9 @@
                 </div>
                 <!-- About Section Content-->
                 <div class="row">
-                    <div class="col-lg-4 ms-auto"><p class="lead">UniCA is a software allows students to apply for either requests or complaints, these requests will be automatically sent to one of the university administrators according to the type of request.
-                        The system will recommend a suitable schedule for student’s semester courses according to pre-entered information. </p></div>
-                    <div class="col-lg-4 me-auto"><p class="lead">UniCA software reduces time and effort spent by the university administrators, and facilitates the communication process between students and administrators which plays a great role in system validation.</p></div>
+                    <div class="col-lg-4 ms-auto"><p class="lead">{{__('UniCA is a software allows students to apply for either requests or complaints, these requests will be automatically sent to one of the university administrators according to the type of request.
+                        The system will recommend a suitable schedule for student’s semester courses according to pre-entered information.')}} </p></div>
+                    <div class="col-lg-4 me-auto"><p class="lead">{{__('UniCA software reduces time and effort spent by the university administrators, and facilitates the communication process between students and administrators which plays a great role in system validation.')}}</p></div>
                 </div>
             </div>
         </section>
@@ -149,7 +149,7 @@
         </footer>
         <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white1">
-            <div class="container"><small>Copyright &copy; Your Website 2022</small></div>
+            <div class="container"><small>{{__('Copyright')}} &copy; {{__('Your Website')}} @php echo date("Y"); @endphp </small></div>
         </div>
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
@@ -162,7 +162,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
-                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Log Cabin</h2>
+                                    <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">{{__('Log Cabin')}}</h2>
                                     <!-- Icon Divider-->
                                     <div class="divider-custom">
                                         <div class="divider-custom-line"></div>

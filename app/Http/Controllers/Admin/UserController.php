@@ -84,7 +84,6 @@ class UserController extends Controller
         $type_username_id = $request->post('type_username_id');
         $key = Auth::user()->key;
         $validator = Validator::make($request->all(), [
-            'role' => ['required', 'int', 'exists:roles,id'],
             'type_username_id' => [
                 'required',
                 'digits:8',

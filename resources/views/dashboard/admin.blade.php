@@ -58,7 +58,7 @@
                     <span class="info-box-icon bg-primary elevation-1"><i class="fa-solid fa-city"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of University</span>
+                      <span class="info-box-text">{{__('Number of Universities')}}</span>
                       <span class="info-box-number">{{$statisticThree}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -71,7 +71,7 @@
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of other User</span>
+                      <span class="info-box-text">{{__('Number of other Users')}}</span>
                       <span class="info-box-number">{{$statisticFour}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -150,7 +150,7 @@
                                     @empty
                                         <tr>
                                             <td colspan="10">
-                                                No universities Found.
+                                                {{__('No universities Found.')}}
                                             </td>
                                         </tr>
                                     @endforelse

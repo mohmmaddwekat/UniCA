@@ -97,19 +97,3 @@
 
 
 
-
-
-<script>
-    function checkAll(e) {
-        var elementsArray = document.getElementsByClassName(e.id);
-        if (e.checked) {
-            for (var i = 0; i < elementsArray.length; i++) {
-                elementsArray[i].checked = true;
-            }
-        } else {
-            for (var i = 0; i < elementsArray.length; i++) {
-                elementsArray[i].checked = false;
-            }
-        }
-    }
-</script>
