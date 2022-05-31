@@ -28,7 +28,7 @@
                     <span class="info-box-icon bg-success elevation-1"><i class="fa-solid fa-city"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of Departments</span>
+                      <span class="info-box-text">{{ __('Number of Departments') }}</span>
                       <span class="info-box-number">{{$count_department}}</span>
                     </div>
                     <!-- /.info-box-content -->
@@ -46,7 +46,7 @@
                     <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
       
                     <div class="info-box-content">
-                      <span class="info-box-text">Number of User in college</span>
+                      <span class="info-box-text">{{ __('Number of User in college') }}</span>
                       <span class="info-box-number">{{$count_all_users_college}}</span>
                     </div>
                     <!-- /.info-box-content -->
