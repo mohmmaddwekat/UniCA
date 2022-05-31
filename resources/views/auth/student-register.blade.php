@@ -51,6 +51,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register.password.email') }}">
+            <a href="/"><- {{ __('Back') }}</a>
             @csrf
 
             <!-- Email Address -->
@@ -62,8 +63,8 @@
 
             <br>
             <div class="flex">
-                <x-button class="ml-3">
-                    {{ __('Register') }}
+                <x-button class="ml-3 text-light">
+                    <span class=" text-light">{{ __('Register') }}</span>
                 </x-button>
                 
             </div>
