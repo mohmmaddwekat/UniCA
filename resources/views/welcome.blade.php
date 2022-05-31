@@ -1,7 +1,6 @@
-<link href ="/assets/css/welcome.css" rel = "stylesheet">
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ App::currentLocale() }}" dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -17,6 +16,8 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href ="/assets/css/welcome.css" rel = "stylesheet">
+
     </head>
     <body id="page-top">
 

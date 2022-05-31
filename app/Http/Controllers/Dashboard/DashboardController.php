@@ -38,7 +38,10 @@ class DashboardController extends Controller
                 'complaintsForms' => $complaintsForm,
             ]);
         } elseif (Auth::user()->type == 'headDepartment') {
-
+            if (Auth::user()->type == 'headDepartment') {
+                $complaintsForm = ComplaintsForm::where([['headDepartment_id', Auth::id()], ['status', '=', 'In progress By the head of the department']])->get();
+            }
+            
             $statisticOne = $user->complaintHeadDepartment->count();
             $statisticOne = $user->complaintHeadDepartment->count();
             $this->dashboardTemplate('index', __('Dashboard'), [
