@@ -51,7 +51,7 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('register.password.email') }}">
-            <a href="/"><- {{ __('Back') }}</a>
+            <a href="/" ><-{{ __('Back') }}</a>
             @csrf
 
             <!-- Email Address -->
