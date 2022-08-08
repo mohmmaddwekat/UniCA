@@ -1,4 +1,4 @@
-# UniCa
+# UniCA
 ## university Automation system
 #### It is a system to automate the university's work and implement it quickly.
 
