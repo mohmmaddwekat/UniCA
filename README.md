@@ -1,64 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# SuperDB
+## Database Management System
+#### SuperDB software system is a web application for database managers. This system will be designed to manage local databases.
+#### More specifically, this system is designed to allow a database manager to create a new database, import data to the database, export db schema and data. A database manager will also be able to revert to any db snapshot he/she wants.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# Built with
+For our frontend design, we have used the following frameworks:
+* Bootstrap v.5
+* Blade Templates
 
-## About Laravel
+For the backend:
+* Laravel v.8
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Key Features
+ * Adding a new universities
+ * Add department head 
+ * Add the Dean of the College
+ * Add Students
+ * Send Request
+ * Add a new role with permissions
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+# Getting Started 
+This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
 
-## Learning Laravel
+# Prerequisites
+PHP and Composer should be installed:
+This is how to install it if you're using Windows:
+```
+php composer-setup.php --install-dir=bin --filename=composer
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# How To Use
+To clone and run this application, follow the follwing instructions:
+* Clone the project from this GitHub repository
+* Download the project through this command of Laravel Composer
+```
+composer create-project laravel/laravel project
+```
+* Now, create a new folder in the laravel project you have just created, namely, vendor. And take the content of this folder from the project repo. Then, create a file named .env and also paste the content of this file from the project repo.
+* Then you need to create a new database. Put the connection details (host, username, password) in the .env file you have already created.
+* Now, you need to install the Fortify, and laravel-to-uml packages using these commands:
+ ```
+composer require laravel/fortify
+composer require andyabih/laravel-to-uml --dev
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+     
+* Now, in order to let the reset password feature to run, create an account on Mailtrap, select the Laravel environment, go to .env file and paste the instructions from Mailtrap in there. Do not forget to pass any dummy email in the MAIL_FROM_ADDRESS. eg, team@test.com
+* Finally, to run the project in your IDE:
+ ```
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
+Now you are ready to go and enjoy UniCA on your browser :)!
 
-## Laravel Sponsors
+# Implementation
+#### Laravel is based on MVC (Model View Controller) Design Pattern. We have also used two other design patterns:
+#### The first one, is, factory design pattern. We use this design pattern in importing a database, exporting, and the version control. This will increase the system scalability, in case a new type of files is required to be added. The factory design pattern allows us to handle any other types of files without the need of editing on the source code.
+#### The second design pattern we have used, is, singleton. We have implemented it in the connection profile. Singleton design pattern allows the client to create only one instance, and so this will prevent different types of users to edit on the same file program at the same time.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Below is the logic of our work:
 
-### Premium Partners
+#### 1. Adding a new universities
+#### A controller was created to add a new university by the super admin.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+#### 2. Add department head
+#### The department head can be added by the university to each of the departments within the college. 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+#### 3. Add the Dean of the College
+#### A dean can be added to each college by the university
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 4. Add Students
+#### Students can be added by the department head by importing an excel file.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 5. Send Request
+#### A student can send a request to withdraw materials or download materials to the head of the department and then the department head will transfer them to the dean if necessary. 
+
+
+
+#### 6. Add a new role with permissions
+#### Using the models, we were able to apply a many-to-many relationship between the roles and permissions. Using the seeder feature, we were able to define all users permissions that would be in the system.
+#### In the same seeder, we were also able to define the main four roles in our system: Super-Admin, Admin, Staff, and Reader. We assigned the permissions for each role. 
+#### In the Role Controller, we have handled the edit-permission functionality. 
+
+
+
+
+
+
+
+
+
+
+
