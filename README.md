@@ -1,6 +1,6 @@
 # UniCA
 ## university Automation system
-#### It is a system to automate the university's work and implement it quickly.
+#### UniCA is a web application that aims to simplify course registration and management for university students. It provides a user-friendly interface for students to view available courses, register for classes, and manage their course schedules. This project is built using the Laravel framework.
 
 # Built with
 For our frontend design, we have used the following frameworks:
